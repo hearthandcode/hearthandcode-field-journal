@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <p class="section-kicker">404 · field journal</p>
+    <h1 id="not-found-title">That entry is not available.</h1>
+    <p>
+      The address may be mistyped, or the entry may not be part of the public journal.
+      Published notes live in the journal index.
+    </p>
+    <a class="return-link" href="/">Return to the field journal <span aria-hidden="true">→</span></a>
+  </section>
+</Base>
+
+<style>
+  .not-found {
+    max-width: var(--max-width-prose);
+    min-height: 44vh;
+    padding: var(--space-2xl) 0;
+  }
+
+  .not-found h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .not-found p:not(.section-kicker) {
+    max-width: 44rem;
+    color: var(--color-text-muted);
+    font-size: var(--fs-md);
+    line-height: var(--lh-relaxed);
+  }
+
+  .return-link {
+    display: inline-block;
+    margin-top: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+  }
+</style>
