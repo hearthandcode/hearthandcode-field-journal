@@ -51,7 +51,7 @@ const claimNodes: FieldModeNode[] = posts.flatMap((post, postIndex) => {
     return {
       id: `${post.id}-claim-${claimIndex + 1}`,
       title: claim.claim,
-      description: `Declared as ${claim.label.replace('-', ' ')} in this reviewed public record.`,
+      description: `Marked as ${claim.label.replace('-', ' ')} in this reviewed public Journal note.`,
       href: `/posts/${post.id}`,
       kind: claim.label,
       format: formats[post.id] ?? 'Journal entry',
@@ -69,8 +69,8 @@ const relationships: FieldModeRelationship[] = claimNodes.map((claim) => ({
   id: `C-${claim.id}`,
   from: claim.parentId ?? '',
   to: claim.id,
-  label: `${claim.kind.replace('-', ' ')} recorded`,
-  note: claim.source ?? 'Declared public record context.',
+  label: `${claim.kind.replace('-', ' ')} noted`,
+  note: claim.source ?? 'Public context supplied with this note.',
   kind: 'claim',
 }));
 
@@ -83,7 +83,7 @@ if (
     from: 'a-public-journal-begins-with-a-boundary',
     to: 'what-i-mean-by-a-cognitive-workbench',
     label: 'Boundary → workbench',
-    note: 'The opening entry establishes the public/private boundary that governs the working definition in the second entry.',
+    note: 'The opening note draws the public boundary. The second asks what can be built inside it.',
     kind: 'declared',
   });
 }

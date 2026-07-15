@@ -62,9 +62,9 @@ const MAX_ZOOM = 1.28;
 const ZOOM_STEP = 0.14;
 
 const KIND_LABELS: Record<FieldNodeKind, string> = {
-  record: 'Public record',
+  record: 'Journal note',
   evidence: 'Evidence',
-  inference: 'Claim / inference',
+  inference: 'Working inference',
   proposal: 'Proposal',
   'open-question': 'Open question',
   correction: 'Correction',
@@ -72,7 +72,7 @@ const KIND_LABELS: Record<FieldNodeKind, string> = {
 };
 
 function displayDate(date?: string): string {
-  if (!date) return 'Undated record';
+  if (!date) return 'Date not recorded';
 
   return new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -304,7 +304,7 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
   }
 
   if (!selectedNode) {
-    return <p className="field-mode-empty">No published public record is available yet.</p>;
+    return <p className="field-mode-empty">There is not a published Journal note to show here yet.</p>;
   }
 
   const kindCounts = nodes.reduce<Record<FieldNodeKind, number>>((counts, node) => {
@@ -330,42 +330,43 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
     <section className="field-mode" ref={fieldRef} aria-labelledby="field-mode-title">
       <header className="field-mode-rail">
         <div className="field-mode-brand">
-          <p>Field mode / public reasoning map</p>
-          <h1 id="field-mode-title">Claims keep their context.</h1>
+          <p>Field Journal / map view</p>
+          <h1 id="field-mode-title">Follow the work as it takes shape.</h1>
         </div>
         <div className="field-mode-stats" aria-label="Public record summary">
-          <span>{kindCounts.record.toString().padStart(2, '0')} records</span>
-          <span>{relationships.filter((relationship) => relationship.kind === 'declared').length.toString().padStart(2, '0')} reviewed links</span>
-          <span>local controls only</span>
+          <span>{kindCounts.record.toString().padStart(2, '0')} notes</span>
+          <span>{relationships.filter((relationship) => relationship.kind === 'declared').length.toString().padStart(2, '0')} connection{relationships.filter((relationship) => relationship.kind === 'declared').length === 1 ? '' : 's'}</span>
+          <span>your browser only</span>
         </div>
         <div className="field-mode-actions">
-          <a href="/">Journal</a>
+          <a href="/">Article list</a>
           <button type="button" onClick={toggleFullscreen}>{isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}</button>
         </div>
       </header>
 
       <div className="field-mode-command-row">
         <p>
-          Chronology fixes the public reading order. Satellites record what a note claims, proposes,
-          leaves open, corrects, or amends. Every visible source and relationship is authored before it appears.
+          This is a map of the Journal so far. The spine keeps the notes in time. The smaller points hold an idea,
+          a reading of the evidence, or a question I am still carrying. Sources and links appear only after they have
+          been reviewed for public view.
         </p>
         <div className="field-mode-controls" aria-label="Field mode controls">
-          <button type="button" onClick={() => selectNode(recordNodes[0]?.id ?? '', { focus: true })}>Origin</button>
-          <button type="button" onClick={() => selectNode(latestRecord?.id ?? '', { focus: true })}>Latest</button>
+          <button type="button" onClick={() => selectNode(recordNodes[0]?.id ?? '', { focus: true })}>Start</button>
+          <button type="button" onClick={() => selectNode(latestRecord?.id ?? '', { focus: true })}>Latest note</button>
           <button type="button" onClick={() => setZoomLevel(zoom - ZOOM_STEP)} disabled={zoom <= MIN_ZOOM}>−</button>
           <span aria-label={`Zoom ${Math.round(zoom * 100)} percent`}>{Math.round(zoom * 100)}%</span>
           <button type="button" onClick={() => setZoomLevel(zoom + ZOOM_STEP)} disabled={zoom >= MAX_ZOOM}>+</button>
-          <button type="button" onClick={() => setZoomLevel(1)} disabled={zoom === 1}>Reset view</button>
-          <button type="button" aria-expanded={listOpen} onClick={() => setListOpen((open) => !open)}>List view</button>
+          <button type="button" onClick={() => setZoomLevel(1)} disabled={zoom === 1}>Reset</button>
+          <button type="button" aria-expanded={listOpen} onClick={() => setListOpen((open) => !open)}>Article list</button>
         </div>
       </div>
 
       {hasReturnMemory && newRecordIds.length > 0 && (
         <div className="field-return-signal" role="status">
-          <span><i aria-hidden="true"></i> Field signal</span>
-          <p>{newRecordIds.length} public {newRecordIds.length === 1 ? 'record is' : 'records are'} new since your last visit.</p>
-          <button type="button" onClick={() => selectNode(newRecordIds.at(-1) ?? '', { focus: true })}>Open newest</button>
-          <button type="button" onClick={clearReturnMemory}>Clear local return memory</button>
+          <span><i aria-hidden="true"></i> Since you were last here</span>
+          <p>{newRecordIds.length} new public {newRecordIds.length === 1 ? 'note has' : 'notes have'} been added.</p>
+          <button type="button" onClick={() => selectNode(newRecordIds.at(-1) ?? '', { focus: true })}>Read newest</button>
+          <button type="button" onClick={clearReturnMemory}>Forget this visit</button>
         </div>
       )}
 
@@ -374,7 +375,7 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
           className={`field-mode-viewport ${isPanning ? 'is-panning' : ''} ${spacePan ? 'is-space-pan' : ''}`}
           ref={viewportRef}
           role="region"
-          aria-label="Public reasoning map. Drag blank space or use the middle mouse button to pan. Use arrow keys on a selected record to move through time."
+          aria-label="Journal map. Drag blank space or use the middle mouse button to pan. Use arrow keys on a selected note to move through time."
           tabIndex={0}
           onPointerDown={beginPan}
           onPointerMove={movePan}
@@ -391,17 +392,17 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
           }}
           onBlur={() => setSpacePan(false)}
         >
-          <p className="field-mode-gesture-note" aria-hidden="true">Drag blank field · middle mouse pans · arrow keys traverse</p>
+          <p className="field-mode-gesture-note" aria-hidden="true">Drag blank space · middle mouse to pan · arrow keys move through time</p>
           <div className="field-mode-scale" style={{ width: `${fieldWidth * zoom}px`, height: `${WORLD_HEIGHT * zoom}px` }}>
             <div className="field-mode-world" style={{ width: `${fieldWidth}px`, height: `${WORLD_HEIGHT}px`, transform: `scale(${zoom})` }}>
               <div className="field-mode-origin" aria-hidden="true">
-                <span>Origin</span>
-                <strong>Public record begins</strong>
+                <span>Start</span>
+                <strong>First public note</strong>
               </div>
               <div className="field-mode-spine" aria-hidden="true"></div>
-              <span className="field-mode-axis-start" aria-hidden="true">Earlier</span>
-              <span className="field-mode-axis-end" aria-hidden="true">Latest public record</span>
-              <div className="field-mode-horizon" aria-hidden="true">The field grows only when a reviewed public record is ready.</div>
+              <span className="field-mode-axis-start" aria-hidden="true">Earlier note</span>
+              <span className="field-mode-axis-end" aria-hidden="true">Latest public note</span>
+              <div className="field-mode-horizon" aria-hidden="true">The map grows when a reviewed public note is ready.</div>
 
               <svg className="field-mode-relationships" viewBox={`0 0 ${fieldWidth} ${WORLD_HEIGHT}`} aria-hidden="true">
                 {relationships.map((relationship) => {
@@ -453,7 +454,7 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
 
         <aside className="field-mode-detail" id="field-mode-detail" aria-live="polite">
           <div className="field-mode-detail-head">
-            <span>Selected signal</span>
+            <span>Looking at</span>
             <span>{KIND_LABELS[selectedNode.kind]}</span>
           </div>
           <p className="field-mode-detail-kicker">{selectedNode.kind === 'record' ? selectedNode.format : selectedRecord?.title ?? 'Public record context'}</p>
@@ -466,24 +467,24 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
           <p className="field-mode-detail-summary">{selectedNode.description}</p>
           {selectedNode.source && (
             <div className="field-mode-provenance">
-              <span>Declared source</span>
+              <span>Where this comes from</span>
               <p>{selectedNode.source}</p>
             </div>
           )}
-          <a className="field-mode-open-entry" href={selectedNode.href}>Open public entry <span aria-hidden="true">→</span></a>
+          <a className="field-mode-open-entry" href={selectedNode.href}>Read the note <span aria-hidden="true">→</span></a>
 
           <div className="field-mode-relations">
-            <p>Visible relationships</p>
+            <p>Connections in the public record</p>
             {selectedRelationships.length > 0 ? selectedRelationships.map((relationship) => (
               <div key={relationship.id}>
-                <span>{relationship.kind === 'declared' ? 'Reviewed link' : 'Claim context'}</span>
+                <span>{relationship.kind === 'declared' ? 'Reviewed link' : 'Attached idea'}</span>
                 <strong>{relationship.label}</strong>
                 <small>{relationship.note}</small>
               </div>
-            )) : <small>No additional public relationship is declared for this signal.</small>}
+            )) : <small>No other public connection has been recorded here.</small>}
           </div>
 
-          <div className="field-mode-ledger" aria-label="Public record categories">
+          <div className="field-mode-ledger" aria-label="Journal categories">
             {(['evidence', 'inference', 'proposal', 'open-question', 'correction', 'amendment'] as FieldNodeKind[]).map((kind) => (
               <span key={kind} className={`is-${kind}`}>{kindCounts[kind]} {KIND_LABELS[kind]}</span>
             ))}
@@ -494,10 +495,10 @@ export default function FieldMode({ nodes, relationships }: FieldModeProps) {
       {listOpen && (
         <section className="field-mode-list" aria-labelledby="field-mode-list-title">
           <div>
-            <p>Accessible reading path</p>
-            <h2 id="field-mode-list-title">Chronological public record</h2>
+            <p>A reading path</p>
+            <h2 id="field-mode-list-title">Notes in time</h2>
           </div>
-          <button type="button" onClick={() => setListOpen(false)}>Close list</button>
+          <button type="button" onClick={() => setListOpen(false)}>Close article list</button>
           <ol>
             {recordNodes.map((record) => (
               <li key={record.id}>
