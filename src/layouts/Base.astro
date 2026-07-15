@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+
+interface Props {
+  immersive?: boolean;
+}
+
+const { immersive = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,15 +18,15 @@ import '../styles/global.css';
     <link rel="alternate" type="application/rss+xml" title="Hearth &amp; Code · Field Journal" href="/rss.xml" />
     <title>Hearth &amp; Code · Field Journal</title>
   </head>
-  <body>
-    <header class="site-header">
+  <body class:list={{ 'is-immersive': immersive }}>
+    <header class:list={['site-header', { 'site-header-immersive': immersive }]}>
       <a href="/" class="site-title">hearthandcode<span class="caret">█</span>field-journal</a>
       <span class="site-tagline">a public research desk log</span>
     </header>
-    <main>
+    <main class:list={{ 'main-immersive': immersive }}>
       <slot />
     </main>
-    <footer class="site-footer">
+    <footer class:list={['site-footer', { 'site-footer-immersive': immersive }]}>
       <span>Field Journal · <a href="/rss.xml">RSS</a> · <a href="https://github.com/hearthandcode/hearthandcode-field-journal">source</a></span>
       <span class="footer-note">experimental · no claims · no telemetry</span>
     </footer>
@@ -67,10 +73,24 @@ import '../styles/global.css';
     margin-top: var(--space-2xs);
   }
 
+  .site-header-immersive {
+    max-width: none;
+    padding: var(--space-sm) max(var(--space-lg), calc((100vw - var(--max-width-site)) / 2));
+  }
+
+  .site-header-immersive .site-tagline {
+    display: none;
+  }
+
   main {
     max-width: var(--max-width-site);
     margin: 0 auto;
     padding: var(--space-xl) var(--space-md);
+  }
+
+  .main-immersive {
+    max-width: none;
+    padding: 0;
   }
 
   .site-footer {
@@ -93,6 +113,13 @@ import '../styles/global.css';
 
   .site-footer a:hover {
     color: var(--color-cream);
+  }
+
+  .site-footer-immersive {
+    max-width: none;
+    margin-top: 0;
+    padding-right: max(var(--space-lg), calc((100vw - var(--max-width-site)) / 2));
+    padding-left: max(var(--space-lg), calc((100vw - var(--max-width-site)) / 2));
   }
 
   @media (max-width: 600px) {

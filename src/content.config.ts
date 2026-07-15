@@ -2,7 +2,14 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-const claimLabel = z.enum(['evidence', 'inference', 'proposal', 'open-question']);
+const claimLabel = z.enum([
+  'evidence',
+  'inference',
+  'proposal',
+  'open-question',
+  'correction',
+  'amendment',
+]);
 
 const claimMapEntry = z.object({
   claim: z.string(),
