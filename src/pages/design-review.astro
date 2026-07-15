@@ -1,0 +1,1006 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => post.data.status === 'published')
+  .sort((a, b) => {
+    const aDate = new Date(a.data.published_date ?? a.data.date).getTime();
+    const bDate = new Date(b.data.published_date ?? b.data.date).getTime();
+    const dateDifference = bDate - aDate;
+    if (dateDifference !== 0) return dateDifference;
+
+    return (b.data.published_order ?? 0) - (a.data.published_order ?? 0);
+  });
+
+const [openingPost, companionPost] = posts;
+
+const postFormat: Record<string, string> = {
+  'a-public-journal-begins-with-a-boundary': 'Field brief',
+  'what-i-mean-by-a-cognitive-workbench': 'Design record',
+};
+
+function displayDate(date: string) {
+  return new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<Base>
+  <div class="review-shell">
+    <section class="review-intro" aria-labelledby="review-title">
+      <div class="review-signal" aria-label="Design-review status">
+        <span>Field Journal / presentation study</span>
+        <span><i aria-hidden="true"></i> review-only · no telemetry · no inferred links</span>
+      </div>
+      <div class="review-intro-copy">
+        <p class="section-kicker">Interface direction study</p>
+        <h1 id="review-title">A journal that can grow into a workbench.</h1>
+        <p>
+          Three ways of presenting the same two public entries. These are layout studies,
+          not new publication states or product promises. Each keeps the reader in charge
+          of what they see and makes editorial relationships explicit.
+        </p>
+      </div>
+      <nav class="study-nav" aria-label="Design studies">
+        <a href="#workbench"><span>01</span> Workbench</a>
+        <a href="#constellation"><span>02</span> Constellation</a>
+        <a href="#synthesis"><span>03</span> Synthesis</a>
+      </nav>
+    </section>
+
+    <section class="study workbench-study" id="workbench" aria-labelledby="workbench-title">
+      <header class="study-header">
+        <div class="study-index">01 / workbench</div>
+        <div>
+          <p class="section-kicker">Modular, inspectable, reader-owned</p>
+          <h2 id="workbench-title">The Living Workbench</h2>
+        </div>
+        <p class="study-summary">
+          A public research desk made from clear modules. Cards have distinct jobs rather
+          than repeating one generic blog pattern.
+        </p>
+      </header>
+
+      <div class="workbench-grid">
+        <article class="module module-featured">
+          <div class="module-bar">
+            <span>Latest entry</span>
+            {openingPost && <span>{postFormat[openingPost.id] ?? 'Journal entry'}</span>}
+          </div>
+          {openingPost ? (
+            <>
+              {openingPost.data.featured_image && (
+                <img
+                  src={openingPost.data.featured_image}
+                  alt={openingPost.data.featured_image_alt ?? ''}
+                  width="1024"
+                  height="576"
+                  loading="eager"
+                />
+              )}
+              <div class="module-copy">
+                <p class="entry-meta">
+                  <time datetime={openingPost.data.published_date ?? openingPost.data.date}>
+                    {displayDate(openingPost.data.published_date ?? openingPost.data.date)}
+                  </time>
+                  {openingPost.data.reading_time_minutes && <span>{openingPost.data.reading_time_minutes} min read</span>}
+                </p>
+                <h3><a href={`/posts/${openingPost.id}`}>{openingPost.data.title}</a></h3>
+                <p>{openingPost.data.description}</p>
+                <a class="module-action" href={`/posts/${openingPost.id}`}>Open this entry <span aria-hidden="true">→</span></a>
+              </div>
+            </>
+          ) : <p class="empty-state">No public entries are available for this study.</p>}
+        </article>
+
+        <aside class="module module-surface-map" aria-labelledby="surface-map-title">
+          <div class="module-bar">
+            <span id="surface-map-title">Surface map</span>
+            <span>public record</span>
+          </div>
+          <div class="surface-map-grid">
+            <a class="map-cell is-ember" href={openingPost ? `/posts/${openingPost.id}` : '#workbench'}>
+              <span>01 / opening record</span>
+              <strong>{openingPost ? postFormat[openingPost.id] : 'Field brief'}</strong>
+            </a>
+            <a class="map-cell is-plasma" href={companionPost ? `/posts/${companionPost.id}` : '#workbench'}>
+              <span>02 / working language</span>
+              <strong>{companionPost ? postFormat[companionPost.id] : 'Design record'}</strong>
+            </a>
+            <div class="map-cell is-dormant">
+              <span>03 / correction layer</span>
+              <strong>Earned by revision</strong>
+            </div>
+            <div class="map-cell is-dormant">
+              <span>04 / thread map</span>
+              <strong>Explicit links only</strong>
+            </div>
+          </div>
+          <p class="module-note">Dormant modules are named honestly. They do not imply hidden content or unfinished product features.</p>
+        </aside>
+
+        <section class="module module-ledger" aria-labelledby="ledger-title">
+          <div class="module-bar">
+            <span id="ledger-title">Reading ledger</span>
+            <span>proposed module</span>
+          </div>
+          <div class="ledger-rows">
+            <div><span>Claim lens</span><strong>Proposal · inference · open question</strong></div>
+            <div><span>Reader control</span><strong>Font, lead, and theme stay local</strong></div>
+            <div><span>Public boundary</span><strong>Selected projection, not a private mirror</strong></div>
+          </div>
+        </section>
+
+        <section class="module module-trail" aria-labelledby="trail-title">
+          <div class="module-bar">
+            <span id="trail-title">Journal trail</span>
+            <span>{posts.length} published notes</span>
+          </div>
+          <ol>
+            {posts.map((post, index) => (
+              <li>
+                <span class="trail-index">0{index + 1}</span>
+                <div>
+                  <p>{postFormat[post.id] ?? 'Journal entry'} · {displayDate(post.data.published_date ?? post.data.date)}</p>
+                  <a href={`/posts/${post.id}`}>{post.data.title}</a>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+    </section>
+
+    <section class="study constellation-study" id="constellation" aria-labelledby="constellation-title">
+      <header class="study-header">
+        <div class="study-index">02 / constellation</div>
+        <div>
+          <p class="section-kicker">Cosmic, relational, deliberately bounded</p>
+          <h2 id="constellation-title">The Field Constellation</h2>
+        </div>
+        <p class="study-summary">
+          Posts become visible points in a map only after an author defines the connection.
+          The pattern grows from the record, not from an opaque recommendation system.
+        </p>
+      </header>
+
+      <div class="constellation-panel">
+        <div class="constellation-canvas" aria-label="Explicit relationship map between the published Field Journal entries">
+          <svg class="constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M20 70 C37 62, 56 41, 79 28" />
+            <path class="secondary-path" d="M20 70 C44 81, 61 72, 79 28" />
+          </svg>
+          <span class="constellation-star star-a" aria-hidden="true"></span>
+          <span class="constellation-star star-b" aria-hidden="true"></span>
+          <span class="constellation-star star-c" aria-hidden="true"></span>
+          {openingPost && (
+            <a class="constellation-node node-boundary" href={`/posts/${openingPost.id}`}>
+              <span class="node-number">01</span>
+              <strong>{openingPost.data.title}</strong>
+              <small>orientation / boundary</small>
+            </a>
+          )}
+          {companionPost && (
+            <a class="constellation-node node-workbench" href={`/posts/${companionPost.id}`}>
+              <span class="node-number">02</span>
+              <strong>{companionPost.data.title}</strong>
+              <small>definition / workbench</small>
+            </a>
+          )}
+          <div class="constellation-origin" aria-label="Current public field journal">
+            <span>Field Journal</span>
+            <strong>public field</strong>
+          </div>
+        </div>
+
+        <aside class="constellation-ledger" aria-labelledby="relationship-ledger-title">
+          <div class="module-bar">
+            <span id="relationship-ledger-title">Relationship ledger</span>
+            <span>manual declaration</span>
+          </div>
+          <div class="relationship-row">
+            <span class="relationship-code">R-01</span>
+            <p><strong>Boundary → workbench</strong> The opening entry establishes the public/private boundary that governs the working definition in the second entry.</p>
+          </div>
+          <div class="relationship-row is-muted">
+            <span class="relationship-code">R-02</span>
+            <p><strong>Reserved</strong> New links appear only when an entry names a meaningful, reviewable relationship.</p>
+          </div>
+          <p class="module-note">The visual field is atmospheric. It never claims that adjacency equals causality, evidence, or a hidden knowledge graph.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="study synthesis-study" id="synthesis" aria-labelledby="synthesis-title">
+      <header class="study-header">
+        <div class="study-index">03 / synthesis</div>
+        <div>
+          <p class="section-kicker">Recommended direction</p>
+          <h2 id="synthesis-title">Workbench shell, constellation thread.</h2>
+        </div>
+        <p class="study-summary">
+          A calm modular desk remains the default reading surface. A compact constellation
+          appears only where the public record has earned a meaningful relationship.
+        </p>
+      </header>
+
+      <div class="synthesis-layout">
+        <section class="synthesis-board" aria-labelledby="board-title">
+          <div class="module-bar">
+            <span id="board-title">Current workbench</span>
+            <span>reader-selected views</span>
+          </div>
+          <div class="board-grid">
+            {posts.map((post, index) => (
+              <article class={`board-card ${index === 0 ? 'is-primary' : ''}`}>
+                <p class="card-label">0{index + 1} / {postFormat[post.id] ?? 'Journal entry'}</p>
+                <h3><a href={`/posts/${post.id}`}>{post.data.title}</a></h3>
+                <p>{post.data.description}</p>
+                <div class="card-tags">
+                  {post.data.labels.slice(0, 3).map((label: string) => <span>{label}</span>)}
+                </div>
+              </article>
+            ))}
+            <article class="board-card is-reserved">
+              <p class="card-label">next earned module</p>
+              <h3>Revision or connection</h3>
+              <p>A future card appears when a public correction, follow-up, or explicit relationship makes it useful.</p>
+            </article>
+          </div>
+        </section>
+
+        <aside class="thread-module" aria-labelledby="thread-title">
+          <div class="module-bar">
+            <span id="thread-title">Thread map</span>
+            <span>one declared connection</span>
+          </div>
+          <div class="thread-visual" aria-hidden="true">
+            <span class="thread-point point-one">01</span>
+            <span class="thread-line"></span>
+            <span class="thread-point point-two">02</span>
+          </div>
+          <p><strong>From orientation to definition.</strong> The boundary post explains what can cross into a public journal. The workbench post then proposes the kind of person-owned environment that can keep that public boundary legible.</p>
+          <a href="#constellation">See the constellation treatment <span aria-hidden="true">↑</span></a>
+        </aside>
+      </div>
+
+      <div class="reader-modes" aria-labelledby="reader-modes-title">
+        <div>
+          <p class="section-kicker">Future, reader-selected adaptation</p>
+          <h3 id="reader-modes-title">One record, three ways to return.</h3>
+        </div>
+        <div class="mode-list">
+          <div><span>Desk</span><p>Modular overview for orientation.</p></div>
+          <div><span>Trail</span><p>Chronological reading path.</p></div>
+          <div><span>Map</span><p>Explicit relationships only.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-close" aria-labelledby="review-close-title">
+      <p class="section-kicker">Design-review boundary</p>
+      <h2 id="review-close-title">Growth should be earned by the record.</h2>
+      <p>
+        The Journal does not need an interface that performs intelligence. It needs one that
+        helps a reader orient, inspect, and return. New visual modules should appear because
+        a public correction, relationship, or form gives them a real job to do.
+      </p>
+      <a href="/">Return to the current Field Journal <span aria-hidden="true">→</span></a>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .review-shell {
+    --study-rule: color-mix(in srgb, var(--color-ember) 30%, var(--color-border));
+    --study-plasma: color-mix(in srgb, var(--color-plasma) 24%, transparent);
+    max-width: var(--max-width-site);
+    margin: 0 auto;
+  }
+
+  .review-intro,
+  .study,
+  .review-close {
+    border: var(--border-thin);
+    background: var(--color-surface);
+  }
+
+  .review-intro {
+    overflow: hidden;
+  }
+
+  .review-signal,
+  .module-bar,
+  .study-index,
+  .section-kicker,
+  .card-label,
+  .relationship-code,
+  .trail-index {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .review-signal {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: var(--border-thin);
+    color: var(--color-text-muted);
+    background: color-mix(in srgb, var(--color-bg) 84%, var(--color-surface));
+  }
+
+  .review-signal span:last-child {
+    color: var(--color-plasma);
+  }
+
+  .review-signal i {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-right: 0.45em;
+    border-radius: 50%;
+    background: var(--color-plasma);
+    box-shadow: 0 0 0.8rem var(--study-plasma);
+  }
+
+  .review-intro-copy {
+    max-width: 54rem;
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+  }
+
+  .section-kicker,
+  .card-label {
+    margin-bottom: var(--space-sm);
+    color: var(--color-ember);
+  }
+
+  .review-intro h1,
+  .study-header h2,
+  .review-close h2 {
+    max-width: 17ch;
+    margin: 0 0 var(--space-md);
+  }
+
+  .review-intro-copy > p:last-child,
+  .study-summary,
+  .review-close > p:not(.section-kicker) {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .study-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: var(--border-thin);
+  }
+
+  .study-nav a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    min-height: 6rem;
+    padding: var(--space-md);
+    border-right: var(--border-thin);
+    border-bottom: 0;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .study-nav a:last-child {
+    border-right: 0;
+  }
+
+  .study-nav a:hover {
+    background: color-mix(in srgb, var(--color-plasma) 8%, var(--color-surface));
+    color: var(--color-cream);
+  }
+
+  .study-nav span {
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+  }
+
+  .study {
+    margin-top: var(--space-2xl);
+    overflow: hidden;
+  }
+
+  .study-header {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr) minmax(15rem, 0.66fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    border-bottom: var(--border-thin);
+    background: color-mix(in srgb, var(--color-bg) 70%, var(--color-surface));
+  }
+
+  .study-index {
+    color: var(--color-ember);
+  }
+
+  .study-header h2 {
+    font-size: var(--fs-2xl);
+  }
+
+  .study-summary {
+    align-self: end;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+  }
+
+  .workbench-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
+    background: var(--border-subtle);
+    gap: 1px;
+  }
+
+  .module {
+    min-width: 0;
+    background: var(--color-surface);
+  }
+
+  .module-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: var(--border-thin);
+    color: var(--color-text-faint);
+    background: color-mix(in srgb, var(--color-bg) 54%, var(--color-surface));
+  }
+
+  .module-bar span:last-child {
+    color: var(--color-text-muted);
+    text-align: right;
+  }
+
+  .module-featured {
+    grid-row: span 2;
+  }
+
+  .module-featured img {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: var(--border-thin);
+  }
+
+  .module-copy,
+  .module-note,
+  .constellation-ledger > .module-note,
+  .thread-module > p,
+  .thread-module > a {
+    display: block;
+    padding-inline: var(--space-lg);
+  }
+
+  .module-copy {
+    padding-block: var(--space-lg);
+  }
+
+  .entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-faint);
+    font-size: var(--fs-xs);
+  }
+
+  .module-copy h3,
+  .board-card h3 {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--fs-xl);
+  }
+
+  .module-copy p:not(.entry-meta),
+  .module-note,
+  .board-card > p:not(.card-label),
+  .thread-module > p {
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+  }
+
+  .module-action {
+    font-size: var(--fs-sm);
+  }
+
+  .surface-map-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    background: var(--border-subtle);
+    gap: 1px;
+  }
+
+  .map-cell {
+    display: flex;
+    min-height: 8rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--space-md);
+    border: 0;
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .map-cell:hover {
+    color: var(--color-cream);
+  }
+
+  .map-cell span {
+    color: var(--color-text-muted);
+    font-size: var(--fs-xs);
+  }
+
+  .map-cell strong {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+  }
+
+  .map-cell.is-ember {
+    background: linear-gradient(140deg, color-mix(in srgb, var(--color-ember) 36%, var(--color-surface-raised)), var(--color-surface-raised));
+  }
+
+  .map-cell.is-plasma {
+    background: linear-gradient(140deg, color-mix(in srgb, var(--color-plasma) 24%, var(--color-surface-raised)), var(--color-surface-raised));
+  }
+
+  .map-cell.is-dormant {
+    color: var(--color-text-muted);
+    background: color-mix(in srgb, var(--color-surface) 70%, var(--color-bg));
+  }
+
+  .module-note {
+    margin: 0;
+    padding-block: var(--space-md);
+    border-top: var(--border-thin);
+  }
+
+  .module-ledger,
+  .module-trail {
+    border-top: var(--border-thin);
+  }
+
+  .ledger-rows {
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .ledger-rows div {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.7fr) minmax(0, 1.3fr);
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: var(--fs-xs);
+  }
+
+  .ledger-rows div:last-child {
+    border-bottom: 0;
+  }
+
+  .ledger-rows span {
+    color: var(--color-text-faint);
+  }
+
+  .ledger-rows strong {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .module-trail ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .module-trail li {
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: var(--space-sm);
+    margin: 0;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .module-trail li:last-child {
+    border-bottom: 0;
+  }
+
+  .trail-index {
+    color: var(--color-ember);
+  }
+
+  .module-trail p {
+    margin: 0 0 var(--space-2xs);
+    color: var(--color-text-faint);
+    font-size: var(--fs-xs);
+  }
+
+  .module-trail a {
+    font-size: var(--fs-sm);
+  }
+
+  .constellation-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+  }
+
+  .constellation-canvas {
+    position: relative;
+    min-height: 34rem;
+    overflow: hidden;
+    border-right: var(--border-thin);
+    background:
+      radial-gradient(circle at 26% 74%, color-mix(in srgb, var(--color-ember) 20%, transparent), transparent 15rem),
+      radial-gradient(circle at 75% 25%, color-mix(in srgb, var(--color-plasma) 23%, transparent), transparent 17rem),
+      linear-gradient(color-mix(in srgb, var(--color-border) 64%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-border) 64%, transparent) 1px, transparent 1px),
+      var(--color-bg);
+    background-size: auto, auto, 2.75rem 2.75rem, 2.75rem 2.75rem, auto;
+  }
+
+  .constellation-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .constellation-lines path {
+    fill: none;
+    stroke: var(--color-plasma);
+    stroke-width: 0.36;
+    opacity: 0.68;
+  }
+
+  .constellation-lines .secondary-path {
+    stroke: var(--color-ember);
+    stroke-dasharray: 1.2 1.6;
+    opacity: 0.5;
+  }
+
+  .constellation-star {
+    position: absolute;
+    width: 0.32rem;
+    height: 0.32rem;
+    border-radius: 50%;
+    background: var(--color-cream);
+    box-shadow: 0 0 1rem var(--color-cream);
+  }
+
+  .star-a { top: 21%; left: 17%; }
+  .star-b { top: 75%; left: 68%; background: var(--color-ember); box-shadow: 0 0 1.4rem var(--color-ember); }
+  .star-c { top: 43%; left: 91%; background: var(--color-plasma); box-shadow: 0 0 1.4rem var(--color-plasma); }
+
+  .constellation-node,
+  .constellation-origin {
+    position: absolute;
+    width: min(15rem, 37%);
+    padding: var(--space-md);
+    border: 1px solid var(--border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  }
+
+  .constellation-node {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .constellation-node:hover {
+    border-color: var(--color-plasma);
+    color: var(--color-cream);
+    box-shadow: 0 0 1.5rem var(--study-plasma);
+  }
+
+  .constellation-node strong,
+  .constellation-node small,
+  .constellation-origin span,
+  .constellation-origin strong {
+    display: block;
+  }
+
+  .node-number {
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+  }
+
+  .constellation-node strong {
+    margin-top: var(--space-sm);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-tight);
+  }
+
+  .constellation-node small,
+  .constellation-origin span {
+    margin-top: var(--space-sm);
+    color: var(--color-text-faint);
+    font-size: var(--fs-xs);
+  }
+
+  .node-boundary { left: 8%; bottom: 10%; }
+  .node-workbench { top: 12%; right: 8%; }
+
+  .constellation-origin {
+    top: 48%;
+    left: 41%;
+    width: auto;
+    border-color: color-mix(in srgb, var(--color-plasma) 56%, var(--border-subtle));
+    text-align: center;
+  }
+
+  .constellation-origin strong {
+    color: var(--color-cream);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+  }
+
+  .constellation-ledger {
+    background: var(--color-surface);
+  }
+
+  .relationship-row {
+    display: grid;
+    grid-template-columns: 3.8rem minmax(0, 1fr);
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    border-bottom: var(--border-thin);
+  }
+
+  .relationship-code {
+    color: var(--color-plasma);
+  }
+
+  .relationship-row p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .relationship-row strong {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .relationship-row.is-muted {
+    opacity: 0.67;
+  }
+
+  .synthesis-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(19rem, 0.8fr);
+    background: var(--border-subtle);
+    gap: 1px;
+  }
+
+  .synthesis-board,
+  .thread-module {
+    min-width: 0;
+    background: var(--color-surface);
+  }
+
+  .board-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    background: var(--border-subtle);
+    gap: 1px;
+  }
+
+  .board-card {
+    min-height: 15rem;
+    padding: var(--space-lg);
+    background: var(--color-surface-raised);
+  }
+
+  .board-card.is-primary {
+    background: linear-gradient(145deg, color-mix(in srgb, var(--color-ember) 21%, var(--color-surface-raised)), var(--color-surface-raised));
+  }
+
+  .board-card.is-reserved {
+    grid-column: 1 / -1;
+    min-height: 10rem;
+    background: color-mix(in srgb, var(--color-bg) 72%, var(--color-surface));
+  }
+
+  .board-card h3 {
+    font-size: var(--fs-lg);
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-top: var(--space-md);
+  }
+
+  .card-tags span {
+    padding: 0.2rem 0.35rem;
+    border: 1px solid var(--border-subtle);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+  }
+
+  .thread-module {
+    background:
+      radial-gradient(circle at 70% 20%, color-mix(in srgb, var(--color-plasma) 15%, transparent), transparent 13rem),
+      var(--color-surface);
+  }
+
+  .thread-visual {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  }
+
+  .thread-point {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--color-plasma);
+    border-radius: 50%;
+    color: var(--color-cream);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+  }
+
+  .point-one {
+    border-color: var(--color-ember);
+  }
+
+  .thread-line {
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-ember), var(--color-plasma));
+  }
+
+  .thread-module > a {
+    margin-top: var(--space-md);
+    padding-bottom: var(--space-lg);
+    font-size: var(--fs-sm);
+  }
+
+  .reader-modes {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    border-top: var(--border-thin);
+    background: color-mix(in srgb, var(--color-bg) 62%, var(--color-surface));
+  }
+
+  .reader-modes h3 {
+    margin: 0;
+    font-size: var(--fs-lg);
+  }
+
+  .mode-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: var(--border-thin);
+    background: var(--border-subtle);
+    gap: 1px;
+  }
+
+  .mode-list div {
+    padding: var(--space-md);
+    background: var(--color-surface);
+  }
+
+  .mode-list span {
+    color: var(--color-plasma);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mode-list p {
+    margin: var(--space-sm) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-xs);
+  }
+
+  .review-close {
+    margin-top: var(--space-2xl);
+    padding: var(--space-2xl) var(--space-xl);
+    background:
+      linear-gradient(115deg, color-mix(in srgb, var(--color-ember) 12%, transparent), transparent 55%),
+      var(--color-surface);
+  }
+
+  .review-close a {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-size: var(--fs-sm);
+  }
+
+  @media (max-width: 850px) {
+    .study-header,
+    .constellation-panel,
+    .synthesis-layout,
+    .reader-modes {
+      grid-template-columns: 1fr;
+    }
+
+    .study-header {
+      gap: var(--space-md);
+    }
+
+    .constellation-canvas {
+      min-height: 30rem;
+      border-right: 0;
+      border-bottom: var(--border-thin);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .review-intro-copy,
+    .study-header,
+    .reader-modes,
+    .review-close {
+      padding: var(--space-lg);
+    }
+
+    .review-signal {
+      display: grid;
+      font-size: 0.64rem;
+    }
+
+    .study-nav,
+    .workbench-grid,
+    .board-grid,
+    .mode-list {
+      grid-template-columns: 1fr;
+    }
+
+    .study-nav a {
+      min-height: auto;
+      border-right: 0;
+      border-bottom: var(--border-thin);
+    }
+
+    .study-nav a:last-child {
+      border-bottom: 0;
+    }
+
+    .module-featured {
+      grid-row: auto;
+    }
+
+    .module-ledger,
+    .module-trail {
+      border-top: var(--border-thin);
+    }
+
+    .constellation-node {
+      width: 42%;
+    }
+
+    .constellation-origin {
+      left: 36%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      scroll-behavior: auto !important;
+      transition: none !important;
+    }
+  }
+</style>
