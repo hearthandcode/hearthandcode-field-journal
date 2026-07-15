@@ -1,0 +1,275 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import FieldNavigator, {
+  type FieldNode,
+  type FieldRelationship,
+} from '../components/FieldNavigator';
+import '../styles/field-navigator.css';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => post.data.status === 'published')
+  .sort((a, b) => {
+    const aDate = new Date(a.data.published_date ?? a.data.date).getTime();
+    const bDate = new Date(b.data.published_date ?? b.data.date).getTime();
+    const dateDifference = aDate - bDate;
+    if (dateDifference !== 0) return dateDifference;
+
+    return (b.data.published_order ?? 0) - (a.data.published_order ?? 0);
+  });
+
+const formats: Record<string, string> = {
+  'a-public-journal-begins-with-a-boundary': 'Field brief',
+  'what-i-mean-by-a-cognitive-workbench': 'Design record',
+};
+
+const nodes: FieldNode[] = posts.map((post, index) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description ?? '',
+  href: `/posts/${post.id}`,
+  format: formats[post.id] ?? 'Journal entry',
+  publishedDate: post.data.published_date ?? post.data.date,
+  readingMinutes: post.data.reading_time_minutes,
+  labels: post.data.labels,
+  x: 170 + index * 390,
+  y: index % 2 === 0 ? 446 : 208,
+}));
+
+const relationships: FieldRelationship[] = [];
+
+if (
+  nodes.some((node) => node.id === 'a-public-journal-begins-with-a-boundary')
+  && nodes.some((node) => node.id === 'what-i-mean-by-a-cognitive-workbench')
+) {
+  relationships.push({
+    id: 'R-01',
+    from: 'a-public-journal-begins-with-a-boundary',
+    to: 'what-i-mean-by-a-cognitive-workbench',
+    label: 'Boundary → workbench',
+    note: 'The opening entry establishes the public/private boundary that governs the working definition in the second entry.',
+  });
+}
+
+function displayDate(date: string) {
+  return new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<Base>
+  <div class="field-page">
+    <section class="field-intro" aria-labelledby="field-page-title">
+      <div class="field-page-signal" aria-label="Field page status">
+        <span>Field Journal / navigator</span>
+        <span><i aria-hidden="true"></i> chronology fixed · relationships reviewed</span>
+      </div>
+      <div class="field-intro-copy">
+        <p class="field-page-kicker">A navigable public record</p>
+        <h1 id="field-page-title">Follow the record through time.</h1>
+        <p>
+          This field keeps published entries in chronological order, then reveals their
+          declared relationships as a second layer. It is a reader-owned navigation surface,
+          not an inferred knowledge graph or a private work mirror.
+        </p>
+      </div>
+      <div class="field-page-legend" aria-label="Field navigator legend">
+        <div><span class="legend-marker is-chronology" aria-hidden="true"></span><p><strong>Chronology</strong> is the fixed reading spine.</p></div>
+        <div><span class="legend-marker is-relationship" aria-hidden="true"></span><p><strong>Relationships</strong> are written and reviewed before they appear.</p></div>
+        <div><span class="legend-marker is-reader" aria-hidden="true"></span><p><strong>Reader controls</strong> remain local. No telemetry is collected.</p></div>
+      </div>
+    </section>
+
+    <FieldNavigator client:visible nodes={nodes} relationships={relationships} />
+
+    <noscript>
+      <section class="field-fallback" aria-labelledby="field-fallback-title">
+        <p class="field-page-kicker">Chronological fallback</p>
+        <h2 id="field-fallback-title">Published reading path</h2>
+        <ol>
+          {posts.map((post) => (
+            <li>
+              <p>{formats[post.id] ?? 'Journal entry'} · {displayDate(post.data.published_date ?? post.data.date)}</p>
+              <a href={`/posts/${post.id}`}>{post.data.title}</a>
+              {post.data.description && <span>{post.data.description}</span>}
+            </li>
+          ))}
+        </ol>
+      </section>
+    </noscript>
+
+    <section class="field-boundary" aria-labelledby="field-boundary-title">
+      <p class="field-page-kicker">Navigator boundary</p>
+      <h2 id="field-boundary-title">The grid can grow. The meaning stays inspectable.</h2>
+      <p>
+        The repeating grid gives the public record room to extend. It does not decide what
+        belongs together, infer significance from proximity, or turn a reader’s behavior into
+        a profile. Posts earn visible links through explicit editorial judgment.
+      </p>
+      <a href="/">Return to the Field Journal <span aria-hidden="true">→</span></a>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .field-page {
+    max-width: var(--max-width-site);
+    margin: 0 auto;
+  }
+
+  .field-intro,
+  .field-boundary,
+  .field-fallback {
+    border: var(--border-thin);
+    background: var(--color-surface);
+  }
+
+  .field-page-signal {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: var(--border-thin);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .field-page-signal span:last-child {
+    color: var(--color-plasma);
+  }
+
+  .field-page-signal i {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-right: 0.45em;
+    border-radius: 50%;
+    background: var(--color-plasma);
+    box-shadow: 0 0 0.8rem color-mix(in srgb, var(--color-plasma) 55%, transparent);
+  }
+
+  .field-intro-copy {
+    max-width: 54rem;
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+  }
+
+  .field-page-kicker {
+    margin-bottom: var(--space-sm);
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .field-intro-copy h1,
+  .field-boundary h2,
+  .field-fallback h2 {
+    max-width: 16ch;
+    margin: 0 0 var(--space-md);
+  }
+
+  .field-intro-copy > p:last-child,
+  .field-boundary > p:not(.field-page-kicker) {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .field-page-legend {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: var(--border-thin);
+    background: var(--border-subtle);
+    gap: 1px;
+  }
+
+  .field-page-legend div {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--color-surface-raised);
+  }
+
+  .field-page-legend p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-xs);
+    line-height: 1.55;
+  }
+
+  .field-page-legend strong {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .legend-marker {
+    width: 0.65rem;
+    height: 0.65rem;
+    margin-top: 0.25rem;
+    border: 1px solid var(--color-text-faint);
+  }
+
+  .legend-marker.is-chronology { border-radius: 50%; border-color: var(--color-ember); background: color-mix(in srgb, var(--color-ember) 44%, transparent); }
+  .legend-marker.is-relationship { transform: rotate(45deg); border-color: var(--color-plasma); background: color-mix(in srgb, var(--color-plasma) 34%, transparent); }
+  .legend-marker.is-reader { border-radius: 50%; border-color: var(--color-cream); }
+
+  .field-fallback,
+  .field-boundary {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+  }
+
+  .field-fallback ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .field-fallback li {
+    padding: var(--space-md) 0;
+    border-top: var(--border-thin);
+  }
+
+  .field-fallback p,
+  .field-fallback span {
+    display: block;
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .field-boundary {
+    background: linear-gradient(120deg, color-mix(in srgb, var(--color-ember) 11%, transparent), transparent 55%), var(--color-surface);
+  }
+
+  .field-boundary a {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-size: var(--fs-sm);
+  }
+
+  @media (max-width: 700px) {
+    .field-intro-copy,
+    .field-fallback,
+    .field-boundary {
+      padding: var(--space-lg);
+    }
+
+    .field-page-signal {
+      display: grid;
+      font-size: 0.64rem;
+    }
+
+    .field-page-legend {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
