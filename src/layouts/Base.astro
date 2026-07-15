@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hearth &amp; Code Field Journal, a public research desk log for the Exocore project, Applied AI, and the craft of building scaffolding for neurodivergent learners." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Hearth &amp; Code · Field Journal" href="/rss.xml" />
+    <title>Hearth &amp; Code · Field Journal</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="site-title">hearthandcode<span class="caret">█</span>field-journal</a>
+      <span class="site-tagline">a public research desk log</span>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <span>Field Journal · <a href="/rss.xml">RSS</a> · <a href="https://github.com/hearthandcode/hearthandcode-field-journal">source</a></span>
+      <span class="footer-note">experimental · no claims · no telemetry</span>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-xl) var(--space-md);
+    max-width: var(--max-width-site);
+    margin: 0 auto;
+    border-bottom: var(--border-thin);
+  }
+
+  .site-title {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--color-text);
+    border-bottom: none;
+    letter-spacing: 0.02em;
+  }
+
+  .site-title .caret {
+    color: var(--color-ember);
+    margin: 0 0.25em;
+    animation: blink 1.2s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .site-title:hover {
+    color: var(--color-cream);
+  }
+
+  .site-tagline {
+    font-size: var(--fs-xs);
+    color: var(--color-text-faint);
+    margin-top: var(--space-2xs);
+  }
+
+  main {
+    max-width: var(--max-width-site);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .site-footer {
+    max-width: var(--max-width-site);
+    margin: var(--space-2xl) auto 0;
+    padding: var(--space-lg) var(--space-md);
+    border-top: var(--border-thin);
+    font-size: var(--fs-xs);
+    color: var(--color-text-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .site-footer a {
+    color: var(--color-text-muted);
+    border-bottom-color: var(--color-text-faint);
+  }
+
+  .site-footer a:hover {
+    color: var(--color-cream);
+  }
+
+  @media (max-width: 600px) {
+    .site-footer {
+      flex-direction: column;
+    }
+  }
+</style>

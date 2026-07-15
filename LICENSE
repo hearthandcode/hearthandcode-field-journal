@@ -1,0 +1,50 @@
+MIT License
+
+Copyright (c) 2026 Scott Rallya & Hearth & Code
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+===============================================
+AI LICENSE NOTICE (Version 1.0)
+===============================================
+
+This software contains code and documentation written with assistance from AI
+tools. This notice declares AI provenance. It does not grant or restrict any
+rights. The MIT License above governs all use of this software.
+
+AI ASSISTED PORTIONS: SUBSTANTIAL
+Assisted commits: 0 (initial source is not yet committed)
+Total commits: 0
+Percentage: not applicable until the first commit
+
+AI TOOLS USED:
+  Hermes Agent (Virgil), July 2026
+
+HUMAN REVIEW:
+Scott Rallya reviewed the initial public-source release before its first
+commit. The two initial Field Journal entries remain review-state source
+artifacts; a later publication decision is required before they render on the
+public site. Future AI-assisted changes require human review and acceptance by
+the authors of record before release.
+
+GOVERNANCE:
+No automated AI-provenance attestation service is configured for this
+repository.
+
+===============================================

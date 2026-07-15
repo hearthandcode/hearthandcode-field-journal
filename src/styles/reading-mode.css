@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Reading mode — CSS-custom-property-driven typography & theme system
+   CSS vars (--rm-*) are set on <html> by ReadingMode.tsx via
+   document.documentElement.style.setProperty().
+
+   Theme tokens (--bg-warm-dark, --fg-cream, --surface, etc.) are also set
+   on <html> and cascade through the existing design-token system.
+   ========================================================================== */
+
+/* ==========================================================================
+   Typography overrides — applied globally when --rm-* vars are set
+   ========================================================================== */
+
+body {
+  font-family: var(--rm-font-family, var(--font-body));
+  font-size: var(--rm-font-size, var(--fs-base));
+  line-height: var(--rm-line-height, var(--lh-body));
+  transition:
+    font-family 0.25s ease,
+    font-size 0.25s ease,
+    line-height 0.25s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ==========================================================================
+   Reading mode panel — fixed aside at bottom-right
+   ========================================================================== */
+
+.reading-mode-panel {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-surface);
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Control groups ── */
+
+.rm-control-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  white-space: nowrap;
+}
+
+.rm-label {
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+/* ── Select elements ── */
+
+.rm-select {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--color-text);
+  background: var(--color-surface-raised);
+  border: var(--border-thin);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.35em;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.rm-select:hover,
+.rm-select:focus-visible {
+  color: var(--color-cream);
+  border-color: var(--color-ember-dim);
+}
+
+.rm-select:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 2px;
+}
+
+/* ── Stepper (increment/decrement buttons) ── */
+
+.rm-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  background: var(--color-surface-raised);
+  border: var(--border-thin);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.rm-stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+  line-height: 1;
+}
+
+.rm-stepper-btn:hover:not(:disabled) {
+  color: var(--color-cream);
+  background: var(--color-border);
+}
+
+.rm-stepper-btn:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: -2px;
+}
+
+.rm-stepper-btn:disabled {
+  color: var(--color-text-faint);
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.rm-stepper-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4ch;
+  padding: 0 0.25em;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Responsive — collapse to bar on very narrow viewports
+   ========================================================================== */
+
+@media (max-width: 520px) {
+  .reading-mode-panel {
+    left: var(--space-md);
+    right: var(--space-md);
+    bottom: var(--space-xs);
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .reading-mode-panel {
+    transition: none;
+  }
+
+  .rm-stepper-btn,
+  .rm-select {
+    transition: none;
+  }
+}

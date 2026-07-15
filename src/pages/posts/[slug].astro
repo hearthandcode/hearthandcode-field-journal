@@ -1,0 +1,41 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  const publishedPosts = allPosts.filter(
+    (p) => p.data.status === 'published',
+  );
+  return publishedPosts.map((post) => ({
+    params: { slug: post.id },
+    props: { id: post.id },
+  }));
+}
+
+const { id } = Astro.props;
+const post = await getEntry('posts', id);
+if (!post) throw new Error(`Post "${id}" not found`);
+
+// Safety gate: only render MDX body for published posts.
+// Draft and review posts bypass getStaticPaths and get a 404 from Astro,
+// but this guard catches any edge case where a non-published post
+// somehow reaches this component.
+if (post.data.status !== 'published') {
+  return new Response('Not found', { status: 404 });
+}
+
+const { Content } = await render(post);
+---
+
+<PostLayout
+  title={post.data.title}
+  date={post.data.published_date ?? post.data.date}
+  description={post.data.description ?? ''}
+  tags={post.data.tags ?? []}
+  featuredImage={post.data.featured_image}
+  featuredImageAlt={post.data.featured_image_alt}
+  readingTimeMinutes={post.data.reading_time_minutes}
+>
+  <Content />
+</PostLayout>

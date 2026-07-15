@@ -1,0 +1,38 @@
+{
+  "name": "hearthandcode-field-journal",
+  "version": "0.1.0",
+  "description": "A Markdown-first public field journal for Hearth & Code and the Exocore research-build.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hearthandcode/hearthandcode-field-journal.git"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/hearthandcode/hearthandcode-field-journal/issues"
+  },
+  "homepage": "https://github.com/hearthandcode/hearthandcode-field-journal#readme",
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.0",
+    "@astrojs/react": "^6.0.0",
+    "@astrojs/rss": "^4.0.19",
+    "astro": "^7.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.0"
+  },
+  "private": false,
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

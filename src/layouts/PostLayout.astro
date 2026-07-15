@@ -1,0 +1,197 @@
+---
+import Base from './Base.astro';
+import { ReadingModeProvider } from '../components/ReadingMode';
+import '../styles/reading-mode.css';
+
+interface Props {
+  title: string;
+  date: string;
+  description: string;
+  tags: string[];
+  featuredImage?: string;
+  featuredImageAlt?: string;
+  readingTimeMinutes?: number;
+}
+
+const {
+  title,
+  date,
+  description,
+  tags = [],
+  featuredImage,
+  featuredImageAlt,
+  readingTimeMinutes,
+} = Astro.props;
+
+const displayDate = new Date(date + 'T00:00:00');
+---
+
+<Base>
+  <ReadingModeProvider client:visible>
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">{title}</h1>
+        <p class="post-description">{description}</p>
+        <dl class="post-meta">
+          <div class="post-meta-group">
+            <dt class="sr-only">Date</dt>
+            <dd>
+              <time datetime={date}>
+                {displayDate.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </time>
+            </dd>
+          </div>
+          {readingTimeMinutes && (
+            <div class="post-meta-group">
+              <dt class="sr-only">Reading time</dt>
+              <dd>{readingTimeMinutes} min read</dd>
+            </div>
+          )}
+        </dl>
+      </header>
+
+      {featuredImage && (
+        <figure class="post-hero">
+          <img
+            src={featuredImage}
+            alt={featuredImageAlt ?? ''}
+            width="1024"
+            height="576"
+            loading="eager"
+          />
+        </figure>
+      )}
+
+      <div class="post-body prose reading-mode">
+        <slot />
+      </div>
+
+      {tags.length > 0 && (
+        <footer class="post-tags-footer">
+          <ul class="post-tags" aria-label="Tags">
+            {tags.map((tag: string) => (
+              <li class="post-tag">{tag}</li>
+            ))}
+          </ul>
+        </footer>
+      )}
+
+      <nav class="post-nav">
+        <a href="/">← field journal index</a>
+      </nav>
+    </article>
+  </ReadingModeProvider>
+</Base>
+
+<style>
+  .post {
+    max-width: var(--max-width-prose);
+  }
+
+  .post-header {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: var(--border-thin);
+  }
+
+  .post-title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-description {
+    font-size: var(--fs-md);
+    color: var(--color-text-muted);
+    line-height: var(--lh-relaxed);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--color-text-faint);
+  }
+
+  .post-meta-group {
+    display: flex;
+    gap: var(--space-2xs);
+    align-items: baseline;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .post-hero {
+    margin: 0;
+    overflow: hidden;
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .post-hero img {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .post-body {
+    margin-top: var(--space-xl);
+    line-height: var(--lh-relaxed);
+  }
+
+  .post-body :global(h2) {
+    font-size: var(--fs-lg);
+    color: var(--color-cream);
+  }
+
+  .post-body :global(h3) {
+    font-size: var(--fs-md);
+    color: var(--color-text);
+  }
+
+  .post-tags-footer {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: var(--border-thin);
+  }
+
+  .post-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding: 0;
+  }
+
+  .post-tag {
+    font-size: var(--fs-xs);
+    color: var(--color-text-faint);
+    background: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.4em;
+  }
+
+  .post-nav {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: var(--border-thin);
+    font-size: var(--fs-sm);
+  }
+</style>

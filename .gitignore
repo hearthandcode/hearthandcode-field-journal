@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+node_modules.*/
+
+# Build output
+.astro/
+dist/
+
+# Stale dependency directories from scaffold iterations
+node_modules.bak/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.template
+!.env.sample
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# TypeScript build info
+*.tsbuildinfo

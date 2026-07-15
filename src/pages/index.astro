@@ -1,0 +1,495 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { ReadingModeProvider } from '../components/ReadingMode';
+import '../styles/reading-mode.css';
+
+const allPosts = await getCollection('posts');
+const publishedPosts = allPosts
+  .filter((post) => post.data.status === 'published')
+  .sort((a, b) => {
+    const aDate = new Date(a.data.published_date ?? a.data.date).getTime();
+    const bDate = new Date(b.data.published_date ?? b.data.date).getTime();
+    const dateDifference = bDate - aDate;
+    if (dateDifference !== 0) return dateDifference;
+
+    const orderDifference = (b.data.published_order ?? 0) - (a.data.published_order ?? 0);
+    if (orderDifference !== 0) return orderDifference;
+
+    return b.id.localeCompare(a.id);
+  });
+
+const [latestPost, ...earlierPosts] = publishedPosts;
+
+function displayDate(date: string) {
+  return new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<Base>
+  <ReadingModeProvider client:visible>
+    <section class="journal-hero" aria-labelledby="journal-title">
+      <div class="journal-hero-copy">
+        <p class="section-kicker">Hearth &amp; Code · Field Journal</p>
+        <h1 id="journal-title">A durable place to return to the work.</h1>
+        <p class="journal-lede">
+          A public research desk for selected notes on Exocore, applied AI, and the
+          craft of giving complex work a clearer next step. The record includes
+          proposals, corrections, and open questions as they become ready to share.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#recent-entries">Read the journal <span aria-hidden="true">↓</span></a>
+          <a class="secondary-action" href="/rss.xml">Subscribe by RSS <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <figure class="journal-hero-art">
+        <img
+          src="/images/field-journal-desk.png"
+          alt="A warm wooden workbench beside a small stone hearth, with a blank notebook, tools, compasses, a mug, and a subtle constellation-like line of light above the desk."
+          width="1024"
+          height="576"
+          loading="eager"
+        />
+      </figure>
+    </section>
+
+    <div class="journal-layout">
+      <section class="journal-main" id="recent-entries" aria-label="Journal entries">
+        {latestPost ? (
+          <article class="featured-entry">
+            <p class="section-kicker">Latest entry</p>
+            <a class="featured-image-link" href={`/posts/${latestPost.id}`} aria-label={`Read ${latestPost.data.title}`}>
+              {latestPost.data.featured_image && (
+                <img
+                  src={latestPost.data.featured_image}
+                  alt={latestPost.data.featured_image_alt ?? ''}
+                  width="1024"
+                  height="576"
+                  loading="eager"
+                />
+              )}
+            </a>
+            <div class="featured-entry-copy">
+              <p class="entry-meta">
+                <time datetime={latestPost.data.published_date ?? latestPost.data.date}>
+                  {displayDate(latestPost.data.published_date ?? latestPost.data.date)}
+                </time>
+                {latestPost.data.reading_time_minutes && <span>{latestPost.data.reading_time_minutes} min read</span>}
+              </p>
+              <h2><a href={`/posts/${latestPost.id}`}>{latestPost.data.title}</a></h2>
+              {latestPost.data.description && <p>{latestPost.data.description}</p>}
+              <a class="entry-action" href={`/posts/${latestPost.id}`}>Read the latest entry <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        ) : (
+          <p class="post-empty">No public entries yet. Selected, reviewed posts will appear here when ready.</p>
+        )}
+
+        {earlierPosts.length > 0 && (
+          <section class="journal-archive" aria-labelledby="recent-entries-title">
+            <div class="archive-heading">
+              <p class="section-kicker">Journal trail</p>
+              <h2 id="recent-entries-title">Recent entries</h2>
+              <p>Newest first, with same-day notes kept in their actual draft sequence.</p>
+            </div>
+            <ol class="post-list">
+              {earlierPosts.map((post) => (
+                <li class="post-item">
+                  <a href={`/posts/${post.id}`} class="post-link">
+                    <span class="post-date">
+                      <time datetime={post.data.published_date ?? post.data.date}>
+                        {displayDate(post.data.published_date ?? post.data.date)}
+                      </time>
+                    </span>
+                    <span class="post-item-title">{post.data.title}</span>
+                  </a>
+                  {post.data.description && <p class="post-item-summary">{post.data.description}</p>}
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <ul class="post-tags" aria-label="Tags">
+                      {post.data.tags.map((tag: string) => <li class="post-tag">{tag}</li>)}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+      </section>
+
+      <aside class="journal-boundary" aria-labelledby="boundary-title">
+        <p class="section-kicker">How to read this journal</p>
+        <h2 id="boundary-title">Selected, not a mirror.</h2>
+        <p>
+          These are reviewed public projections of a larger research practice. They
+          hold the reasoning around a choice without turning a private workstream into
+          a public record.
+        </p>
+        <ul class="boundary-list">
+          <li><strong>Claim labels</strong> distinguish evidence, inference, proposal, and open question.</li>
+          <li><strong>Human review</strong> stays in front of outward-facing claims and published work.</li>
+          <li><strong>Uncertainty</strong> remains part of the record when the work is still becoming clear.</li>
+        </ul>
+        <a class="boundary-rss" href="/rss.xml">Follow the field journal by RSS <span aria-hidden="true">↗</span></a>
+      </aside>
+    </div>
+
+  </ReadingModeProvider>
+</Base>
+
+<style>
+  .index-header {
+    max-width: var(--max-width-prose);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .index-lede {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    line-height: var(--lh-relaxed);
+  }
+
+  .index-lede strong {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: posts;
+  }
+
+  .post-item {
+    border-top: var(--border-thin);
+    padding: var(--space-md) 0;
+  }
+
+  .post-item:last-child {
+    border-bottom: var(--border-thin);
+  }
+
+  .post-empty {
+    color: var(--color-text-faint);
+    font-style: italic;
+    padding: var(--space-lg) 0;
+  }
+
+  .post-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-sm) var(--space-md);
+    border-bottom: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--color-text);
+    padding: var(--space-2xs) 0;
+  }
+
+  .post-link:hover {
+    color: var(--color-cream);
+  }
+
+  .post-date {
+    font-size: var(--fs-xs);
+    color: var(--color-text-faint);
+    min-width: 7em;
+    flex-shrink: 0;
+  }
+
+  .post-item-title {
+    color: var(--color-plasma);
+    font-weight: 500;
+  }
+
+  .post-link:hover .post-item-title {
+    color: var(--color-cream);
+  }
+
+  .post-item-summary {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-xs);
+    margin-left: calc(7em + var(--space-md));
+  }
+
+  .post-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-top: var(--space-xs);
+    margin-left: calc(7em + var(--space-md));
+    padding: 0;
+  }
+
+  .post-tag {
+    font-size: var(--fs-xs);
+    color: var(--color-text-faint);
+    background: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.4em;
+  }
+
+  @media (max-width: 600px) {
+    .post-link {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .post-item-summary,
+    .post-tags {
+      margin-left: 0;
+    }
+  }
+  .journal-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    gap: var(--space-xl);
+    align-items: stretch;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .journal-hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-xl);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    background: linear-gradient(145deg, var(--color-surface-raised), var(--color-surface));
+  }
+
+  .section-kicker {
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-ember);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .journal-hero h1 {
+    max-width: 15ch;
+    margin-bottom: var(--space-md);
+  }
+
+  .journal-lede {
+    max-width: 48ch;
+    font-size: var(--fs-md);
+    color: var(--color-text-muted);
+    line-height: var(--lh-relaxed);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .primary-action,
+  .secondary-action,
+  .entry-action,
+  .boundary-rss {
+    border-bottom: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+  }
+
+  .primary-action {
+    padding: 0.6em 0.9em;
+    color: var(--color-bg);
+    background: var(--color-ember);
+    border: 1px solid var(--color-ember);
+    border-radius: var(--radius-sm);
+  }
+
+  .primary-action:hover,
+  .primary-action:focus-visible {
+    color: var(--color-bg);
+    background: var(--color-plasma);
+    border-color: var(--color-plasma);
+  }
+
+  .secondary-action {
+    align-self: center;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-ember-dim);
+  }
+
+  .journal-hero-art {
+    min-height: 100%;
+    margin: 0;
+    overflow: hidden;
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .journal-hero-art img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .journal-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.42fr);
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .featured-entry {
+    overflow: hidden;
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .featured-entry > .section-kicker {
+    padding: var(--space-md) var(--space-md) 0;
+  }
+
+  .featured-image-link {
+    display: block;
+    border-bottom: none;
+    background: var(--color-surface-raised);
+  }
+
+  .featured-image-link img {
+    display: block;
+    width: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .featured-image-link:hover img,
+  .featured-image-link:focus-visible img {
+    transform: scale(1.015);
+  }
+
+  .featured-entry-copy {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-faint);
+  }
+
+  .entry-meta span::before {
+    content: '·';
+    margin-right: var(--space-sm);
+  }
+
+  .featured-entry h2 {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--fs-xl);
+  }
+
+  .featured-entry h2 a {
+    border-bottom: none;
+    color: var(--color-cream);
+  }
+
+  .featured-entry-copy > p:not(.entry-meta) {
+    margin-bottom: var(--space-md);
+    color: var(--color-text-muted);
+  }
+
+  .entry-action,
+  .boundary-rss {
+    color: var(--color-plasma);
+    border-bottom: 1px solid var(--color-plasma-dim);
+  }
+
+  .journal-archive {
+    margin-top: var(--space-xl);
+  }
+
+  .archive-heading {
+    margin-bottom: var(--space-md);
+  }
+
+  .archive-heading h2,
+  .journal-boundary h2 {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--fs-lg);
+  }
+
+  .archive-heading > p:not(.section-kicker) {
+    color: var(--color-text-muted);
+  }
+
+  .journal-boundary {
+    position: sticky;
+    top: var(--space-lg);
+    padding: var(--space-lg);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+  }
+
+  .journal-boundary > p:not(.section-kicker) {
+    color: var(--color-text-muted);
+  }
+
+  .boundary-list {
+    display: grid;
+    gap: var(--space-sm);
+    margin: var(--space-md) 0 var(--space-lg);
+    padding: 0;
+    list-style: none;
+  }
+
+  .boundary-list li {
+    margin: 0;
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-ember-dim);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .boundary-list strong {
+    color: var(--color-cream);
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .journal-hero,
+    .journal-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .journal-hero-art {
+      max-height: 28rem;
+    }
+
+    .journal-boundary {
+      position: static;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .journal-hero-copy,
+    .featured-entry-copy,
+    .journal-boundary {
+      padding: var(--space-md);
+    }
+
+    .journal-hero h1 {
+      max-width: none;
+    }
+  }
+</style>
