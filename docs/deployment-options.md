@@ -1,9 +1,20 @@
 # Field Journal — Deployment Options & Runbook
 
-> **Status:** Decision document (research only — no configuration applied)
+> **Status:** Decision document with a current-state addendum. No custom domain or production-branch change is authorized by this document.
 > **Target repo:** `hearthandcode/hearthandcode-field-journal`
 > **Target domain:** `blog.hearthandcode.dev` (subdomain under existing `hearthandcode.dev` zone)
 > **Project:** Astro 7 static site, `npm run build` → `dist/`
+
+---
+
+## Current validated state (2026-07-16)
+
+- The Git-integrated Cloudflare Pages project `hearthandcode-field-journal` already exists.
+- The current review preview is served from `review/journal-voice-and-entry-links`.
+- The Pages project's production deployment is still sourced from `preview/field-journal-initial`.
+- `blog.hearthandcode.dev` is not yet bound and does not currently resolve from this environment.
+
+The project-creation instruction below is retained as the original runbook reference. The next real Journal release decision is to nominate and review a production branch, then bind the custom domain through the Pages dashboard. Do not treat this addendum as release authorization.
 
 ---
 
