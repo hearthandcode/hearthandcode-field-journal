@@ -1,0 +1,68 @@
+---
+interface Props {
+  title: string;
+  introduction: string;
+  purpose: string;
+  kind: string;
+  method: string;
+  sourceScope: string;
+  authority: string;
+  state: string;
+  visibility: string;
+}
+
+const {
+  title,
+  introduction,
+  purpose,
+  kind,
+  method,
+  sourceScope,
+  authority,
+  state,
+  visibility,
+} = Astro.props;
+---
+
+<figure class="record-card" aria-labelledby="record-card-title">
+  <header class="record-card-header">
+    <p class="record-card-kicker">A return note, in plain view</p>
+    <h3 id="record-card-title">{title}</h3>
+    <p>{introduction}</p>
+  </header>
+
+  <dl class="record-card-fields">
+    <div class="record-card-primary">
+      <dt>What I need it to hold</dt>
+      <dd>{purpose}</dd>
+    </div>
+    <div>
+      <dt>What kind of thing this is</dt>
+      <dd>{kind}</dd>
+    </div>
+    <div>
+      <dt>How I keep it usable</dt>
+      <dd>{method}</dd>
+    </div>
+    <div>
+      <dt>What I allow it to draw from</dt>
+      <dd>{sourceScope}</dd>
+    </div>
+    <div>
+      <dt>Who gets to decide</dt>
+      <dd>{authority}</dd>
+    </div>
+    <div>
+      <dt>Where it stands today</dt>
+      <dd>{state}</dd>
+    </div>
+    <div>
+      <dt>Where it belongs</dt>
+      <dd>{visibility}</dd>
+    </div>
+  </dl>
+
+  <figcaption>
+    This reading note helps me speak about the structure. The YAML below remains the durable, portable record.
+  </figcaption>
+</figure>

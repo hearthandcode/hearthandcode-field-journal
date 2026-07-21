@@ -1,0 +1,38 @@
+---
+interface Props {
+  sources: string[];
+}
+
+const { sources } = Astro.props;
+
+function firstUrl(value: string): string | null {
+  return value.match(/https?:\/\/[^\s)]+/)?.[0] ?? null;
+}
+---
+
+{sources.length > 0 && (
+  <section class="source-trail" aria-labelledby="source-trail-title">
+    <div class="source-trail-heading">
+      <p class="source-trail-kicker">Provenance trail</p>
+      <h2 id="source-trail-title">Sources named for this record</h2>
+      <p>
+        These references explain what the article builds from. A named internal artifact is
+        a neutral disclosure, not a route into a private workspace.
+      </p>
+    </div>
+    <ol class="source-trail-list">
+      {sources.map((source) => {
+        const url = firstUrl(source);
+        return (
+          <li>
+            {url ? (
+              <a href={url} rel="noreferrer">{source}</a>
+            ) : (
+              <span>{source}</span>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+)}

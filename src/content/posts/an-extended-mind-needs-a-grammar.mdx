@@ -1,0 +1,285 @@
+---
+title: "An Extended Mind Needs a Grammar"
+date: "2026-07-18"
+labels: [evidence, inference, proposal, open-question]
+sources:
+  - "Reviewed internal research artifact: Interaction Block Protocol v0, source-only proposal"
+  - "Reviewed internal research artifact: bounded reader-task presentation-pilot synthesis"
+  - "Reviewed internal research artifact: Cortex and Exocore boundary proposal"
+  - "Reviewed internal research artifact: Research and Evidence Framework for the Knowledge Workbench"
+  - "Reviewed internal research artifact: Research Direction: Governed AI-Augmented Knowledge Work"
+  - "Scott Rallya: approved first-person design-practice draft"
+status: published
+pilot: true
+reviewGate: true
+slug: "an-extended-mind-needs-a-grammar"
+description: "A first-person N=1 field note on returnable AI-assisted work, durable records, bounded context, provenance, and human authority."
+author: "Scott Rallya"
+tags: [field-journal, extended-mind, cognitive-workbench, knowledge-governance, provenance, ai-workflows, exocore, human-agency]
+published_date: "2026-07-21"
+published_order: 1
+reading_time_minutes: 14
+claim_map:
+  - claim: "A source, state, and next question give this researcher a more concrete return point than unlabelled accumulated output."
+    label: evidence
+    source: "First-person field observation with bounded reader-task pilot support; no control condition."
+  - claim: "Visible distinctions help prevent proposals, summaries, and accepted decisions from borrowing one another's authority."
+    label: inference
+    source: "Interpretation of the field observation and reviewed presentation-pilot design constraints."
+  - claim: "A context-preparation request should retain its purpose, allowed sources, exclusions, method, budget, expiry, and human review gate."
+    label: proposal
+    source: "Source-only context.prepare direction; not a released contract."
+  - claim: "Presentation earns its place when it orients a reader around a source, state, and next action without replacing the record."
+    label: evidence
+    source: "Reviewed synthetic reader-task presentation-pilot finding; not representative usability research."
+  - claim: "The practices described here may create correction load or fail to transfer beyond one situated practice."
+    label: open-question
+    source: "N=1 boundary requiring repeated tasks, documented failures, and future consent-governed evaluation."
+---
+
+import FieldStudyFrame from '../../components/FieldStudyFrame.astro';
+import EipoCallout from '../../components/EipoCallout.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import GovernedFlow from '../../components/GovernedFlow.astro';
+
+AI has made it easier for me to create a lot of useful things. A research note. A design sketch. A review packet. A task brief. A few plausible next actions. The trouble starts when I return after a pause and there are several projects moving at once, several agent-assisted work streams producing new files, and a growing set of threads that may connect back to one idea or may simply be sitting beside each other waiting for a connection I have not made yet.
+
+I have been feeling that pressure lately while trying to hold multiple projects at once. Obsidian helps. The folders, links, and notes give me somewhere to put the work. They do not always show me which thread matters now, which decision is current, what an agent prepared rather than what I accepted, or how the small projects are meant to cohere into one larger direction. The amount of output has gone up faster than my ability to return to it.
+
+I can usually find a file if I remember its name, and I can often find a note if I remember the phrase I used when writing it, but returning to work asks for more than retrieval because I need to recover the reason the work existed, the source that made the current direction seem sensible, the unresolved question that may have been hidden by a polished draft, and the next action that lets me continue without reopening every adjacent project simply to reconstruct the room I was standing in before I left.
+
+That is the practical meaning of an extended mind for me. I am building a workbench where records, sources, plans, and AI-assisted transformations can remain available when I need them, with enough structure to support a return without asking me to reconstruct the whole situation from scratch. The workbench has to help me grok the work rather than make a confident-looking answer appear in front of me.
+
+A grammar is part of that workbench. It gives the records a few distinctions that survive the interface.
+
+> **A grammar, here, is a small set of visible distinctions that survives the interface.** It lets me see what came from a source, what remains a proposal, what a person decided, and what a tool only prepared for review.
+
+The point is modest. A grammar does not solve the hard parts of knowledge work. It gives those hard parts somewhere visible to live.
+
+<FieldStudyFrame
+  title="How I am reading my own practice"
+  framing="I am putting the method on the table early because I want you to see what I am actually observing, what I am interpreting, and where this page stops before the technical detail starts to look more settled than it is."
+  unit="One researcher-builder: me, returning to AI-assisted research and design work after interruption."
+  inquiry="When I come back after a pause, what helps me recover a source, a state, an open question, and one next action without mistaking accumulated output for understanding?"
+  methods={[
+    'I keep a longitudinal first-person account of agency, authorship, continuity, cognitive load, and failure.',
+    'I inspect source trails, review gates, exclusions, and recovery paths in the records themselves.',
+    'I use public-safe record and presentation experiments to give the questions something concrete to push against.',
+  ]}
+  authoritativeSources={[
+    'Research and Evidence Framework for the Knowledge Workbench',
+    'Research Direction: Governed AI-Augmented Knowledge Work',
+    'Hearth & Code Interaction Block Protocol v0, source-only proposal',
+  ]}
+  nonClaims={[
+    'A controlled trial, clinical result, or product evaluation.',
+    'A causal claim about this system or a result that applies to all knowledge workers.',
+    'A released HCC grammar, context contract, or Exocore capability.',
+  ]}
+/>
+
+## Start with the return, not the dashboard
+
+If I were walking someone through this at a whiteboard, I would start with the return rather than the dashboard. I open a document after a week away. The title still looks familiar. The text may even be good. Yet the important questions arrive before the first paragraph ends.
+
+Where did this come from? Is the conclusion supported or merely plausible? Did someone decide this, or is it still an option? What changed since I last looked? What do I do next?
+
+A useful system should make those questions cheap for me to answer. I do not need a giant ontology or a full product redesign before I can begin. I need a small record that keeps a few things together: a stable identifier, a kind of question or artifact, an answer state, a source, and a next action.
+
+That sounds almost too basic to deserve architecture language, except the same small distinctions become important whenever several people, documents, or AI assistants touch the same work, because a record that retains its source and current state can be inspected by a colleague, a future reader, or an agent without asking any of them to treat the most fluent paragraph as the whole story, and because an explicit next action makes the difference between a folder that merely stores history and a workbench that helps someone re-enter it.
+
+One source-only experiment in my work is called the Hearth & Code Interaction Block Protocol. When I explain it, I start with its deliberately plain rule:
+
+> “The code block is the durable record.”
+>
+> *Hearth & Code Interaction Block Protocol v0, source-only proposal*
+
+That sentence tells me where I want the meaning to live. A form, dashboard, or plugin may make a record easier to read or answer. I still need the record to remain understandable when the visual layer goes away.
+
+Here is the small shape I keep in mind when I am designing for a return. It is a contract sketch, not an active form or a command for a model.
+
+<RecordCard
+  title="The question I want waiting for me"
+  introduction="When I come back cold, I do not need a miniature dashboard. I need to see one honest question, where it came from, and whether anyone has actually answered it."
+  purpose="The exact question I need to see before I can pick the work back up."
+  kind="An open question, still open."
+  method="I keep an explicit response state, a correction note, and named source references together."
+  sourceScope="I start with the current project record instead of treating an ambient archive or a prior session as automatic context."
+  authority="I review, correct, and accept any response before it becomes part of the record."
+  state="It is unanswered for now. That is useful information, not an empty space to hide."
+  visibility="I keep this kind of working note private by default. This page uses a safe illustrative shape only."
+/>
+
+```yaml
+version: "0.1"
+id: return-to-work-question
+kind: open_question
+prompt: "What do I need to see before I can resume this work?"
+response:
+  value: null
+  state: unanswered
+  note: null
+source_refs:
+  - "current project record"
+visibility: private
+```
+
+When I put the YAML after the note, I am showing the part that has to survive the presentation. An empty answer remains an explicit unanswered state. A `note` can carry a correction or disagreement. The question has a stable name. The source does not disappear behind a polished interface. Those small distinctions give a future reader something to work with, including the future version of me who has lost the thread.
+
+<EipoCallout
+  type="evidence"
+  title="Returnability in my practice"
+  basis="I keep encountering this when I return to my own research and design records, with bounded reader-task presentation pilots giving the observation a little more shape."
+  limit="I have not measured this against a control condition or shown that the same arrangement reduces effort for another person."
+>
+  <p>
+    In my own work, a record that keeps the source, current state, and next question together gives me a more concrete place to restart than an unlabelled folder of polished output.
+  </p>
+</EipoCallout>
+
+## Keep evidence, proposals, and decisions apart
+
+AI makes this distinction matter more to me because fluent text can arrive before judgment does. A model can summarize a document, compare choices, find contradictions, or draft a plan. I can find that work genuinely helpful. I still need it to have a visible state.
+
+I have been trying to keep three states separate in my own records:
+
+- **Evidence** is something I can point to and inspect.
+- **Proposal** is a possible direction that still needs review.
+- **Decision** is a direction that a person has actually accepted and can be held accountable for.
+
+This sounds small until an AI workflow starts producing several documents in a day. I can mistake a proposal for something finished. I can misread a source. I can look at a review note and forget that nobody has made a decision yet. The trouble is not that I forgot how to think. The trouble is that the system made several different kinds of thing look too similar.
+
+When I say provenance, I mean a readable answer to a simple question: where did this result come from? I want a trail that includes the source, the method used to work with it, the parts excluded from the result, and the person who accepted or corrected the outcome. That is how the interesting work stays inspectable once the conversation that produced it is gone.
+
+<EipoCallout
+  type="inference"
+  title="Visible distinctions protect judgment"
+  basis="The ambiguity I have encountered when agent-assisted work produces several plausible artifacts quickly, along with the reader-task emphasis on stable field order and source links."
+  limit="This is a design interpretation. It is not evidence that labels alone prevent error, drift, or misplaced trust."
+>
+  <p>
+    I infer that visible distinctions make it harder for a proposal, a source summary, and a human decision to borrow one another's authority. That does not remove the need for judgment. It gives judgment a place to remain visible.
+  </p>
+</EipoCallout>
+
+## Give every AI request a boundary
+
+The technical direction I keep returning to is a proposed contract called `context.prepare`. The name is less important than the habit I want it to make possible. Before I hand an agent or model a pile of material, I want the request to say what work I am doing and what material is allowed to enter.
+
+A bounded request needs at least four questions answered:
+
+1. **Purpose:** What question or task is this context meant to support?
+2. **Source scope:** Which records or collections are allowed in, and which are out?
+3. **Method and budget:** How should the system look, and how much material may it use?
+4. **Expiry:** When should this prepared context be rebuilt or reviewed instead of quietly persisting?
+
+Those fields give me a useful pause before the model sees anything: I have to say what I am trying to do, I have to say which material belongs to that task, I have to accept a limit on how much can enter, and I have to leave a point at which the context becomes stale enough to deserve another look, which is a much healthier starting point than treating every accumulated note as if it automatically belongs to every new question.
+
+I call the evidence service Cortex and the workbench layer Exocore. Cortex may prepare cited candidates. Exocore would hold the active work item, the visible review route, and the final decision about what actually enters a context package. Those names belong to my project. The boundary is the part I want to make useful beyond it.
+
+> “No database is the “brain” of the system. Useful intelligence comes from a human-governed sequence of evidence selection, policy checks, explicit context construction, bounded execution, and visible review.”
+>
+> *Exocore Cortex and Platform Integration Boundary and Contract Route, source-only proposal*
+
+<GovernedFlow
+  title="The handoff I want to be able to inspect"
+  introduction="When I say that human authority should stay visible, I mean this actual sequence. The system may prepare bounded material, but I do not want it to quietly become the authority that accepts the result."
+  steps={[
+    {
+      stage: 'I name the work',
+      action: 'I start by naming the question, task, or decision that needs support.',
+      actor: 'person',
+    },
+    {
+      stage: 'Gather only allowed sources',
+      action: 'The system follows an explicit source scope and keeps excluded material out.',
+      actor: 'system',
+    },
+    {
+      stage: 'Prepare cited candidates',
+      action: 'The system records sources, transformations, limits, and exclusions for review.',
+      actor: 'system',
+    },
+    {
+      stage: 'Propose bounded work',
+      action: 'An agent may draft or compare a next step from that prepared context.',
+      actor: 'agent',
+    },
+    {
+      stage: 'I review what comes back',
+      action: 'I accept, correct, reject, or defer the candidate.',
+      actor: 'person',
+    },
+    {
+      stage: 'I leave a durable record',
+      action: 'When I accept an outcome, I want it to retain its source, state, authority, and next action.',
+      actor: 'person',
+    },
+  ]}
+/>
+
+I am not trying to make a model less capable. I am trying to make the handoff more legible, so it can help me prepare a next step without becoming the hidden owner of the project.
+
+<EipoCallout
+  type="proposal"
+  title="Context preparation as a governed handoff"
+  basis="The source-only context.prepare direction and the practical need to distinguish material a system may inspect from material it may act on."
+  limit="This is a design direction, not a released contract or a demonstrated protection against every privacy, security, or quality failure."
+>
+  <p>
+    I want every request for AI-assisted context to leave a readable record of purpose, allowed sources, exclusions, method, budget, expiry, and the person who reviews what enters the next step.
+  </p>
+</EipoCallout>
+
+## Make the small metadata earn its place
+
+When I talk about small metadata, I am not describing a compliance system. I want every field to earn its place because I do not want every note to become a form. I do want the fields that help me return to work to be visible before I have to reconstruct the situation from memory.
+
+For a small work record, I keep returning to a few questions: What is this? What is its current state? Where did it come from? What needs to happen next? Those are not the only fields a project may need. They are a useful beginning because they support both an individual note and a group of related records.
+
+Small metadata also gives a team a way to talk about disagreement without flattening it. A record can carry a source alongside a claim. A proposal can remain a proposal. A review note can say why someone disagreed. An AI assistant can present a candidate without quietly changing a durable decision. The labels do not remove judgment. They make room for judgment to remain visible.
+
+I have run a few small reader-task pilots around this idea. The useful parts were not one preferred dashboard or a universal card layout. Across the bounded exercises, readers needed a plain Markdown fallback, grouped structure, source links, a short summary, stable field order, and one clear next action. That is a limited result. It gives me a practical design direction without pretending the interface question has been solved.
+
+<EipoCallout
+  type="evidence"
+  title="The reading layer has a job to do"
+  basis="Reviewed synthetic reader-task exercises across multiple presentation forms."
+  limit="Those exercises were not usability research with representative participants and do not identify a universal interface or preferred card layout."
+>
+  <p>
+    The bounded reader-task pilots gave me a design constraint I can use: presentation earns its place when it helps a reader orient around a source, a state, and one next action without replacing the underlying record.
+  </p>
+</EipoCallout>
+
+The broader lesson for me is that a view should earn its place by helping someone orient around a real task, while the underlying record keeps enough of its meaning to travel when the preferred view changes, because I do not want the next useful card grid or dashboard to become another place where my work looks temporarily coherent and then becomes difficult to recover once the plugin, layout, or particular session that made it legible has moved on.
+
+## Build from personal practice, then test the boundary
+
+I am starting with the kinds of problems I actually have. I want a place where I can hold a few active threads, see how a side project relates to a larger vision, and return after interruption without treating every prior conversation as lost context. That personal starting point is a source of design pressure, not proof that the same workbench will fit everyone else.
+
+The real question is whether the small practices travel. Would a colleague find it useful to distinguish a source from a proposal? Would a project handoff improve if the next action and open question were visible? Would a model-assisted summary become easier to trust if its source scope and exclusions were readable? I think those are worthwhile questions. They need evidence from more people and more settings than my own work can provide.
+
+<EipoCallout
+  type="open-question"
+  title="What would travel beyond this workbench?"
+  basis="A live question generated by the limits of one situated research and design practice."
+  limit="Until further study, the public contribution is a thick account and a set of testable design questions, not a general efficacy claim."
+>
+  <p>
+    I do not yet know which of these practices will transfer beyond my own work, which will create unwanted correction load, or which will feel like useful support rather than another administrative layer.
+  </p>
+  <p>
+    <strong>What would change this:</strong> repeated task classes, explicit baselines, documented failures, and consent-governed evaluation with other people and contexts.
+  </p>
+</EipoCallout>
+
+The hearth and forge language in Hearth & Code is meant to keep that relationship honest. The hearth is the record I can return to. The forge is the place where a draft, question, or plan gets shaped. I remain the person responsible for deciding what belongs there. AI can be a second pair of hands, useful for sorting, comparison, and rough drafting, while the work still needs someone to ask whether it is true and whether it is mine to keep.
+
+## A question to take back to work
+
+How has your own personal knowledge-management practice influenced the way you approach knowledge work in your workplace?
+
+I am interested in the answer because tools often arrive as if everyone begins from the same workflow. They do not. Some people need a clearer handoff. Some need a source trail. Some need a smaller active surface. Some may find that a system I am building for myself does not help them at all. That answer matters as much as the next feature idea.
+
+For now, the test is simple. When I come back after a pause, can I find the source, the state, the open question, and the next small action without mistaking accumulated output for understanding?

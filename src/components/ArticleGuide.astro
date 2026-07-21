@@ -1,0 +1,38 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const visibleHeadings = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+---
+
+<section class="article-guide" aria-label="Field note navigation">
+  {visibleHeadings.length > 1 && (
+    <nav class="article-guide-section article-contents" aria-labelledby="article-guide-title">
+      <p class="article-guide-kicker">Field-note map</p>
+      <h2 id="article-guide-title">On this page</h2>
+      <ol>
+        {visibleHeadings.map((heading) => (
+          <li class={`article-contents-depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+
+  <details class="article-boundary">
+    <summary>What this reading layer does not change</summary>
+    <p>
+      Presentation can help a reader find their way through a record. It does not replace
+      the source, settle an open question, or turn a proposal into an accepted decision.
+    </p>
+  </details>
+</section>

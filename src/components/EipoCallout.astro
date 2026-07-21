@@ -1,0 +1,66 @@
+---
+type ClaimType = 'evidence' | 'inference' | 'proposal' | 'open-question';
+
+interface Props {
+  type: ClaimType;
+  title: string;
+  basis: string;
+  limit: string;
+}
+
+const { type, title, basis, limit } = Astro.props;
+
+const typeMeta: Record<ClaimType, { letter: string; label: string; basisLabel: string; limitLabel: string }> = {
+  evidence: {
+    letter: 'E',
+    label: 'Evidence',
+    basisLabel: 'What I saw',
+    limitLabel: 'What I have not shown',
+  },
+  inference: {
+    letter: 'I',
+    label: 'Inference',
+    basisLabel: 'What I am drawing from',
+    limitLabel: 'Where this stops',
+  },
+  proposal: {
+    letter: 'P',
+    label: 'Proposal',
+    basisLabel: 'What I am building from',
+    limitLabel: 'What this is not yet',
+  },
+  'open-question': {
+    letter: 'O',
+    label: 'Open question',
+    basisLabel: 'What I am carrying forward',
+    limitLabel: 'Where this stops',
+  },
+};
+
+const meta = typeMeta[type];
+---
+
+<aside class={`eipo-callout eipo-callout-${type}`} aria-labelledby={`eipo-${type}-${title.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}`}>
+  <header class="eipo-callout-header">
+    <span class="eipo-callout-mark" aria-hidden="true">{meta.letter}</span>
+    <div>
+      <p class="eipo-callout-kicker">{meta.label}</p>
+      <h3 id={`eipo-${type}-${title.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}`}>{title}</h3>
+    </div>
+  </header>
+
+  <div class="eipo-callout-claim">
+    <slot />
+  </div>
+
+  <dl class="eipo-callout-meta">
+    <div>
+      <dt>{meta.basisLabel}</dt>
+      <dd>{basis}</dd>
+    </div>
+    <div>
+      <dt>{meta.limitLabel}</dt>
+      <dd>{limit}</dd>
+    </div>
+  </dl>
+</aside>

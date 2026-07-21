@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  framing: string;
+  unit: string;
+  inquiry: string;
+  methods: string[];
+  authoritativeSources: string[];
+  nonClaims: string[];
+}
+
+const {
+  title,
+  framing,
+  unit,
+  inquiry,
+  methods = [],
+  authoritativeSources = [],
+  nonClaims = [],
+} = Astro.props;
+---
+
+<section class="field-study-frame" aria-labelledby="field-study-title">
+  <header class="field-study-frame-header">
+    <p class="field-study-frame-kicker">Method boundary</p>
+    <h2 id="field-study-title">{title}</h2>
+    <p>{framing}</p>
+  </header>
+
+  <dl class="field-study-frame-details">
+    <div>
+      <dt>What I am looking at</dt>
+      <dd>{unit}</dd>
+    </div>
+    <div>
+      <dt>Question I am carrying</dt>
+      <dd>{inquiry}</dd>
+    </div>
+    <div>
+      <dt>How I am looking</dt>
+      <dd>
+        <ul>
+          {methods.map((method) => <li>{method}</li>)}
+        </ul>
+      </dd>
+    </div>
+    <div>
+      <dt>Work I am drawing on</dt>
+      <dd>
+        <ul>
+          {authoritativeSources.map((source) => <li>{source}</li>)}
+        </ul>
+      </dd>
+    </div>
+  </dl>
+
+  <aside class="field-study-frame-limit" aria-label="Study boundary">
+    <strong>What this page cannot tell you</strong>
+    <ul>
+      {nonClaims.map((nonClaim) => <li>{nonClaim}</li>)}
+    </ul>
+  </aside>
+</section>

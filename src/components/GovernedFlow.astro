@@ -1,0 +1,43 @@
+---
+type Actor = 'person' | 'system' | 'agent';
+
+interface FlowStep {
+  stage: string;
+  action: string;
+  actor: Actor;
+}
+
+interface Props {
+  title: string;
+  introduction: string;
+  steps: FlowStep[];
+}
+
+const { title, introduction, steps } = Astro.props;
+---
+
+<figure class="governed-flow" aria-labelledby="governed-flow-title">
+  <figcaption>
+    <p class="governed-flow-kicker">Governed context route</p>
+    <h2 id="governed-flow-title">{title}</h2>
+    <p>{introduction}</p>
+  </figcaption>
+
+  <ol class="governed-flow-steps">
+    {steps.map((step, index) => (
+      <li class={`governed-flow-step governed-flow-actor-${step.actor}`}>
+        <span class="governed-flow-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <div class="governed-flow-node">
+          <p class="governed-flow-actor">{step.actor}</p>
+          <h3>{step.stage}</h3>
+          <p>{step.action}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <p class="governed-flow-fallback">
+    The route remains an ordered record: person, bounded system work, candidate proposal, human review,
+    then a durable accepted result.
+  </p>
+</figure>

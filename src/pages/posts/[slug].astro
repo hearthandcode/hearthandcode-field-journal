@@ -4,10 +4,16 @@ import PostLayout from '../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
-  const publishedPosts = allPosts.filter(
-    (p) => p.data.status === 'published',
+  // Astro evaluates getStaticPaths in an isolated scope, so the allowlist must live here.
+  const localReviewPostIds = new Set(['an-extended-mind-needs-a-grammar']);
+  const visiblePosts = allPosts.filter(
+    (post) =>
+      post.data.status === 'published' ||
+      (import.meta.env.DEV &&
+        post.data.status === 'review' &&
+        localReviewPostIds.has(post.id)),
   );
-  return publishedPosts.map((post) => ({
+  return visiblePosts.map((post) => ({
     params: { slug: post.id },
     props: { id: post.id },
   }));
@@ -17,15 +23,18 @@ const { id } = Astro.props;
 const post = await getEntry('posts', id);
 if (!post) throw new Error(`Post "${id}" not found`);
 
-// Safety gate: only render MDX body for published posts.
-// Draft and review posts bypass getStaticPaths and get a 404 from Astro,
-// but this guard catches any edge case where a non-published post
-// somehow reaches this component.
-if (post.data.status !== 'published') {
+const isLocalReview =
+  import.meta.env.DEV &&
+  post.data.status === 'review' &&
+  post.id === 'an-extended-mind-needs-a-grammar';
+
+// Safety gate: production renders only published posts. Local development may render the
+// explicit review allowlist so Scott can inspect a visual candidate before a publication decision.
+if (post.data.status !== 'published' && !isLocalReview) {
   return new Response('Not found', { status: 404 });
 }
 
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
 <PostLayout
@@ -33,9 +42,12 @@ const { Content } = await render(post);
   date={post.data.published_date ?? post.data.date}
   description={post.data.description ?? ''}
   tags={post.data.tags ?? []}
+  sources={post.data.sources}
+  headings={headings}
   featuredImage={post.data.featured_image}
   featuredImageAlt={post.data.featured_image_alt}
   readingTimeMinutes={post.data.reading_time_minutes}
+  isLocalReview={isLocalReview}
 >
   <Content />
 </PostLayout>

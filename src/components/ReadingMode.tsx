@@ -322,6 +322,9 @@ export default function ReadingMode() {
 
   return (
     <aside aria-label="Reading preferences" className="reading-mode-panel">
+      <details>
+        <summary>reading controls</summary>
+        <div className="reading-mode-controls">
       {/* ── Font family (select) ── */}
       <div className="rm-control-group">
         <label htmlFor="rm-font-family" className="rm-label">
@@ -423,6 +426,8 @@ export default function ReadingMode() {
           ))}
         </select>
       </div>
+        </div>
+      </details>
     </aside>
   );
 }

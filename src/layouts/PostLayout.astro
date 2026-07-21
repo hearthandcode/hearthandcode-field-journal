@@ -1,16 +1,28 @@
 ---
 import Base from './Base.astro';
+import ArticleGuide from '../components/ArticleGuide.astro';
 import { ReadingModeProvider } from '../components/ReadingMode';
+import SourceTrail from '../components/SourceTrail.astro';
+import '../styles/post-reading-grammar.css';
 import '../styles/reading-mode.css';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   title: string;
   date: string;
   description: string;
   tags: string[];
+  sources: string[];
+  headings: Heading[];
   featuredImage?: string;
   featuredImageAlt?: string;
   readingTimeMinutes?: number;
+  isLocalReview?: boolean;
 }
 
 const {
@@ -18,9 +30,12 @@ const {
   date,
   description,
   tags = [],
+  sources = [],
+  headings = [],
   featuredImage,
   featuredImageAlt,
   readingTimeMinutes,
+  isLocalReview = false,
 } = Astro.props;
 
 const displayDate = new Date(date + 'T00:00:00');
@@ -54,6 +69,15 @@ const displayDate = new Date(date + 'T00:00:00');
         </dl>
       </header>
 
+      {isLocalReview && (
+        <p class="post-preview-notice" role="status">
+          Local visual review only. This draft is excluded from production builds and has not
+          been published.
+        </p>
+      )}
+
+      <ArticleGuide headings={headings} />
+
       {featuredImage && (
         <figure class="post-hero">
           <img
@@ -80,8 +104,12 @@ const displayDate = new Date(date + 'T00:00:00');
         </footer>
       )}
 
-      <nav class="post-nav">
+      <SourceTrail sources={sources} />
+
+      <nav class="post-nav" aria-label="Journal return routes">
         <a href="/">← field journal index</a>
+        <a href="/field/">open the Field Map →</a>
+        <a href="/rss.xml">follow by RSS ↗</a>
       </nav>
     </article>
   </ReadingModeProvider>
@@ -189,9 +217,18 @@ const displayDate = new Date(date + 'T00:00:00');
   }
 
   .post-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
     margin-top: var(--space-2xl);
     padding-top: var(--space-lg);
     border-top: var(--border-thin);
     font-size: var(--fs-sm);
+  }
+
+  .post-nav a {
+    border-bottom: none;
+    color: var(--color-plasma);
+    font-family: var(--font-mono);
   }
 </style>
