@@ -20,14 +20,17 @@ const { immersive = false } = Astro.props;
   </head>
   <body class:list={{ 'is-immersive': immersive }}>
     <header class:list={['site-header', { 'site-header-immersive': immersive }]}>
-      <a href="/" class="site-title">hearthandcode<span class="caret">█</span>field-journal</a>
+      <nav class="site-routes" aria-label="Hearth & Code and Field Journal routes">
+        <a href="https://hearthandcode.dev/" class="site-parent-link">hearthandcode.dev <span aria-hidden="true">↗</span></a>
+        <a href="/" class="site-title"><span class="caret" aria-hidden="true">█</span>field-journal</a>
+      </nav>
       <span class="site-tagline">a public research desk log</span>
     </header>
     <main class:list={{ 'main-immersive': immersive }}>
       <slot />
     </main>
     <footer class:list={['site-footer', { 'site-footer-immersive': immersive }]}>
-      <span>Field Journal · <a href="/rss.xml">RSS</a> · <a href="https://github.com/hearthandcode/hearthandcode-field-journal">source</a></span>
+      <span>Field Journal · <a href="https://hearthandcode.dev/">Hearth &amp; Code home ↗</a> · <a href="/rss.xml">RSS</a> · <a href="https://github.com/hearthandcode/hearthandcode-field-journal">source</a></span>
       <span class="footer-note">experimental · no claims · no telemetry</span>
     </footer>
   </body>
@@ -44,26 +47,53 @@ const { immersive = false } = Astro.props;
     border-bottom: var(--border-thin);
   }
 
+  .site-routes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .site-parent-link,
   .site-title {
     font-family: var(--font-mono);
     font-size: var(--fs-sm);
-    color: var(--color-text);
     border-bottom: none;
     letter-spacing: 0.02em;
   }
 
-  .site-title .caret {
+  .site-parent-link {
+    color: var(--color-text-muted);
+  }
+
+  .site-title {
+    color: var(--color-text);
+  }
+
+  .caret {
+    display: inline-block;
+    width: 0.65ch;
+    margin-right: 0.25em;
     color: var(--color-ember);
-    margin: 0 0.25em;
-    animation: blink 1.2s step-end infinite;
+    line-height: 1;
+    animation: cursor-blink 1.2s steps(1, end) infinite;
   }
 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+  @keyframes cursor-blink {
+    0%, 45% { opacity: 1; }
+    46%, 100% { opacity: 0; }
   }
 
-  .site-title:hover {
+  @media (prefers-reduced-motion: reduce) {
+    .caret {
+      animation: none;
+    }
+  }
+
+  .site-parent-link:hover,
+  .site-parent-link:focus-visible,
+  .site-title:hover,
+  .site-title:focus-visible {
     color: var(--color-cream);
   }
 
