@@ -9,6 +9,7 @@ export async function getStaticPaths() {
     'an-extended-mind-needs-a-grammar',
     'a-prompt-is-not-a-voice',
     'prompting-became-procedure-design',
+    'designing-a-genre-as-a-system',
   ]);
   const visiblePosts = allPosts.filter(
     (post) =>
@@ -30,7 +31,7 @@ if (!post) throw new Error(`Post "${id}" not found`);
 const isLocalReview =
   import.meta.env.DEV &&
   post.data.status === 'review' &&
-  ['an-extended-mind-needs-a-grammar', 'a-prompt-is-not-a-voice', 'prompting-became-procedure-design'].includes(post.id);
+  ['an-extended-mind-needs-a-grammar', 'a-prompt-is-not-a-voice', 'prompting-became-procedure-design', 'designing-a-genre-as-a-system'].includes(post.id);
 
 // Safety gate: production renders only published posts. Local development may render the
 // explicit review allowlist so Scott can inspect a visual candidate before a publication decision.

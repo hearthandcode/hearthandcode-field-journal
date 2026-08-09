@@ -1,0 +1,118 @@
+---
+interface Volume {
+  name: string;
+  theme: string;
+  note: string;
+}
+
+interface Props {
+  title: string;
+  introduction: string;
+  volumes: Volume[];
+}
+
+const { title, introduction, volumes } = Astro.props;
+---
+
+<figure class="volume-atlas" aria-labelledby="volume-atlas-title">
+  <figcaption>
+    <h3 id="volume-atlas-title">{title}</h3>
+    <p class="volume-atlas-intro">{introduction}</p>
+  </figcaption>
+  <ol class="volume-atlas-spine" role="list">
+    {
+      volumes.map((v, i) => (
+        <li class="volume-atlas-entry">
+          <span class="volume-atlas-numeral" aria-hidden="true">{["I", "II", "III", "IV", "V", "VI", "VII", "VIII"][i] ?? i + 1}</span>
+          <div class="volume-atlas-card">
+            <p class="volume-atlas-name">{v.name}</p>
+            <p class="volume-atlas-theme">{v.theme}</p>
+            <p class="volume-atlas-note">{v.note}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+
+<style>
+  .volume-atlas {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+  }
+  .volume-atlas figcaption h3 {
+    margin: 0 0 0.35rem;
+    font-size: var(--fs-base);
+  }
+  .volume-atlas-intro {
+    margin: 0 0 1.25rem;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+  .volume-atlas-spine {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .volume-atlas-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 180px;
+    max-width: 220px;
+    position: relative;
+    padding-top: 1.6rem;
+  }
+  .volume-atlas-entry::before {
+    content: "";
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    right: -1rem;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+  .volume-atlas-entry:last-child::before {
+    right: 0;
+  }
+  .volume-atlas-numeral {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: var(--font-ui);
+    font-size: var(--fs-xs);
+    color: var(--accent-ember);
+    background: var(--bg-warm-dark);
+    padding-right: 0.5rem;
+  }
+  .volume-atlas-card {
+    border-left: 2px solid var(--accent-ember);
+    padding-left: 0.75rem;
+  }
+  .volume-atlas-name {
+    margin: 0;
+    font-family: var(--font-ui);
+    font-size: var(--fs-sm);
+    color: var(--color-cream);
+    letter-spacing: 0.03em;
+  }
+  .volume-atlas-theme {
+    margin: 0.3rem 0 0;
+    font-size: var(--fs-sm);
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+  .volume-atlas-note {
+    margin: 0.4rem 0 0;
+    font-size: var(--fs-xs);
+    line-height: var(--lh-body);
+    color: var(--color-text-faint);
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+interface Segment {
+  label: string;
+  chars: number;
+  note: string;
+}
+
+interface Props {
+  title: string;
+  total: number;
+  segments: Segment[];
+}
+
+const { title, total, segments } = Astro.props;
+const used = segments.reduce((sum, s) => sum + s.chars, 0);
+const palette = ["#d47a2a", "#ff6b35", "#978f82"];
+---
+
+<figure class="style-budget" aria-labelledby="style-budget-title">
+  <figcaption>
+    <h3 id="style-budget-title">{title}</h3>
+    <p class="style-budget-total">
+      <span class="style-budget-used">{used}</span>
+      <span class="style-budget-of">of {total} characters</span>
+    </p>
+  </figcaption>
+  <div
+    class="style-budget-bar"
+    role="img"
+    aria-label={`Budget bar: ${segments.map((s) => `${s.label} ${s.chars}`).join(", ")} of ${total} characters`}
+  >
+    {
+      segments.map((s, i) => (
+        <div
+          class="style-budget-segment"
+          style={`width: ${(s.chars / total) * 100}%; background: ${palette[i % palette.length]};`}
+        >
+          <span class="style-budget-segment-label">{s.chars}</span>
+        </div>
+      ))
+    }
+    <div class="style-budget-remainder" style={`width: ${((total - used) / total) * 100}%;`}>
+      <span class="style-budget-segment-label">{total - used}</span>
+    </div>
+  </div>
+  <ul class="style-budget-legend" role="list">
+    {
+      segments.map((s, i) => (
+        <li class="style-budget-legend-item">
+          <span class="style-budget-swatch" style={`background: ${palette[i % palette.length]};`} />
+          <span class="style-budget-legend-label">{s.label}</span>
+          <span class="style-budget-legend-note">{s.note}</span>
+        </li>
+      ))
+    }
+    <li class="style-budget-legend-item">
+      <span class="style-budget-swatch style-budget-swatch-open" />
+      <span class="style-budget-legend-label">Headroom</span>
+      <span class="style-budget-legend-note">unused budget the budget refuses to spend</span>
+    </li>
+  </ul>
+</figure>
+
+<style>
+  .style-budget {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+  }
+  .style-budget figcaption h3 {
+    margin: 0 0 0.35rem;
+    font-size: var(--fs-base);
+  }
+  .style-budget-total {
+    margin: 0 0 1rem;
+    font-family: var(--font-ui);
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+  }
+  .style-budget-used {
+    color: var(--accent-ember);
+    font-weight: 600;
+  }
+  .style-budget-bar {
+    display: flex;
+    height: 2rem;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+  }
+  .style-budget-segment,
+  .style-budget-remainder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+  }
+  .style-budget-remainder {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--surface-raised),
+      var(--surface-raised) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+  .style-budget-segment-label {
+    font-family: var(--font-ui);
+    font-size: var(--fs-xs);
+    color: var(--bg-warm-dark);
+    font-weight: 700;
+  }
+  .style-budget-remainder .style-budget-segment-label {
+    color: var(--color-text-faint);
+  }
+  .style-budget-legend {
+    list-style: none;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .style-budget-legend-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .style-budget-swatch {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 2px;
+    flex-shrink: 0;
+    transform: translateY(0.08rem);
+  }
+  .style-budget-swatch-open {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--surface-raised),
+      var(--surface-raised) 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    border: 1px solid var(--border-subtle);
+  }
+  .style-budget-legend-label {
+    font-family: var(--font-ui);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-cream);
+  }
+  .style-budget-legend-note {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+interface Movement {
+  name: string;
+  tag: string;
+  song: string;
+  journey: string;
+}
+
+interface Props {
+  title: string;
+  introduction: string;
+  movements: Movement[];
+}
+
+const { title, introduction, movements } = Astro.props;
+---
+
+<figure class="movement-arc" aria-labelledby="movement-arc-title">
+  <figcaption>
+    <h3 id="movement-arc-title">{title}</h3>
+    <p class="movement-arc-intro">{introduction}</p>
+  </figcaption>
+  <ol class="movement-arc-track" role="list">
+    {
+      movements.map((m, i) => (
+        <li class="movement-arc-stage">
+          <div class="movement-arc-marker" aria-hidden="true">
+            <span class="movement-arc-number">{i + 1}</span>
+          </div>
+          <div class="movement-arc-body">
+            <p class="movement-arc-name">{m.name}</p>
+            <p class="movement-arc-tag">
+              <code>{m.tag}</code>
+            </p>
+            <dl class="movement-arc-lanes">
+              <div class="movement-arc-lane">
+                <dt>In the song</dt>
+                <dd>{m.song}</dd>
+              </div>
+              <div class="movement-arc-lane">
+                <dt>In the journey</dt>
+                <dd>{m.journey}</dd>
+              </div>
+            </dl>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+
+<style>
+  .movement-arc {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+  }
+  .movement-arc figcaption h3 {
+    margin: 0 0 0.35rem;
+    font-size: var(--fs-base);
+  }
+  .movement-arc-intro {
+    margin: 0 0 1.25rem;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+  .movement-arc-track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    counter-reset: stage;
+  }
+  .movement-arc-stage {
+    position: relative;
+    padding-top: 1.4rem;
+  }
+  .movement-arc-stage::before {
+    content: "";
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    right: -1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-ember), var(--border-subtle));
+  }
+  .movement-arc-stage:last-child::before {
+    right: 0;
+  }
+  .movement-arc-marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--bg-warm-dark);
+    border: 2px solid var(--accent-ember);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .movement-arc-number {
+    font-family: var(--font-ui);
+    font-size: 0.6rem;
+    color: var(--accent-ember);
+  }
+  .movement-arc-name {
+    margin: 0;
+    font-family: var(--font-ui);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-cream);
+  }
+  .movement-arc-tag {
+    margin: 0.25rem 0 0.6rem;
+  }
+  .movement-arc-tag code {
+    font-family: var(--font-ui);
+    font-size: var(--fs-xs);
+    color: var(--accent-plasma);
+    background: var(--surface-raised);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+  }
+  .movement-arc-lanes {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .movement-arc-lane dt {
+    font-family: var(--font-ui);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-faint);
+    margin-bottom: 0.15rem;
+  }
+  .movement-arc-lane dd {
+    margin: 0;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+    color: var(--color-text);
+  }
+</style>
