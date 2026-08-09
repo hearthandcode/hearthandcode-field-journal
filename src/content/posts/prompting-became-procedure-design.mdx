@@ -1,0 +1,148 @@
+---
+title: "Prompting Became Procedure Design"
+date: "2026-08-08"
+labels: [evidence, inference, proposal, open-question]
+sources:
+  - "Internal record: Hearth & Code Hub legislative charter (governance grammar and artifact classes)"
+  - "Internal record: stored goal-prompt library, seventeen dated contracts from one week"
+  - "Internal record: project architecture decision records, nine numbered ADRs"
+  - "Internal record: project consolidation markers (one deprecation, one rescope)"
+  - "Internal record: the answered fifty-three-question shaping workbook for this article"
+  - "Internal record: prompting techniques and agent workflows research brief"
+status: published
+pilot: true
+reviewGate: true
+slug: "prompting-became-procedure-design"
+description: "An N=1 field note on how prompting moved from clever phrasing to procedure design: stored goal-prompt contracts, numbered bounded seams, agent-drafted charters, workbooks, and the contracts that become an intelligence layer."
+author: "Scott Rallya"
+tags: [field-journal, prompting, context-engineering, agent-workflows, governance, exocore, human-agency, build-in-public]
+published_date: "2026-08-08"
+published_order: 3
+reading_time_minutes: 7
+claim_map:
+  - claim: "Prompting did not get less important in this practice; it changed shape from phrasing to procedure design."
+    label: inference
+    source: "First-person field observation of one governed practice over several months; N=1, self-reported."
+  - claim: "Seventeen goal-prompt contracts were stored in one week, most executed in some form."
+    label: evidence
+    source: "Internal artifact listing; an artifact-class claim about stored files, not a productivity claim."
+  - claim: "A contract joins the intelligence layer when it persists across sessions, constrains the next agent without re-prompting, and can be inspected and revised as an object."
+    label: inference
+    source: "Interpretation of the practice; offered as the article's central defensible claim."
+  - claim: "Write one goal as a stored contract with outcome, boundaries, and a stop condition, then review what it caught."
+    label: proposal
+    source: "Suggested smallest honest experiment for readers; not a validated method."
+  - claim: "Whether these principles transfer beyond one practice remains open."
+    label: open-question
+    source: "N=1 boundary; convergence with other practitioners is anecdotal."
+---
+
+import FieldStudyFrame from '../../components/FieldStudyFrame.astro';
+import EipoCallout from '../../components/EipoCallout.astro';
+import GovernedFlow from '../../components/GovernedFlow.astro';
+import TermNote from '../../components/TermNote.astro';
+
+A while back, in a voice chat I was half-listening to, somebody made a claim I have not been able to put down: prompting matters less now that agents can do more work on their own. I did not know the person, and I doubt they meant it as a provocation. But it kept working on me, because my own practice had been moving somewhere I could not yet name. I can name it now. Prompting did not get less important in my work. It changed shape.
+
+The problem that forced the change was not productivity. I work with AI-assisted artifacts constantly: plans, specs, drafts, reviews. Returning to one of those artifacts a week later, the hard part is not its fluency. The hard part is provenance. Which parts came from a source I had approved? Which parts were the model's interpretation? Did that first-person sentence have any basis in something I actually said? A fluent artifact hides those seams, and I underestimated how expensive it is to reconstruct them after the fact.
+
+<FieldStudyFrame
+  title="How I am reading my own practice"
+  framing="First-person field note (N=1)"
+  unit="One practitioner, one governed agent practice, several months"
+  inquiry="What did prompting actually become in this practice, and what is the honest evidence for the change?"
+  methods={["Stored-contract prompting", "Bounded decomposition", "Delegated sub-agents", "Review gates", "Workbook-shaped revision"]}
+  authoritativeSources={["Internal Hub records: goal-prompt library, decision records, consolidation markers", "The answered shaping workbook for this article", "An internal research brief on prompting and agent workflows"]}
+  nonClaims={["Not a benchmark or productivity study", "Not a validated method for other teams", "Not a claim that models are unnecessary"]}
+/>
+
+## The practice, in pieces
+
+So I rebuilt the practice around contracts instead of messages. The pieces, each in short:
+
+**Goal prompts as stored contracts.** A goal prompt in my system names the outcome, the sources to read first, the paths the agent owns, the paths it must not touch, the human gates, the stop conditions, and the definition of done. Some target a single artifact; others coordinate twelve or fifteen waves of work across weeks. They have evolved into real documents: five hundred to fifteen hundred lines, broken into discrete sections an agent can navigate, and I stored seventeen of them in one week this month. Most have been executed in one form or another, which matters; a contract library that never fires is just paperwork.
+
+<TermNote
+  term="Goal prompt"
+  captures="A stored contract for one bounded run: outcome, sources, owned paths, no-touch paths, human gates, stop conditions, definition of done."
+  requestEffect="The agent executes inside the contract instead of interpreting a message."
+  limit="A contract that is too big drifts; a contract never exercised is paperwork."
+/>
+
+**Numbered, bounded seams.** I like large, arbitrary-feeling numbers of bounded seams: prompt an agent to surface twenty-five ideas, or fifty reflection questions, then use that generated corpus as raw material to elaborate, rank, and evolve. The number is not magic; the bound is. A fixed count forces breadth first and judgment second, and gives me a finite surface to react against instead of a blank page.
+
+**Agent-drafted charters.** Increasingly I do not draft the big prompts myself. I hand an agent the goal conditions and the intent, and it drafts the full charter: scope, sources, phases, gates, verification, handoff. I review, amend, and only then execute. The prompt becomes an artifact with a papertrail instead of a conversation I lost, and my attention goes to the contract's correctness rather than its construction.
+
+**Delegated sub-agents with disjoint ownership.** When agents work in parallel, each owns separate paths, hands back evidence, and stops at named boundaries. An orchestrator integrates; the workers never touch the shared checkout.
+
+**Deliberate model routing.** Different models for different phases, with reasoning effort set per provider. Deep reasoning for planning and review; cheaper execution for mechanical phases.
+
+And the newest piece, also the most meta: **workbooks**. A workbook, in my practice, is a generated instrument of roughly fifty targeted questions about a draft: its claims, its exact prose, its structure, its alternatives. This post was shaped by one; I answered fifty-three questions about the first draft, and the revision you are reading exists because of those answers. The instrument critiqued the artifact that describes the instrument. I find that genuinely funny, and also kind of the point.
+
+<TermNote
+  term="Workbook"
+  captures="A generated instrument of roughly fifty targeted questions about a draft: claims, exact prose, structure, alternatives."
+  requestEffect="The author's answers, not the model's guesses, drive the next revision."
+  limit="Answers shape future work only after human disposition; the instrument never answers itself."
+/>
+
+<GovernedFlow
+  title="What one governed run looks like"
+  introduction="The loop every contract-driven run follows, whether it lasts an hour or a month."
+  steps={[
+    { stage: "Intent", action: "Name the outcome and why it matters, in plain language.", actor: "person" },
+    { stage: "Contract", action: "Draft the goal prompt: sources, owned paths, no-touch paths, gates, stop conditions, definition of done.", actor: "agent" },
+    { stage: "Review", action: "Read the contract, amend it, and only then release the run.", actor: "person" },
+    { stage: "Execute", action: "Work inside the contract; stop at any named boundary instead of guessing past it.", actor: "agent" },
+    { stage: "Verify", action: "Run the checks the contract named; record actual results, not presumed ones.", actor: "agent" },
+    { stage: "Receipt", action: "Preserve what happened, what it proved, and what it did not, then decide the next gate.", actor: "person" },
+  ]}
+/>
+
+## The library that grew from the prompts
+
+The part I did not expect: once prompts became files, the files started behaving like a library. My hub has thirteen wings, each with a local charter an agent must read before writing there. It has a governance grammar that defines what kind of thing an artifact is:
+
+| Class | What it means here |
+| --- | --- |
+| Source | the current canonical record |
+| Evidence | a checkable observation |
+| Inference | a conclusion with its assumptions visible |
+| Hypothesis | a testable explanation, never settled fact |
+| Proposal | a candidate action awaiting its gate |
+| Plan | a bounded coordination record |
+| Projection | a derived view that can never replace its source |
+| Receipt | process history with stated limits |
+
+It has decision records; one project carries nine numbered architecture decisions, including a rule that a projection layer never gets write-back authority over its sources. It has consolidation records that let the system say no: this month I deprecated one planned application and re-scoped another, and both decisions survive as first-class records instead of vanishing into a chat scroll. And it has operational charters for the work itself: workflows, skills, agent profiles, and the per-directory charter files that tell an agent how to behave in each room of the library.
+
+## Two failure modes
+
+Two failure modes taught me the shape of the thing. The first is the contract that is too big: early goal prompts tried to specify everything, and the agent would comply with the letter while drifting somewhere I never intended, or I would get bogged down in my own review gates, because the hub still demands manual maintenance I have not automated yet. The skill that emerged is less about preventing drift and more about noticing it and drawing the agent back to the central thread. The second failure is subtler: a procedure that exists but is never exercised. My scar-tissue rules came from real collisions, and I trust them more than the ones I designed in the abstract.
+
+<EipoCallout
+  type="inference"
+  title="Experience, not experiment"
+  basis="One practitioner, one system, a few months, self-reported, with self-report bias disclosed rather than pretended away."
+  limit="An existence proof that this way of working is possible and coherent, not a demonstration that it is optimal, general, or reproducible by the next person who tries it."
+/>
+
+## The claim I want to defend
+
+Which brings me to the claim I actually want to defend. The intelligence layer in my system is not the model. Models are interchangeable; I route between several. The intelligence layer is the accumulated contracts around the model, and I can tell you exactly when a contract joins that layer: when it persists outside any single session, when the next agent can read it and be constrained by it without being re-prompted, and when I can inspect and revise it as an object rather than reconstruct it from memory. A rule you have to repeat is a prompt. A rule the system carries is infrastructure. Charters, decision records, review states, knowledge labels, no-touch boundaries: that is what makes the next session smarter than a fresh start.
+
+## Three objections, met on their feet
+
+I expect three objections, and I want to meet them on their feet. First: prompting really is getting less important, because models keep absorbing procedure. Briefly, yes, the technique will keep evolving and the surface where careful instruction matters will keep shifting; I do not see model evolution replacing human delegation, human judgment about goals, or human review of at least some model output. Second: this is just software engineering. Yes, and I want to celebrate that rather than concede it; contracts, ownership boundaries, and review gates were always good ideas, and agents are the newest place they pay rent. The third is the one I will actually argue with: that the model is the intelligence. That confuses a component with the system. A capable model coupled with a weak representation of your work gives you fluent amnesia. A capable model coupled with a strong representation system, contracts, records, labels, return routes, gives you something closer to emergent institutional intelligence. The intelligence is in the coupling.
+
+## The smallest honest version
+
+If you want to test this yourself, here is the smallest honest version: before your next significant run, write the goal down as a stored contract with the outcome, the boundaries, and the stop condition named; keep it where you can find it next week; and when the run ends, note what the contract caught and what it missed. That is the whole seed. Everything in my system grew from repeating that motion and keeping the receipts.
+
+## Limits, held loosely
+
+I want to be plain about the limits. This is a build-in-public field journal about one person's practice, not a validated method; nothing here comes with productivity deltas or outside validation. Hearth & Code is also a special case in some respects; it grew around how I think. But the principles, centralized routing, structured artifacts, governing grammars in the orchestration layer, are things I hear other practitioners converging on independently, and my working theory is that they transfer to agentic systems generally. Held loosely, like everything here.
+
+So, back to the voice chat. Prompting as clever phrasing is dying, and good riddance; the models outgrew it. Prompting as procedure design is the actual skill, and autonomous agents raise its value, because an agent that does more on its own can also fail at greater scale, with more confidence, further from your attention. The contract is what you build for exactly that case. I will keep reporting what mine catch, and what they cost.
+
+*AI assistance disclosure: AI assisted with research, drafting, and the language-pattern audit of this post. The practice described, the workbook questions and answers, the review judgments, and the posting decision are mine.*

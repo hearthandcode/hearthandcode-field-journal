@@ -1,0 +1,135 @@
+---
+interface Props {
+  term: string;
+  captures: string;
+  requestEffect: string;
+  limit: string;
+}
+
+const { term, captures, requestEffect, limit } = Astro.props;
+const noteKey = `${term}|${captures}|${requestEffect}|${limit}`;
+const noteHash = Array.from(noteKey).reduce((hash, character) => ((hash << 5) - hash + character.charCodeAt(0)) | 0, 0) >>> 0;
+const noteId = `term-note-${noteHash}`;
+---
+
+<span class="term-note">
+  <button class="term-note-trigger" type="button" aria-describedby={noteId}>
+    <span>{term}</span>
+    <span class="term-note-marker" aria-hidden="true">[?]</span>
+  </button>
+
+  <span class="term-note-panel" id={noteId} role="tooltip">
+    <span class="term-note-field">
+      <span class="term-note-label">Captures</span>
+      <span>{captures}</span>
+    </span>
+    <span class="term-note-field">
+      <span class="term-note-label">Potential request effect</span>
+      <span>{requestEffect}</span>
+    </span>
+    <span class="term-note-field">
+      <span class="term-note-label">Does not establish</span>
+      <span>{limit}</span>
+    </span>
+  </span>
+</span>
+
+<script>
+  document.addEventListener('pointerup', (event) => {
+    if (event.pointerType !== 'mouse' || !(event.target instanceof Element)) return;
+
+    const trigger = event.target.closest('.term-note-trigger');
+    if (trigger instanceof HTMLButtonElement) trigger.blur();
+  });
+</script>
+
+<style>
+  .term-note {
+    display: block;
+  }
+
+  .term-note-trigger {
+    display: inline-flex;
+    gap: var(--space-2xs);
+    align-items: baseline;
+    max-width: 100%;
+    padding: 0;
+    color: var(--color-cream);
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-weight: 600;
+    line-height: inherit;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: var(--color-ember-dim);
+    text-decoration-style: dashed;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    cursor: help;
+  }
+
+  .term-note-trigger:hover,
+  .term-note-trigger:focus-visible {
+    color: var(--color-ember);
+    text-decoration-color: currentColor;
+  }
+
+  .term-note-trigger:focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+  }
+
+  .term-note-marker {
+    flex: 0 0 auto;
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    font-weight: 500;
+  }
+
+  .term-note-panel {
+    display: none;
+    gap: var(--space-sm);
+    max-width: 26rem;
+    margin-top: var(--space-sm);
+    padding: var(--space-sm);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-ember-dim);
+    border-left: 3px solid var(--color-ember);
+    background: var(--color-surface);
+    font-size: var(--fs-xs);
+    font-weight: 400;
+    line-height: var(--lh-body);
+  }
+
+  .term-note:hover .term-note-panel,
+  .term-note-trigger:focus-visible + .term-note-panel {
+    display: grid;
+  }
+
+  @media (hover: none) {
+    .term-note-trigger:focus + .term-note-panel {
+      display: grid;
+    }
+  }
+
+  .term-note-field {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .term-note-label {
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 560px) {
+    .term-note-panel {
+      max-width: min(22rem, 72vw);
+    }
+  }
+</style>

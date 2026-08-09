@@ -5,7 +5,11 @@ import PostLayout from '../../layouts/PostLayout.astro';
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
   // Astro evaluates getStaticPaths in an isolated scope, so the allowlist must live here.
-  const localReviewPostIds = new Set(['an-extended-mind-needs-a-grammar']);
+  const localReviewPostIds = new Set([
+    'an-extended-mind-needs-a-grammar',
+    'a-prompt-is-not-a-voice',
+    'prompting-became-procedure-design',
+  ]);
   const visiblePosts = allPosts.filter(
     (post) =>
       post.data.status === 'published' ||
@@ -26,7 +30,7 @@ if (!post) throw new Error(`Post "${id}" not found`);
 const isLocalReview =
   import.meta.env.DEV &&
   post.data.status === 'review' &&
-  post.id === 'an-extended-mind-needs-a-grammar';
+  ['an-extended-mind-needs-a-grammar', 'a-prompt-is-not-a-voice', 'prompting-became-procedure-design'].includes(post.id);
 
 // Safety gate: production renders only published posts. Local development may render the
 // explicit review allowlist so Scott can inspect a visual candidate before a publication decision.
