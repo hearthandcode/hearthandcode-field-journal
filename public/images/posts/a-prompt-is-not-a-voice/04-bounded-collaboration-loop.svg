@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="810" viewBox="0 0 1280 810" role="img" aria-labelledby="title desc">
+  <title id="title">A bounded collaboration loop suggested by the evidence</title>
+  <desc id="desc">A seven-step static flow: orient to source, define question, state constraints, request smallest inspectable artifact, verify, surface trade-offs, retain handoff.</desc>
+  <rect width="100%" height="100%" fill="#fbf8f2"/>
+  <style>
+    .title { font-family: ui-serif, Georgia, Cambria, 'Times New Roman', serif; font-size: 31px; font-weight: 700; fill: #1d2730; }
+    .subtitle { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; fill: #5c6871; }
+    .label { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; fill: #1d2730; }
+    .small { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; fill: #5c6871; }
+    .value { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; font-weight: 700; fill: #1d2730; }
+    .note { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #5c6871; }
+    .flow { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; font-weight: 650; fill: #1d2730; }
+  </style>
+  <text x="42" y="52" class="title">A bounded collaboration loop suggested by the evidence</text>
+  <text x="42" y="79" class="subtitle">A proposed first-person collaboration practice. It is not an outcome model or a universal prescription.</text>
+  <rect x="280" y="120" width="720" height="68" rx="10" fill="#f1ece3" stroke="#3e697e" stroke-width="3"/>
+  <circle cx="316" cy="154" r="18" fill="#3e697e"/>
+  <text x="316" y="160" class="value" text-anchor="middle">1</text>
+  <text x="355" y="161" class="flow">Orient to the allowed source</text>
+  <path d="M 640.0 192 L 640.0 205" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <path d="M 635.0 201 L 640.0 206 L 645.0 201" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <rect x="280" y="209" width="720" height="68" rx="10" fill="#f1ece3" stroke="#6d795b" stroke-width="3"/>
+  <circle cx="316" cy="243" r="18" fill="#6d795b"/>
+  <text x="316" y="249" class="value" text-anchor="middle">2</text>
+  <text x="355" y="250" class="flow">Define one concrete question</text>
+  <path d="M 640.0 281 L 640.0 294" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <path d="M 635.0 290 L 640.0 295 L 645.0 290" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <rect x="280" y="298" width="720" height="68" rx="10" fill="#f1ece3" stroke="#b3862b" stroke-width="3"/>
+  <circle cx="316" cy="332" r="18" fill="#b3862b"/>
+  <text x="316" y="338" class="value" text-anchor="middle">3</text>
+  <text x="355" y="339" class="flow">State constraints and exclusions</text>
+  <path d="M 640.0 370 L 640.0 383" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <path d="M 635.0 379 L 640.0 384 L 645.0 379" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <rect x="280" y="387" width="720" height="68" rx="10" fill="#f1ece3" stroke="#9c513a" stroke-width="3"/>
+  <circle cx="316" cy="421" r="18" fill="#9c513a"/>
+  <text x="316" y="427" class="value" text-anchor="middle">4</text>
+  <text x="355" y="428" class="flow">Request the smallest inspectable artifact</text>
+  <path d="M 640.0 459 L 640.0 472" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <path d="M 635.0 468 L 640.0 473 L 645.0 468" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <rect x="280" y="476" width="720" height="68" rx="10" fill="#f1ece3" stroke="#274856" stroke-width="3"/>
+  <circle cx="316" cy="510" r="18" fill="#274856"/>
+  <text x="316" y="516" class="value" text-anchor="middle">5</text>
+  <text x="355" y="517" class="flow">Verify facts, output, and limits</text>
+  <path d="M 640.0 548 L 640.0 561" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <path d="M 635.0 557 L 640.0 562 L 645.0 557" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <rect x="280" y="565" width="720" height="68" rx="10" fill="#f1ece3" stroke="#6d795b" stroke-width="3"/>
+  <circle cx="316" cy="599" r="18" fill="#6d795b"/>
+  <text x="316" y="605" class="value" text-anchor="middle">6</text>
+  <text x="355" y="606" class="flow">Surface trade-offs and uncertainty</text>
+  <path d="M 640.0 637 L 640.0 650" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <path d="M 635.0 646 L 640.0 651 L 645.0 646" stroke="#5c6871" stroke-width="2" fill="none"/>
+  <rect x="280" y="654" width="720" height="68" rx="10" fill="#f1ece3" stroke="#6e3729" stroke-width="3"/>
+  <circle cx="316" cy="688" r="18" fill="#6e3729"/>
+  <text x="316" y="694" class="value" text-anchor="middle">7</text>
+  <text x="355" y="695" class="flow">Retain a concise handoff</text>
+  <line x1="42" y1="736" x2="1238" y2="736" stroke="#d8d1c5"/>
+  <text x="42" y="752" class="note">First-person design inference grounded in the local method and prompt-pattern guide</text>
+  <text x="42" y="771" class="note">This is a proposed practice, not a tested causal model.</text>
+</svg>

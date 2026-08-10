@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="483" viewBox="0 0 1280 483" role="img" aria-labelledby="title desc">
+  <title id="title">Structural signals in the private prompt register</title>
+  <desc id="desc">Horizontal bar chart of four overlapping structural signals across 1,914 sanitized prompts: first-person 61.8%, multi-domain 49.9%, question-bearing 38.3%, and explicitly structured 25.1%.</desc>
+  <rect width="100%" height="100%" fill="#fbf8f2"/>
+  <style>
+    .title { font-family: ui-serif, Georgia, Cambria, 'Times New Roman', serif; font-size: 31px; font-weight: 700; fill: #1d2730; }
+    .subtitle { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; fill: #5c6871; }
+    .label { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; fill: #1d2730; }
+    .small { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; fill: #5c6871; }
+    .value { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; font-weight: 700; fill: #1d2730; }
+    .note { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #5c6871; }
+    .flow { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; font-weight: 650; fill: #1d2730; }
+  </style>
+  <text x="42" y="52" class="title">Structural signals in the private prompt register</text>
+  <text x="42" y="79" class="subtitle">Rate of prompts with at least one configured signal. Categories overlap.</text>
+  <text x="42" y="132" class="label">First-person prompt</text>
+  <rect x="470" y="117" width="650" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="470" y="117" width="401.700" height="22" rx="11" fill="#9c513a"/>
+  <text x="1160" y="134" class="value" text-anchor="end">61.8%</text>
+  <text x="470" y="160" class="small">1,182 prompts</text>
+  <text x="42" y="194" class="label">Multi-domain prompt</text>
+  <rect x="470" y="179" width="650" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="470" y="179" width="324.350" height="22" rx="11" fill="#3e697e"/>
+  <text x="1160" y="196" class="value" text-anchor="end">49.9%</text>
+  <text x="470" y="222" class="small">956 prompts</text>
+  <text x="42" y="256" class="label">Question-bearing prompt</text>
+  <rect x="470" y="241" width="650" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="470" y="241" width="248.950" height="22" rx="11" fill="#6d795b"/>
+  <text x="1160" y="258" class="value" text-anchor="end">38.3%</text>
+  <text x="470" y="284" class="small">734 prompts</text>
+  <text x="42" y="318" class="label">Explicitly structured prompt</text>
+  <rect x="470" y="303" width="650" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="470" y="303" width="163.150" height="22" rx="11" fill="#b3862b"/>
+  <text x="1160" y="320" class="value" text-anchor="end">25.1%</text>
+  <text x="470" y="346" class="small">480 prompts</text>
+  <line x1="42" y1="419" x2="1238" y2="419" stroke="#d8d1c5"/>
+  <text x="42" y="435" class="note">Reviewed internal research artifact: de-identified local prompting-pattern analysis</text>
+  <text x="42" y="454" class="note">Signals are overlapping rule-based recurrence measures, not a profile or quality score.</text>
+</svg>

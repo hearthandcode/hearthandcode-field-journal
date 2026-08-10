@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="685" viewBox="0 0 1360 685" role="img" aria-labelledby="title desc">
+<title id="title">How permitted prompts open and frame requests</title>
+<desc id="desc">Horizontal bar chart comparing terminal questions at 39.2 percent, wh-question openings at 3.4 percent, modal request openings at 13.7 percent, direct-imperative proxies at 55.1 percent, declarative-context openings at 2.8 percent, and mixed request forms at 16.2 percent.</desc>
+<style>
+.title{font:700 31px Georgia,serif;fill:#1D2730}.subtitle{font:400 16px system-ui,sans-serif;fill:#66717A}.label{font:600 16px system-ui,sans-serif;fill:#1D2730}.value{font:700 16px system-ui,sans-serif;fill:#1D2730}.small{font:400 14px system-ui,sans-serif;fill:#66717A}.micro{font:600 12px system-ui,sans-serif;fill:#66717A;letter-spacing:.08em;text-transform:uppercase}.note{font:400 13px system-ui,sans-serif;fill:#66717A}
+</style>
+<rect width="1360" height="685" fill="#FEFCF8" rx="18"/>
+<text x="48" y="58" class="title">How permitted prompts open and frame requests</text>
+<text x="48" y="86" class="subtitle">Surface request forms across the strict-policy permitted register.</text>
+<text x="48" y="122" class="micro">Prompt rate</text>
+<line x1="448" y1="132" x2="1208" y2="132" stroke="#C9C2B8"/>
+<text x="1218" y="137" class="small">0% to 100%</text>
+<text x="48" y="170" class="label">Terminal question</text>
+<rect x="448" y="148" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="148" width="297.92" height="24" fill="#426A81" rx="12"/>
+<text x="1222" y="169" class="value">39.2%</text>
+<text x="48" y="232" class="label">Wh-question opening</text>
+<rect x="448" y="210" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="210" width="25.84" height="24" fill="#667B6E" rx="12"/>
+<text x="1222" y="231" class="value">3.4%</text>
+<text x="48" y="294" class="label">Modal request opening</text>
+<rect x="448" y="272" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="272" width="104.12" height="24" fill="#B88742" rx="12"/>
+<text x="1222" y="293" class="value">13.7%</text>
+<text x="48" y="356" class="label">Direct-imperative proxy</text>
+<rect x="448" y="334" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="334" width="418.46" height="24" fill="#786B8A" rx="12"/>
+<text x="1222" y="355" class="value">55.1%</text>
+<text x="48" y="418" class="label">Declarative-context opening</text>
+<rect x="448" y="396" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="396" width="21.58" height="24" fill="#A95E56" rx="12"/>
+<text x="1222" y="417" class="value">2.8%</text>
+<text x="48" y="480" class="label">Mixed request form</text>
+<rect x="448" y="458" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="458" width="122.89" height="24" fill="#426A81" rx="12"/>
+<text x="1222" y="479" class="value">16.2%</text>
+<line x1="48" y1="539" x2="1312" y2="539" stroke="#D7D2C8"/>
+<text x="48" y="563" class="micro">Source treatment</text>
+<text x="48" y="585" class="small">Private local aggregate. n = 1620 policy-permitted prompts from 556 represented sessions. Categories overlap.</text>
+<text x="48" y="609" class="note">Limitation: Prompt forms overlap. This chart describes form, not tone, intent, or efficacy.</text>
+</svg>

@@ -1,0 +1,145 @@
+---
+interface Props {
+  title: string;
+  summary?: string;
+  note?: string;
+}
+
+const { title, summary, note } = Astro.props;
+const titleId = `evidence-table-${title.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+---
+
+<figure class="evidence-table" aria-labelledby={titleId}>
+  <figcaption class="evidence-table-caption">
+    <p class="evidence-table-kicker">Evidence table</p>
+    <p class="evidence-table-title" id={titleId}>{title}</p>
+    {summary && <p class="evidence-table-summary">{summary}</p>}
+  </figcaption>
+
+  <div class="evidence-table-scroll" tabindex="0" aria-label={`${title}. Scroll horizontally on narrow screens to read all columns.`}>
+    <slot />
+  </div>
+
+  {note && <p class="evidence-table-note">{note}</p>}
+</figure>
+
+<style>
+  .evidence-table {
+    margin: var(--space-lg) 0 var(--space-xl);
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+
+  .evidence-table-caption {
+    padding: var(--space-md) var(--space-md) var(--space-sm);
+    border-bottom: var(--border-thin);
+    background: var(--color-surface-raised);
+  }
+
+  .evidence-table-kicker {
+    margin: 0 0 var(--space-2xs);
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .evidence-table-title {
+    margin: 0;
+    color: var(--color-cream);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    line-height: var(--lh-tight);
+  }
+
+  .evidence-table-summary {
+    margin: var(--space-xs) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-xs);
+    line-height: var(--lh-body);
+  }
+
+  .evidence-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-color: var(--color-ember-dim) var(--color-surface);
+    scrollbar-width: thin;
+  }
+
+  .evidence-table-scroll:focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: -2px;
+  }
+
+  .evidence-table-scroll :global(table) {
+    width: 100%;
+    min-width: 42rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--fs-xs);
+    line-height: var(--lh-body);
+  }
+
+  .evidence-table-scroll :global(th),
+  .evidence-table-scroll :global(td) {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .evidence-table-scroll :global(th) {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    color: var(--color-cream);
+    background: var(--color-surface-raised);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .evidence-table-scroll :global(tbody tr:nth-child(even)) {
+    background: var(--color-surface-raised);
+  }
+
+  .evidence-table-scroll :global(tbody tr:last-child td) {
+    border-bottom: 0;
+  }
+
+  .evidence-table-scroll :global(th:first-child),
+  .evidence-table-scroll :global(td:first-child) {
+    min-width: 12rem;
+  }
+
+  .evidence-table-scroll :global(th[style*='text-align: right']),
+  .evidence-table-scroll :global(td[style*='text-align: right']),
+  .evidence-table-scroll :global(th[align='right']),
+  .evidence-table-scroll :global(td[align='right']) {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .evidence-table-note {
+    margin: 0;
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-text-muted);
+    border-top: var(--border-thin);
+    font-size: var(--fs-xs);
+    line-height: var(--lh-body);
+  }
+
+  @media (max-width: 560px) {
+    .evidence-table-scroll :global(table) {
+      min-width: 36rem;
+    }
+
+    .evidence-table-scroll :global(th),
+    .evidence-table-scroll :global(td) {
+      padding: var(--space-sm);
+    }
+  }
+</style>

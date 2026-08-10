@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="933" viewBox="0 0 1360 933" role="img" aria-labelledby="title desc">
+<title id="title">The recurring components of a bounded delegation request</title>
+<desc id="desc">Horizontal bar chart showing direct agent address, delegation action, constraint setting, conditional statement, sequencing, artifact target, verification, provenance, acceptance condition, and handoff rates.</desc>
+<style>
+.title{font:700 31px Georgia,serif;fill:#1D2730}.subtitle{font:400 16px system-ui,sans-serif;fill:#66717A}.label{font:600 16px system-ui,sans-serif;fill:#1D2730}.value{font:700 16px system-ui,sans-serif;fill:#1D2730}.small{font:400 14px system-ui,sans-serif;fill:#66717A}.micro{font:600 12px system-ui,sans-serif;fill:#66717A;letter-spacing:.08em;text-transform:uppercase}.note{font:400 13px system-ui,sans-serif;fill:#66717A}
+</style>
+<rect width="1360" height="933" fill="#FEFCF8" rx="18"/>
+<text x="48" y="58" class="title">The recurring components of a bounded delegation request</text>
+<text x="48" y="86" class="subtitle">Selected task-shaping constructs. Vocabulary recurrence is not task-success evidence.</text>
+<text x="48" y="122" class="micro">Prompt rate</text>
+<line x1="448" y1="132" x2="1208" y2="132" stroke="#C9C2B8"/>
+<text x="1218" y="137" class="small">0% to 100%</text>
+<text x="48" y="170" class="label">Direct agent address</text>
+<rect x="448" y="148" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="148" width="491.19" height="24" fill="#426A81" rx="12"/>
+<text x="1222" y="169" class="value">64.6%</text>
+<text x="48" y="232" class="label">Delegation action</text>
+<rect x="448" y="210" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="210" width="479.48" height="24" fill="#667B6E" rx="12"/>
+<text x="1222" y="231" class="value">63.1%</text>
+<text x="48" y="294" class="label">Constraint setting</text>
+<rect x="448" y="272" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="272" width="448.02" height="24" fill="#B88742" rx="12"/>
+<text x="1222" y="293" class="value">59.0%</text>
+<text x="48" y="356" class="label">Conditional statement</text>
+<rect x="448" y="334" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="334" width="337.74" height="24" fill="#786B8A" rx="12"/>
+<text x="1222" y="355" class="value">44.4%</text>
+<text x="48" y="418" class="label">Sequencing</text>
+<rect x="448" y="396" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="396" width="332.12" height="24" fill="#A95E56" rx="12"/>
+<text x="1222" y="417" class="value">43.7%</text>
+<text x="48" y="480" class="label">Artifact target</text>
+<rect x="448" y="458" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="458" width="305.44" height="24" fill="#426A81" rx="12"/>
+<text x="1222" y="479" class="value">40.2%</text>
+<text x="48" y="542" class="label">Verification</text>
+<rect x="448" y="520" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="520" width="286.67" height="24" fill="#667B6E" rx="12"/>
+<text x="1222" y="541" class="value">37.7%</text>
+<text x="48" y="604" class="label">Provenance</text>
+<rect x="448" y="582" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="582" width="215.84" height="24" fill="#B88742" rx="12"/>
+<text x="1222" y="603" class="value">28.4%</text>
+<text x="48" y="666" class="label">Acceptance condition</text>
+<rect x="448" y="644" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="644" width="146.38" height="24" fill="#786B8A" rx="12"/>
+<text x="1222" y="665" class="value">19.3%</text>
+<text x="48" y="728" class="label">Handoff</text>
+<rect x="448" y="706" width="760" height="24" fill="#E7F0F4" rx="12"/>
+<rect x="448" y="706" width="64.30" height="24" fill="#A95E56" rx="12"/>
+<text x="1222" y="727" class="value">8.5%</text>
+<line x1="48" y1="787" x2="1312" y2="787" stroke="#D7D2C8"/>
+<text x="48" y="811" class="micro">Source treatment</text>
+<text x="48" y="833" class="small">Private local aggregate. n = 1620 policy-permitted prompts from 556 represented sessions. Categories overlap.</text>
+<text x="48" y="857" class="note">Limitation: Constructs overlap and derive from a declared heuristic inventory.</text>
+</svg>

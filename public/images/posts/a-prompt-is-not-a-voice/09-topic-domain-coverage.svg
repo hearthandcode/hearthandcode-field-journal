@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="933" viewBox="0 0 1280 933" role="img" aria-labelledby="title desc">
+  <title id="title">Topic and domain recurrence in the private prompt register</title>
+  <desc id="desc">Bar chart of the twelve configured domain recurrence rates from 1.8 percent for physics and astronomy to 39.1 percent for applied AI and machine learning.</desc>
+  <rect width="100%" height="100%" fill="#fbf8f2"/>
+  <style>
+    .title { font-family: ui-serif, Georgia, Cambria, 'Times New Roman', serif; font-size: 31px; font-weight: 700; fill: #1d2730; }
+    .subtitle { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; fill: #5c6871; }
+    .label { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; fill: #1d2730; }
+    .small { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; fill: #5c6871; }
+    .value { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; font-weight: 700; fill: #1d2730; }
+    .note { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #5c6871; }
+    .flow { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; font-weight: 650; fill: #1d2730; }
+  </style>
+  <text x="42" y="52" class="title">Topic and domain recurrence in the private prompt register</text>
+  <text x="42" y="79" class="subtitle">Rate of policy-permitted prompts with at least one configured signal. Categories overlap.</text>
+  <text x="42" y="132" class="label">Applied AI and machine learning</text>
+  <rect x="495" y="117" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="117" width="242.234" height="22" rx="11" fill="#3e697e"/>
+  <text x="1170" y="134" class="value" text-anchor="end">39.1%</text>
+  <text x="495" y="160" class="small">633 prompts</text>
+  <text x="42" y="191" class="label">Research methods and reproducibility</text>
+  <rect x="495" y="176" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="176" width="159.588" height="22" rx="11" fill="#6d795b"/>
+  <text x="1170" y="193" class="value" text-anchor="end">25.7%</text>
+  <text x="495" y="219" class="small">417 prompts</text>
+  <text x="42" y="250" class="label">Software architecture and</text>
+  <text x="42" y="267" class="label">infrastructure</text>
+  <rect x="495" y="235" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="235" width="149.668" height="22" rx="11" fill="#9c513a"/>
+  <text x="1170" y="252" class="value" text-anchor="end">24.1%</text>
+  <text x="495" y="278" class="small">391 prompts</text>
+  <text x="42" y="309" class="label">Knowledge engineering and synthesis</text>
+  <rect x="495" y="294" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="294" width="147.374" height="22" rx="11" fill="#b3862b"/>
+  <text x="1170" y="311" class="value" text-anchor="end">23.8%</text>
+  <text x="495" y="337" class="small">385 prompts</text>
+  <text x="42" y="368" class="label">Governance, provenance, and accountable</text>
+  <text x="42" y="385" class="label">systems</text>
+  <rect x="495" y="353" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="353" width="140.864" height="22" rx="11" fill="#3e697e"/>
+  <text x="1170" y="370" class="value" text-anchor="end">22.7%</text>
+  <text x="495" y="396" class="small">368 prompts</text>
+  <text x="42" y="427" class="label">Cognitive science and philosophy of AI</text>
+  <rect x="495" y="412" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="412" width="120.962" height="22" rx="11" fill="#6d795b"/>
+  <text x="1170" y="429" class="value" text-anchor="end">19.5%</text>
+  <text x="495" y="455" class="small">316 prompts</text>
+  <text x="42" y="486" class="label">Education and pedagogy</text>
+  <rect x="495" y="471" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="471" width="71.920" height="22" rx="11" fill="#9c513a"/>
+  <text x="1170" y="488" class="value" text-anchor="end">11.6%</text>
+  <text x="495" y="514" class="small">188 prompts</text>
+  <text x="42" y="545" class="label">Interoperability, interfaces, and</text>
+  <text x="42" y="562" class="label">accessibility</text>
+  <rect x="495" y="530" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="530" width="71.920" height="22" rx="11" fill="#b3862b"/>
+  <text x="1170" y="547" class="value" text-anchor="end">11.6%</text>
+  <text x="495" y="573" class="small">188 prompts</text>
+  <text x="42" y="604" class="label">Public governance and policy</text>
+  <rect x="495" y="589" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="589" width="63.550" height="22" rx="11" fill="#3e697e"/>
+  <text x="1170" y="606" class="value" text-anchor="end">10.2%</text>
+  <text x="495" y="632" class="small">166 prompts</text>
+  <text x="42" y="663" class="label">Computer science and theoretical</text>
+  <text x="42" y="680" class="label">systems</text>
+  <rect x="495" y="648" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="648" width="50.530" height="22" rx="11" fill="#6d795b"/>
+  <text x="1170" y="665" class="value" text-anchor="end">8.2%</text>
+  <text x="495" y="691" class="small">132 prompts</text>
+  <text x="42" y="722" class="label">Privacy, security, and least-privilege</text>
+  <text x="42" y="739" class="label">design</text>
+  <rect x="495" y="707" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="707" width="32.550" height="22" rx="11" fill="#9c513a"/>
+  <text x="1170" y="724" class="value" text-anchor="end">5.2%</text>
+  <text x="495" y="750" class="small">85 prompts</text>
+  <text x="42" y="781" class="label">Physics and astronomy</text>
+  <rect x="495" y="766" width="620" height="22" rx="11" fill="#f1ece3"/>
+  <rect x="495" y="766" width="11.470" height="22" rx="11" fill="#b3862b"/>
+  <text x="1170" y="783" class="value" text-anchor="end">1.8%</text>
+  <text x="495" y="809" class="small">30 prompts</text>
+  <line x1="42" y1="869" x2="1238" y2="869" stroke="#d8d1c5"/>
+  <text x="42" y="885" class="note">Source: strict local topic-and-stance aggregate, 1,620 policy-permitted prompts.</text>
+  <text x="42" y="904" class="note">Configured domain recurrence. Categories overlap and do not establish expertise or identity.</text>
+</svg>
