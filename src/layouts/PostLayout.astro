@@ -180,15 +180,16 @@ const displayDate = new Date(date + 'T00:00:00');
 
   .post-body {
     margin-top: var(--space-xl);
-    line-height: var(--lh-relaxed);
+    font-size: var(--rm-font-size, 1rem);
+    line-height: var(--rm-line-height, 1.65);
   }
 
-  .post-body :global(h2) {
+  .post-body > :global(h2) {
     font-size: var(--fs-lg);
     color: var(--color-cream);
   }
 
-  .post-body :global(h3) {
+  .post-body > :global(h3) {
     font-size: var(--fs-md);
     color: var(--color-text);
   }

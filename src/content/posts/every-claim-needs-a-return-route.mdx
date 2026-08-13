@@ -1,0 +1,326 @@
+---
+title: "Every Claim Needs a Trail Back Home"
+date: "2026-08-12"
+labels: [evidence, inference, proposal, open-question]
+sources:
+  - "Reviewed internal research artifact: public-safe Governance Lab mechanism and synthetic-fixture documentation"
+  - "W3C PROV-O, https://www.w3.org/TR/prov-o/"
+  - "W3C Web Annotation Data Model, https://www.w3.org/TR/annotation-model/"
+  - "Obsidian Developer Documentation, https://docs.obsidian.md/"
+status: published
+pilot: false
+reviewGate: true
+slug: "every-claim-needs-a-return-route"
+description: "A working tour of an Obsidian governance plugin and a design argument for keeping sources, projections, human decisions, effects, and correction trails distinct in AI-assisted systems."
+author: "Scott Rallya"
+tags: [field-journal, governance-lab, obsidian, provenance, agentic-engineering, human-gates, correction]
+published_date: "2026-08-13"
+published_order: 5
+reading_time_minutes: 10
+claim_map:
+  - claim: "The documented plugin prototype separates bounded projections, proposal-only workflow transitions, immutable packet operations, and a manual provider-neutral exchange."
+    label: evidence
+    source: "Reviewed public-safe Governance Lab mechanism and synthetic-fixture documentation."
+  - claim: "Provenance can make reasoning inspectable but cannot establish truth, wisdom, authorization, or effectiveness."
+    label: inference
+    source: "Interpretation of the documented mechanism boundaries and current evidence limits."
+  - claim: "Every material claim should retain a selective, inspectable trail back to its source and forward to dependent artifacts."
+    label: proposal
+    source: "Scott-led design proposition developed through the Governance Lab prototype."
+  - claim: "When does returnability become supportive structure, and when does it become burdensome ceremony?"
+    label: open-question
+    source: "Unresolved design question; no current usability or scale study."
+---
+
+import ReturnTrail from '../../components/ReturnTrail';
+import BoundaryForge from '../../components/BoundaryForge';
+import HumanGateCircuit from '../../components/HumanGateCircuit';
+import ImmutableRevisionChain from '../../components/ImmutableRevisionChain';
+import GovernedAgentLoop from '../../components/GovernedAgentLoop';
+
+## Ember: the sentence that knows too much
+
+I have spent most of my life trying to understand technology. The apprenticeship has a reliable sense of humor: each mechanism I learn illuminates three more rooms I did not know were dark.
+
+Agentic systems intensify that experience. They can retrieve, compare, transform, and compose faster than I can follow each turn by eye. Then a beautifully finished sentence lands on the workbench, polished and self-assured, with no obvious sign of where retrieval ended, inference began, or a human decision entered the grain.
+
+That is where the old questions return. What supports this? What changed between source and answer? Who is responsible for the meaning? What happens when the evidence changes next Tuesday?
+
+The current Hearth & Code Governance Lab is my attempt to make those questions operational inside a familiar tool: Obsidian. It is a local plugin prototype, tested against a synthetic disposable vault. Its most important feature is not that it renders forms, dashboards, schemas, or workflows. Its important feature is that each of those surfaces is constrained to say what kind of thing it is and what it is not allowed to do.
+
+The design begins with a modest proposition:
+
+> **Every material claim should know its way home.**
+
+Not home as nostalgia. Home as an inspectable trail: back to the source, through the transformations, across the warrant, past the human decision, and forward again to every artifact that may need correction.
+
+<ReturnTrail
+  title="A claim does not travel alone"
+  introduction="Each stop changes the knowledge or authority state. The lower trail makes correction a first-class route rather than an apology added after the system has moved on."
+  stops={[
+    {
+      kind: 'source',
+      label: 'Declared evidence',
+      relation: 'projects as',
+      limit: 'A source may still be incomplete or wrong.',
+    },
+    {
+      kind: 'projection',
+      label: 'Bounded view',
+      relation: 'elicits',
+      limit: 'A useful rendering does not acquire source authority.',
+    },
+    {
+      kind: 'candidate',
+      label: 'Proposed response',
+      relation: 'awaits',
+      limit: 'Completion is not acceptance.',
+    },
+    {
+      kind: 'human disposition',
+      label: 'Accept, revise, reject',
+      relation: 'may release',
+      limit: 'The decision covers only its named scope.',
+    },
+    {
+      kind: 'bounded effect',
+      label: 'Separately permitted action',
+      relation: '',
+      limit: 'Execution is not proof of usefulness.',
+    },
+  ]}
+  returnLabel="observed results and corrections travel back through the same named joints"
+/>
+
+## Threshold: a projection is not the source
+
+Ordinary software often collapses several states into one glowing rectangle. A source is loaded, transformed, summarized, and rendered. A person types into the result. The interface says “complete.” Somewhere in that compression, a projection begins to look like authority and a response begins to look like a decision.
+
+A **source** is the Markdown or YAML contract being interpreted. A **projection** is a rendered aid derived from it. A **response candidate** is human input prepared for review. An **effect** is something the system could attempt: read, copy, persist, mutate, contact a network, or publish.
+
+Those distinctions are simple enough to fit on a workshop card. Their consequences run deep.
+
+A digest can establish that a projection came from expected bytes. It cannot attest that the source is true. A completed form can preserve a person's answers. It cannot declare that those answers were reviewed, verified, admitted into a taxonomy, or accepted as a canonical record. A workflow diagram can describe a transition. It cannot take the transition merely because the arrow looks convincing.
+
+<BoundaryForge
+  title="Forge law for fluent systems"
+  introduction="The symbol is a watermark. The sentence beneath each plate carries the actual boundary and the failure it is meant to resist."
+  plates={[
+    {
+      left: 'projection',
+      right: 'authority',
+      meaning: 'A derived view can orient a person without gaining the right to amend its source.',
+      risk: 'a convenient dashboard becomes an accidental decision surface.',
+    },
+    {
+      left: 'digest',
+      right: 'truth',
+      meaning: 'A hash can identify exact bytes; it cannot verify the claim those bytes contain.',
+      risk: 'integrity evidence is mistaken for epistemic evidence.',
+    },
+    {
+      left: 'candidate',
+      right: 'decision',
+      meaning: 'A complete response remains proposed until the named person disposes it.',
+      risk: 'fluency and form completion borrow human authority.',
+    },
+    {
+      left: 'declared effect',
+      right: 'permitted effect',
+      meaning: 'A workflow may describe an action without granting permission to execute it.',
+      risk: 'a diagram quietly becomes an automation contract.',
+    },
+    {
+      left: 'valid graph',
+      right: 'executed transition',
+      meaning: 'Structural coherence proves that references close, not that any state has changed.',
+      risk: 'validation is reported as an operational result.',
+    },
+  ]}
+/>
+
+The symbols are not decorative warnings. They are type boundaries for human and machine responsibilities in the system.
+
+## Bench: opening the provenance joints
+
+The native governance dashboard begins from one explicitly selected Markdown note. It reads that note's body once to compute a SHA-256 digest, then follows only declared one-hop relationship fields, with a ceiling of twelve relationships. It does not search the vault, crawl every link, infer a hidden graph, read linked note bodies, or build a second index behind the user's back.
+
+From those bounded sources, it can render seven small projections: program status, active lanes, pending seals, review queue, programs, threads, and handoffs. Each view exposes the selected source, digest, admitted scope, provenance stages, diagnostics, and prohibited effects.
+
+There is a useful design lesson hiding here. A dashboard usually tries to become omniscient. This one tries to remain accountable.
+
+If a recognized field is absent, the selector produces no row rather than inventing a default. If a linked record is restricted, confidential, or secret, the projection excludes its content and emits a content-free diagnostic. If a relationship is not explicitly declared, the resolver does not infer it because the screen would look better with more data.
+
+The projection can be copied as deterministic JSON. The copied report is still a projection. It carries the route that produced it and a list of effects it cannot perform.
+
+This boundedness is not yet evidence that the dashboard helps people make better decisions. It is evidence of a narrower claim: the current contract and tests are designed so that one selected source can produce a small, inspectable view without granting a vault scan, source mutation, Hub write, network call, or publication effect.
+
+That may sound humble. In agentic engineering, humble boundaries are load-bearing.
+
+## Grain: grammar before motion
+
+The Schema and Workflow Studio takes the next step. An `hcc-studio` fence in Markdown can describe a governed record schema and a fail-closed workflow: record types, fields, vocabularies, invariants, migrations, states, actors, guards, proposal-only effects, recoveries, HumanGates, transitions, and receipts.
+
+The rendered design can be opened and inspected in layers. The source remains visible and editable. Unknown fields fail closed. Power-of-two ceilings constrain the size of collections without demanding that every design fill all the available slots.
+
+A transition might declare:
+
+```yaml
+from: candidate
+to: awaiting-review
+actor: agent
+guards:
+  - all-required-fields-present
+effects:
+  - prepare-receipt
+human_gate: editorial-disposition
+recovery: fail-closed
+```
+
+The important line is not the arrow from `candidate` to `awaiting-review`. It is the separation among the actor, the guard, the proposed effect, the recovery path, and the HumanGate.
+
+The current Studio can validate that these references form a coherent graph. Its transition inspection still reports `advancement: prohibited`. There is no “execute transition” button hiding at the bottom of the card. The map can be exact without pretending it has walked the territory.
+
+<HumanGateCircuit
+  title="A transition can be valid and still remain still"
+  candidate="response packet prepared"
+  guard="required fields and references close"
+  humanDecision="accept, revise, reject, or defer"
+  releasedEffect="create one immutable successor"
+  recoveryReason="preserve the candidate, emit a diagnostic, and change no governed state"
+/>
+
+This is where type theory, governance, and interface design meet over the same piece of steel. Types distinguish states that fluent language tends to blur. Governance names who can move between them. The interface makes the boundary visible at the moment a person might otherwise assume the move has already happened.
+
+## Forge: building the return before the goal
+
+The most tangible return trail in the prototype is a create-only response-packet canary. A person answers a governed worksheet, previews the exact target path, digest, byte count, and YAML bytes, then confirms a new immutable packet. The plugin reads the created file back and compares it with the preview.
+
+It can create a successor packet for an amendment. It cannot overwrite the first packet, append to it, rename it, delete it, alter the worksheet, scan the vault, or route the answer into the canonical Hearth & Code Hub.
+
+That design resembles a blacksmith leaving each heat visible in the metal rather than grinding the earlier shape away. The literal mechanism is an immutable revision chain:
+
+<ImmutableRevisionChain
+  title="An amendment creates a successor; it does not erase its ancestor"
+  introduction="The middle stages prepare and authorize new bytes. The two record plates remain separately addressable after the operation."
+  steps={[
+    {
+      kind: 'record',
+      label: 'Response revision 1',
+    },
+    {
+      kind: 'review',
+      label: 'Amendment reason',
+    },
+    {
+      kind: 'preview',
+      label: 'Successor bytes',
+    },
+    {
+      kind: 'gate',
+      label: 'Explicit confirmation',
+    },
+    {
+      kind: 'record',
+      label: 'Response revision 2',
+    },
+    {
+      kind: 'record',
+      label: 'Predecessor retained',
+    },
+  ]}
+/>
+
+The metaphor earns its keep only because the file behavior is testable. If revision 2 overwrites revision 1, if a load succeeds without both an exact path and matching digest, or if the writer escapes its fixed directory, the canary has failed.
+
+This is a small local experiment, not a complete provenance architecture. It does, however, embody a principle I want the broader Exocore spine to carry: build the credible return before granting the powerful effect.
+
+## Temper: an AI exchange with no invisible courier
+
+Sooner or later, a knowledge workbench needs to converse with a model. The tempting route is to bolt a provider call directly into the interface and let convenience settle the architecture.
+
+The Governance Lab currently takes the slower, more revealing route. Its provider-neutral exchange assembles a fixed prompt packet from explicitly embedded, digest-verified source data. The human presses a button to copy that packet, chooses whether and where to send it, then may paste raw YAML back for bounded validation in memory.
+
+There is no provider binding, credential store, network call, automatic source read, or persistent import. The exchange records that the destination is user-selected and provider retention is unknown. Restricted data is not admitted. A valid returned candidate remains proposal-only.
+
+This manual bridge is not the final architecture. It is a calibration instrument. It lets us examine instruction/data separation, disclosure, source-set digests, output contracts, import validation, and human responsibility before automation hides those questions behind a spinner.
+
+It also exposes a hard truth about prompt engineering: no prompt can guarantee how a provider will behave. Deterministic checks can reject malformed output. They cannot prove that a model reasoned correctly, forgot retained data, respected an unstated social boundary, or produced a wise decision.
+
+## Return path: agents may carry lanterns, not crowns
+
+The broader Exocore idea is not to freeze every process in amber. It is to make motion legible enough that power can grow without erasing responsibility.
+
+An agent can do valuable lantern work. It can retrieve named sources, compare revisions, extract candidate claims, expose contradictions, draft warrants, test schemas, and prepare receipts. The harness can give it explicit tools, capability ceilings, budgets, retry limits, and terminal states.
+
+None of that makes the agent the author of a person's lived meaning or the sovereign of a consequential decision.
+
+The pattern I am working toward looks like this:
+
+<GovernedAgentLoop
+  title="A governed agent loop returns evidence instead of silently rewriting its source"
+  introduction="The orbit keeps interpretation, permission, execution, and evidence distinct. Observation closes the route without silently rewriting its source."
+  stages={[
+    {
+      kind: 'source',
+      label: 'Governed source',
+    },
+    {
+      kind: 'projection',
+      label: 'Bounded context',
+    },
+    {
+      kind: 'agent work',
+      label: 'Candidate transformation',
+    },
+    {
+      kind: 'verification',
+      label: 'Deterministic checks',
+    },
+    {
+      kind: 'receipt',
+      label: 'Limits made visible',
+    },
+    {
+      kind: 'human gate',
+      label: 'Disposition',
+    },
+    {
+      kind: 'execution',
+      label: 'Separately authorized effect',
+    },
+    {
+      kind: 'observation',
+      label: 'Result becomes evidence',
+    },
+  ]}
+  returnLabel="the observed result travels back toward the governed source as evidence for a later human decision"
+/>
+
+Each arrow changes the knowledge state. Retrieval is not interpretation. Interpretation is not acceptance. Acceptance is not execution. Execution is not proof of effectiveness. An external result does not silently amend the source that initiated it.
+
+That may be the central craft of context engineering: not packing the largest possible prompt, but preserving the distinctions the system will need when someone asks why it acted, what it omitted, and how to correct it.
+
+## Horizon: selective returnability
+
+There is a serious counterargument to this whole direction. Governance can become ceremony. Provenance can become a warehouse of exhaust. Human gates can become decorative checkboxes. A richly typed system can demand so much tending that people route around it and return to unrecorded conversations.
+
+I think that criticism is right.
+
+The goal is not maximal traceability. It is **selective returnability**. The burden should rise with consequence, uncertainty, and the cost of correction.
+
+A low-stakes field observation may need a source and date. A public capability claim may need a version, test context, evidence, owner, counterevidence, and correction trail. A workflow that can publish, spend, disclose private material, or modify a canonical source needs explicit permission, direct verification, and a recoverable boundary.
+
+The Governance Lab is still a prototype. Its dashboard, Studio, immutable packets, and manual exchange do not establish that this architecture is usable at scale. They are working pieces on the bench: visible enough to inspect, constrained enough to challenge, and unfinished enough to teach us where the design is brittle.
+
+After a lifetime around technology, I no longer think mastery means making the mystery disappear. I think it may mean building better instruments, declaring their limits, and leaving a trail another person can follow when our confidence outruns our understanding.
+
+The horizon keeps moving. Good. There is more work to do.
+
+**Open question:** At what point does a return trail become supportive structure, and at what point does it become governance ceremony that makes the work harder to carry?
+
+## Public references
+
+- W3C, [PROV-O: The PROV Ontology](https://www.w3.org/TR/prov-o/).
+- W3C, [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/).
+- Obsidian, [Developer documentation](https://docs.obsidian.md/).

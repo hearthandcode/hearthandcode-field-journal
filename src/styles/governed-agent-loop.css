@@ -1,0 +1,243 @@
+.governed-agent-loop {
+  margin: 3rem 0;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at center, color-mix(in srgb, var(--color-turquoise, #74c7bd) 10%, transparent), transparent 40%),
+    var(--surface);
+}
+
+.governed-agent-loop figcaption {
+  max-width: 44rem;
+}
+
+.governed-agent-loop figcaption h2,
+.governed-agent-loop figcaption p {
+  margin-block-start: 0;
+}
+
+.governed-agent-loop__kicker,
+.governed-agent-loop__stage > p {
+  color: var(--color-turquoise, #74c7bd);
+  font-family: var(--font-ui);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.governed-agent-loop__orbit {
+  --orbit-radius: 16rem;
+  position: relative;
+  width: min(100%, 42rem);
+  aspect-ratio: 1;
+  margin: 2rem auto 1.5rem;
+}
+
+.governed-agent-loop__ring {
+  position: absolute;
+  inset: 12%;
+  border: 2px solid color-mix(in srgb, var(--color-ember) 72%, var(--border-subtle));
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.6rem color-mix(in srgb, var(--color-ember) 4%, transparent),
+    inset 0 0 2.5rem color-mix(in srgb, var(--color-turquoise, #74c7bd) 6%, transparent);
+}
+
+.governed-agent-loop__stages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.governed-agent-loop__stage {
+  --angle: 0deg;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  width: 9.5rem;
+  min-height: 5.5rem;
+  padding: 1.5rem 0.8rem 0.75rem;
+  place-content: center start;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--surface-raised) 98%, transparent);
+  box-shadow: 0 0.45rem 1.2rem color-mix(in srgb, #000 28%, transparent);
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-radius)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.governed-agent-loop__stage[data-position='1'] {
+  --angle: 0deg;
+}
+
+.governed-agent-loop__stage[data-position='2'] {
+  --angle: 45deg;
+}
+
+.governed-agent-loop__stage[data-position='3'] {
+  --angle: 90deg;
+}
+
+.governed-agent-loop__stage[data-position='4'] {
+  --angle: 135deg;
+}
+
+.governed-agent-loop__stage[data-position='5'] {
+  --angle: 180deg;
+}
+
+.governed-agent-loop__stage[data-position='6'] {
+  --angle: 225deg;
+}
+
+.governed-agent-loop__stage[data-position='7'] {
+  --angle: 270deg;
+}
+
+.governed-agent-loop__stage[data-position='8'] {
+  --angle: 315deg;
+}
+
+.governed-agent-loop__number {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.6rem;
+  color: var(--text-faint);
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+}
+
+.governed-agent-loop__stage > p {
+  margin: 0;
+  padding-right: 1.2rem;
+}
+
+.governed-agent-loop__stage h3 {
+  margin: 0.42rem 0 0;
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.governed-agent-loop__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  width: 12rem;
+  aspect-ratio: 1;
+  padding: 1.25rem;
+  place-content: center;
+  border: 2px dashed var(--color-turquoise, #74c7bd);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-turquoise, #74c7bd) 8%, var(--surface));
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.governed-agent-loop__center span {
+  color: var(--color-turquoise, #74c7bd);
+  font-size: 1.6rem;
+}
+
+.governed-agent-loop__center strong {
+  color: var(--color-cream);
+}
+
+.governed-agent-loop__center p {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
+.governed-agent-loop__arrow {
+  --angle: 22.5deg;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border: 1px solid var(--color-ember);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--color-ember);
+  font-weight: 800;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-radius)));
+}
+
+.governed-agent-loop__arrow[data-position='1'] { --angle: 22.5deg; }
+.governed-agent-loop__arrow[data-position='2'] { --angle: 67.5deg; }
+.governed-agent-loop__arrow[data-position='3'] { --angle: 112.5deg; }
+.governed-agent-loop__arrow[data-position='4'] { --angle: 157.5deg; }
+.governed-agent-loop__arrow[data-position='5'] { --angle: 202.5deg; }
+.governed-agent-loop__arrow[data-position='6'] { --angle: 247.5deg; }
+.governed-agent-loop__arrow[data-position='7'] { --angle: 292.5deg; }
+.governed-agent-loop__arrow[data-position='8'] { --angle: 337.5deg; }
+
+.governed-agent-loop__fallback {
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--color-turquoise, #74c7bd);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+  .governed-agent-loop__orbit {
+    width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .governed-agent-loop__ring,
+  .governed-agent-loop__arrow {
+    display: none;
+  }
+
+  .governed-agent-loop__stages {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .governed-agent-loop__stage[data-position] {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 5rem;
+    transform: none;
+  }
+
+  .governed-agent-loop__stage:not(:last-child)::after {
+    position: absolute;
+    right: 50%;
+    bottom: -1rem;
+    z-index: 4;
+    color: var(--color-ember);
+    content: '↓';
+  }
+
+  .governed-agent-loop__center {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(12rem, 72%);
+    margin: 1.25rem auto 0;
+    transform: none;
+  }
+}

@@ -7,14 +7,14 @@
 
 ---
 
-## Current deployment state (verified 2026-07-21)
+## Current deployment state (verified 2026-08-13)
 
 - The Git-integrated Cloudflare Pages project `hearthandcode-field-journal` already exists.
-- The Pages project's production deployment is sourced from `preview/field-journal-initial`.
+- The Pages project's production deployment is sourced from `main`; direct deployment history identified commit `95ef9ff` as the current production source before this release.
 - `blog.hearthandcode.dev` is bound and returned `HTTP/2 200` from this environment during the release preflight.
-- `main` remains a separate branch. Moving the production source to `main` is a distinct branch-policy decision, not a requirement for the current production release path.
+- `preview/field-journal-initial` remains historical and does not represent the current production source.
 
-The project-creation instruction below is retained as the original runbook reference. The next real Journal infrastructure decision is whether to change the production branch policy. Do not treat this addendum as a general release authorization.
+The project-creation instruction below is retained as the original runbook reference. Do not treat this current-state addendum as general release authorization; each publication still requires its own reviewed source, scoped Git effect, and direct post-deployment check.
 
 ---
 

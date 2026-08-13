@@ -40,7 +40,7 @@ const LINE_HEIGHT_MIN = 1.5;
 const LINE_HEIGHT_MAX = 2.0;
 const LINE_HEIGHT_STEP = 0.1;
 const THEMES: Theme[] = ['warm-dark', 'cream', 'ember', 'plasma'];
-const STORAGE_KEY = 'hc-reading-mode';
+const STORAGE_KEY = 'hc-reading-mode-v2';
 
 const FONT_FAMILY_LABELS: Record<FontFamily, string> = {
   default: 'mono',
@@ -121,8 +121,8 @@ const THEME_PALETTES: Record<Theme, ThemeTokens> = {
 
 const DEFAULT_SETTINGS: ReadingSettings = {
   fontFamily: 'default',
-  fontSize: 1.125,
-  lineHeight: 1.7,
+  fontSize: 1,
+  lineHeight: 1.65,
   theme: 'warm-dark',
 };
 
