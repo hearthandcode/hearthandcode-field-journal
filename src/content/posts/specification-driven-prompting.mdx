@@ -1,0 +1,192 @@
+---
+title: "When a Prompt Becomes a Small Charter"
+date: "2026-08-28"
+labels: [evidence, inference, proposal, open-question]
+sources:
+  - "DSPy official repository: https://github.com/stanfordnlp/dspy"
+  - "LMQL documentation: https://lmql.ai/docs/"
+  - "OpenAI Structured Outputs: https://developers.openai.com/api/docs/guides/structured-outputs"
+  - "Wu, Yang, and Murali (2026), Imprompt: A Language Framework for Prompt Programming: https://arxiv.org/abs/2607.22683"
+status: published
+pilot: false
+reviewGate: true
+slug: "specification-driven-prompting"
+description: "A proposed, testable synthesis of contracts, schemas, bounded search, typed returns, and human review gates for consequential AI-assisted work."
+author: "Scott Rallya"
+tags: [field-journal, prompting, prompt-architecture, structured-outputs, human-review, agent-workflows]
+published_date: "2026-08-28"
+published_order: 6
+reading_time_minutes: 13
+claim_map:
+  - claim: "Specification-driven prompting is a proposed synthesis, not an established standard or a claim of invention."
+    label: proposal
+    source: "This Field Journal draft; precedents are cited individually."
+  - claim: "Structured Outputs can enforce adherence to a supplied JSON Schema, subject to documented edge cases."
+    label: evidence
+    source: "OpenAI Structured Outputs guide."
+  - claim: "Role-constrained candidate generation may surface more meaningful alternatives than untyped sampling."
+    label: proposal
+    source: "Proposed Fourfold Review Surface experiment."
+  - claim: "Whether this synthesis improves outcomes beyond better context and evaluation discipline remains open."
+    label: open-question
+    source: "Proposed comparative study."
+---
+
+import EvidenceTable from '../../components/EvidenceTable.astro';
+import EipoCallout from '../../components/EipoCallout.astro';
+import FieldStudyFrame from '../../components/FieldStudyFrame.astro';
+
+<FieldStudyFrame
+  title="What this article is testing in public"
+  framing="Proposed method and first-person research reflection"
+  unit="A synthesis of public precedents and one evolving AI-assisted practice"
+  inquiry="What changes when prompts become governance and interface layers rather than mere instructions?"
+  methods={["Source-grounded comparison", "Conceptual model and starter schema", "Proposed falsifiable experiment"]}
+  authoritativeSources={["DSPy", "LMQL", "OpenAI Structured Outputs", "Imprompt"]}
+  nonClaims={["A new programming-language standard", "A proven performance method", "A substitute for human judgment or review"]}
+/>
+
+I used to think a good prompt was a well-turned request. The better it sounded, the better it seemed to work. That idea lasted exactly as long as the task was small enough to remember all at once.
+
+Then the work changed shape. A request became a research pass, a code change, a handoff, a public draft, or a decision that could inconvenience somebody if it went wrong. The model could still write fluent prose, but fluency was no longer the scarce resource. What I needed was a way to say what had to remain true, what could vary, what evidence had to return, and when the system had to stop and hand the meaning back to a person.
+
+That is the observation behind a working term I am using cautiously: **specification-driven prompting**. It is not a new model capability and not a declared standard. It is a proposed synthesis of familiar ingredients: clear task contracts, structured outputs, bounded exploration, explicit tests, resumable records, and human review where an answer becomes consequential.
+
+The image that helps me is not an incantation. It is a small charter. A useful charter states its purpose, its limits, the decisions it cannot make for itself, and what must be reported before the next step. The point is not to trap a model in bureaucracy. It is to draw a bounded box, then give it meaningful freedom inside the box.
+
+## First, the useful distinction
+
+Structured output is real and useful. OpenAI's Structured Outputs feature is designed to make a response adhere to a supplied JSON Schema, while still requiring applications to handle refusals and incomplete outputs. [OpenAI's guide](https://developers.openai.com/api/docs/guides/structured-outputs) documents both the capability and those edge cases.
+
+Prompt-programming systems are also real precedents. [DSPy](https://github.com/stanfordnlp/dspy) presents modular language-model systems whose signatures, modules, and optimization techniques are written in code rather than maintained as brittle strings. [LMQL](https://lmql.ai/docs/) provides prompt statements, constraints, control flow, and decoding choices. The 2026 paper [*Imprompt: A Language Framework for Prompt Programming*](https://arxiv.org/abs/2607.22683) explicitly studies prompt programs, compilation, typing, and constrained decoding.
+
+Those systems are not the same thing as the proposal here. A constrained decoder can keep a field in an allowed set. A schema can make an interface easier for software to consume. Neither one, by itself, says whether the task should run, whether a source is appropriate to disclose, whether an inference should be treated as a decision, or whether a person has accepted the outcome. That broader human-systems layer is the part I want to investigate.
+
+## A compact model, then its limits
+
+Here is the smallest formal sketch I have found useful:
+
+```text
+P = ⟨I, C, K, B, D, G, R, T⟩
+```
+
+`I` is **intent**: what change or answer is sought. `C` is **context**: the sources and situation the work may rely on. `K` is **contracts**: invariants, permissions, and forbidden effects. `B` is **bounds**: finite budgets for time, candidates, calls, or scope. `D` is a **diversity policy**: how alternatives should differ in meaning rather than decoration. `G` is **gates**: points at which the system must stop for a human decision. `R` is a **return contract**: the evidence, changes, risks, and next action that make the work resumable. `T` is **tests**: the checks that tell us whether the stated output condition was met.
+
+This notation does not make a prompt deterministic software. Language-model generation remains probabilistic, and the tuple is only as useful as the definitions, sources, and review around it. The notation earns its place only because it lets us notice a missing term. A prompt with an intent but no return contract may produce an answer; it may still leave the next person unable to reconstruct what happened.
+
+The same idea can be copied as a proposed working schema:
+
+```yaml
+id: public-source-audit
+version: 0.1
+intent: "Identify unsupported public claims in a draft."
+context:
+  source_refs: [draft.md, source-ledger.md]
+contracts:
+  invariants: ["separate evidence from inference"]
+  forbidden_effects: ["do not publish or alter sources"]
+bounds: {max_claims: 8, candidate_count: 4}
+diversity_policy: semantic-roles
+gates: ["human decides whether to amend the draft"]
+return_contract: [findings, evidence, uncertainty, next_action]
+tests: ["each finding links to an opened source"]
+non_goals: ["decide what the author believes"]
+```
+
+The useful analogy is programmatic behavior, not literal execution. A model may follow the shape imperfectly; external tools may fail; a human may decide that the whole task was misframed. That is why the schema includes gates and a return contract rather than presenting itself as an autonomous machine.
+
+## Eight techniques, each with a catch
+
+### 1. Contract prompting
+
+State invariants, permissions, forbidden effects, and a completion condition. **Micro-example:** “Summarize these public sources; do not infer a diagnosis; return citations and unresolved questions.” This helps because it separates hard boundaries from style preferences. It fails when every preference becomes an invariant: an over-specified contract can turn a simple task into compliance theatre.
+
+### 2. Schema-shaped generation
+
+Ask for an output another person or tool can read without guessing its parts: `claim`, `label`, `source`, `caveat`. **Micro-example:** an editorial triage returns each risky sentence with its evidence status, rather than one undifferentiated critique. This is an interface, not merely prettier JSON. It can fail when the schema captures the wrong abstraction; perfectly valid fields can still carry a bad conclusion. Structured output constrains shape, not truth.
+
+### 3. Symbolic constraint scaffolding
+
+Use defined notation when it removes genuine ambiguity: `claim.source != null` is more inspectable than “include sources when appropriate.” **Micro-example:** a release check can block a claim whose declared source field is empty without pretending that the source proves the claim. It fails when symbols become ceremonial. If a reader cannot tell what an expression means, what it applies to, and what it does *not* establish, prose is the better tool.
+
+### 4. Bounded decomposition
+
+Give discovery work a finite budget: find four candidate explanations, inspect eight sources, or test sixteen fixture cases. **Micro-example:** ask for eight public-source candidates, then reserve one review pass for counterevidence before selecting any. Powers of two can make a workload easy to partition and review; they are a coordination convention, not a cognitive law. A bound fails when it truncates important counterevidence simply because the count has been reached.
+
+### 5. Structured divergence
+
+Instead of “give me four options,” assign roles that search different semantic territory. **Micro-example:** a documentation decision returns one reliable local fix, one deliberately novel alternative, one reusable interface design, and one reconciliation. It fails when roles are cosmetic labels pasted on nearly identical answers.
+
+### 6. Human review gates
+
+Stop where a result changes authorship, disclosure, cost, authority, or public meaning. **Micro-example:** after drafting a public summary, return the source links, claim labels, and disclosure risks to the author instead of publishing it. This protects human agency, but it can also become a bottleneck if every comma becomes a gate. A gate is for consequential boundaries, not for performing caution.
+
+### 7. Return contracts and resumability
+
+End a run with the sources used, changes made, checks run, risks, and one next action. **Micro-example:** a repository review ends with changed paths, failed checks, and the exact question a maintainer must decide next. This is the difference between “done” and a returnable artifact. It fails when the receipt is treated as proof of quality or approval; a history of work is not permission for the next action.
+
+### 8. Prompt composability
+
+Treat orientation, research, delegation, review, recovery, and release as reusable primitives. **Micro-example:** a research pass calls a source-checking routine and hands its ledger to a separate editorial-review routine, without pretending that research alone authorizes publication. Composition fails when pieces are copied without their original limits, or when a reusable component quietly acquires authority it never had.
+
+The through-line is controlled freedom. Hard invariants should be hard. Defaults should be revisable. Assumptions should be visible enough to challenge. Everything else should leave room for the model and the human to find something neither had already scripted.
+
+## The Fourfold Review Surface
+
+<EvidenceTable
+  title="Fourfold Review Surface"
+  summary="A working candidate-role policy for human decision boundaries. It is not a universal law, and Synthesis is not an automatic winner."
+  note="Design hypothesis: semantic roles may produce more inspectably distinct alternatives than untyped multi-option sampling."
+>
+  <table>
+    <thead><tr><th>Role</th><th>Question it asks</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Default</strong></td><td>What is the clearest, reliable local optimum?</td></tr>
+      <tr><td><strong>Innovative</strong></td><td>What is worth exploring beyond that optimum for information gain or a new possibility?</td></tr>
+      <tr><td><strong>Modular &amp; Extensible</strong></td><td>What preserves interfaces, reversibility, substitution, reuse, and future evolution?</td></tr>
+      <tr><td><strong>Synthesis</strong></td><td>Which compatible strengths remain after the trade-offs are visible?</td></tr>
+    </tbody>
+  </table>
+</EvidenceTable>
+
+Imagine choosing how a research note should expose its sources. Default may use a concise bibliography. Innovative may let readers inspect a claim-to-source graph. Modular & Extensible may publish a small source ledger that future articles can reuse. Synthesis may combine a readable bibliography with a ledger. The fourth option is not automatically best; sometimes the honest choice is the simple Default, or the risky Innovative prototype.
+
+This is semantic diversity by role, not “sample four times.” I suspect it may reduce a kind of decision mode collapse, but that is a design hypothesis, not a demonstrated cure. The direct experiment is straightforward: compare untyped multi-option sampling with role-constrained candidate generation, then measure overlap, human repair, decision confidence, and whether the alternatives surface materially distinct trade-offs.
+
+## Is this actually a new prompt meta?
+
+Probably not in the strong historical sense. The ingredients have precedents, and they arrive from different directions: programming-language work, constrained decoding, application schemas, software tests, project handoffs, and human review. Calling the whole arrangement new would erase that lineage.
+
+The narrower claim is that there may be a useful synthesis here: prompts can act as interfaces between a probabilistic generator, a body of source material, a bounded operational task, and a human decision. The interesting question is not whether the word “prompt” deserves a new prestige label. It is whether this synthesis improves particular tasks compared with a well-written natural-language baseline.
+
+There are rival explanations worth taking seriously. A structured prompt may look better because it carries better context, decomposes the task more carefully, or forces evaluation discipline. The improvement may belong to those practices rather than to the prompt specification itself. It may help agentic engineering and make a short poem worse. More structure can slow work, suppress productive surprise, hide a weak premise behind formal polish, or encourage people to mistake a checklist for judgment.
+
+## A falsifiable next study
+
+<EipoCallout
+  type="proposal"
+  title="A claim that can fail"
+  basis="Compare a well-written baseline with progressively more explicit contracts, bounded roles, gates, resumability, and acceptance fixtures."
+  limit="No result exists yet. Model family, context quality, tool access, and evaluator design are potential confounds."
+/>
+
+For a defined task family, compare:
+
+1. **A:** a well-written natural-language baseline;
+2. **B:** a contracted prompt with explicit sources, boundaries, and a return schema;
+3. **C:** B plus bounded divergent roles or search budgets;
+4. **D:** C plus gates, resumability, and acceptance fixtures.
+
+Measure task success, schema validity, human repair count, contradiction rate, evidence quality, cost, time to acceptance, and the effort required for a new person to reconstruct the run. Before running the study, define what would count against the method: no meaningful improvement, higher cost without lower repair, lower creative quality, or a gain explained entirely by richer context and ordinary task decomposition.
+
+I like that the proposal can fail. If it cannot, it is not a method yet; it is branding.
+
+## A small charter for the next run
+
+The starter schema above is the reader action I would actually recommend testing, but only at the scale of a task that matters enough to revisit. Start with intent, one or two hard boundaries, a small search budget, a human gate, and a return contract. Then ask what the structure changed: Did it prevent a mistake? Did it add friction? Did it make the next session easier to enter? Did it conceal a decision that should have remained human?
+
+That is the open question I want to carry forward: **what changes when prompts become governance and interface layers rather than mere instructions?**
+
+My current hunch is modest. A prompt becomes more useful when it can preserve a purpose, protect a boundary, invite enough exploration to be surprising, and return with evidence a person can judge. That is not an incantation. It is architecture for coordinating intelligence, while remembering whose intelligence gets to decide what the work means.
+
+*AI assistance disclosure: AI assisted with source verification, structure, drafting, and implementation. The article is a proposed draft; Scott retains editorial, interpretation, and release authority.*
