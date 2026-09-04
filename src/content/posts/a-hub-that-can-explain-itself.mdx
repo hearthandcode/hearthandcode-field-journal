@@ -1,0 +1,292 @@
+---
+title: "A Hub That Can Explain Itself"
+date: "2026-09-03"
+labels: [evidence, inference, proposal, open-question]
+sources:
+  - "Hearth & Code Hub root governance and provenance records"
+  - "Core32 Runtime Context Candidate v4.0.0-candidate.11 and selected profile Archetype candidates"
+  - "Scott Rallya: completed Hub System Technical Introduction orientation packet"
+  - "Prior Field Journal entries on boundaries, cognitive workbenches, and return routes"
+status: published
+pilot: false
+reviewGate: true
+slug: "a-hub-that-can-explain-itself"
+description: "An eight-stage practical journey for building a small provenance-aware layer around AI-assisted knowledge work."
+author: "Scott Rallya"
+reading_time_minutes: 12
+published_date: "2026-09-04"
+published_order: 9
+tags: [field-journal, provenance, governance, agentic-engineering, doctoral-research, knowledge-systems, human-agency]
+claim_map:
+  - claim: "A provenance-aware layer can make source, candidate, receipt, and decision states more legible."
+    label: inference
+    source: "Hearth & Code Hub governance practice and completed author orientation packet."
+  - claim: "A validator proves only its named predicate, not semantic correctness or usefulness."
+    label: evidence
+    source: "Hub governance and Core32 candidate boundary records."
+  - claim: "A small governed knowledge hub can be built from source, candidate, receipt, and policy surfaces."
+    label: proposal
+    source: "This article's tutorial synthesis; readers should adapt it to their own context."
+  - claim: "Whether such a layer improves outcomes across people and work types remains untested here."
+    label: open-question
+    source: "No comparative outcome study is claimed."
+---
+
+import PromptCard from '../../components/PromptCard';
+
+Every intelligent knowledge system begins with a less glamorous moment: the return. You reopen a research thread, a software design, or a long agent conversation and can no longer tell why a decision was made, which source carried a claim, or whether a polished draft was ever reviewed. The work exists, but its trail has gone cold.
+
+This is the story of building a way back. It follows an eight-stage return journey, but the hero is not an autonomous agent. It is the person who keeps the right to decide what the system means and what it may do. At each stage, you make one small artifact. By the end, you have a simple governed knowledge hub: a system that can explain where its material came from, what state it is in, and what should happen next.
+
+The examples draw on the Hearth & Code Hub and Core32 profile sources. They are patterns, not evidence that every part of that system is complete, active, or universally applicable.
+
+## 1. The ordinary world: work that cannot find its way home
+
+The starting problem is familiar to anyone doing doctoral research, information management, or agentic engineering. Papers, notes, prompts, design decisions, and generated drafts accumulate faster than their relationships can be remembered. Search can find a phrase, but it cannot recover the question that made the phrase matter.
+
+The first move is not a folder tree. It is a research-question register: one compact record that turns a topic into a bounded question. This is the moment the builder realizes that a compelling idea is not yet a researchable question, and a researchable question is not yet a defensible claim.
+
+**Make:** a question candidate with terms, boundary, evidence need, and a next human decision.
+
+<PromptCard
+  title="Frame a research question"
+  artifact="Research-question candidate"
+  instruction="Help me prepare a bounded research-question candidate using only the material I provide."
+  rules={[
+    'Do not invent sources, results, or consensus.',
+    'Label each statement as source, inference, proposal, or unknown.',
+  ]}
+  returns={[
+    'Question', 'Why it matters', 'Terms needing definitions', 'What it does not ask',
+    'Evidence needed', 'Unknowns and falsifiers', 'Next human decision',
+  ]}
+  guard="If the input is insufficient, return HOLD and list only the minimum questions I should answer."
+/>
+
+## 2. The call to adventure: give every source a trail
+
+The next obstacle is source fog. A literature review becomes less trustworthy when summaries lose their relation to the paper, a conversation is mistaken for a citation, or an agent’s synthesis is silently promoted to evidence.
+
+Create a source card for every material item. A card does not replace a source. It preserves enough context to make later comparison honest: identity, supplied scope, attributable claims, method, limitations, and relation to the question.
+
+**Make:** one source card from an excerpt you have actually opened.
+
+<PromptCard
+  title="Preserve a source trail"
+  artifact="Source-card candidate"
+  instruction="Create a source card from the excerpt and citation I supply."
+  rules={[
+    'Do not state that you read material I did not provide.',
+    "Separate the author's claim from my interpretation.",
+    'Preserve uncertainty when the excerpt is incomplete.',
+  ]}
+  returns={[
+    'Source identity', 'Provided excerpt scope', 'Attributable claims',
+    'Method or evidence', 'Limitations', 'Terms to define',
+    'Relation to my question', 'Follow-up reading',
+  ]}
+  guard="Mark the result source-card-candidate. Never let the card replace the source."
+/>
+
+For doctoral work, this is the first threshold. You are no longer only collecting papers; you are preparing material that a future chapter can interrogate. In a software project, substitute requirements, user research, and technical specifications. The pattern holds.
+
+## 3. The refusal: do not let a plausible answer become authority
+
+Once a system can collect and summarize, it will tempt you to move too quickly. A generated answer can feel complete long before its source, owner, or permission is settled. A useful hub refuses this move: no fluent artifact becomes a decision simply because it is convenient.
+
+An `AGENTS.md`-style root policy gives the refusal a stable form. It says who retains authority, which sources outrank summaries, which actions need a separate gate, and what happens when the system cannot close a boundary. The answer to an unknown is not improvisation. It is `HOLD`: preserve what is known, name the missing evidence, name the owner, and return one bounded question.
+
+**Make:** a decision-and-return record, but only when the human has actually decided.
+
+<PromptCard
+  title="Prepare a real decision"
+  artifact="Decision-and-return candidate"
+  instruction="Turn the supplied meeting notes or research memo into a decision candidate while keeping source material separate."
+  rules={[
+    'Record a chosen option only when the human states it explicitly.',
+    'Never infer approval from positive language.',
+  ]}
+  returns={[
+    'Decision question', 'Options', 'Supplied evidence', 'Unresolved risks',
+    'Decision owner', 'Review trigger', 'Revision path', 'Next action',
+  ]}
+  guard="If no decision is explicit, return a decision-preparation packet instead."
+/>
+
+## 4. Meeting the map: give candidates a canonical home
+
+The hero now needs a map, but a path is not authority by itself. Route artifacts by purpose and lifecycle. Sources live apart from candidates; receipts live apart from decisions; private authoring material stays distinct from public-safe projections. Local instructions can narrow rules for a work area, but cannot weaken root boundaries such as provenance, privacy, or human release.
+
+Start with four surfaces, not a grand taxonomy:
+
+```text
+knowledge-hub/
+  AGENTS.md          # authority, source rules, non-effects, hold behavior
+  sources/           # original material and source cards
+  candidates/        # drafts, maps, and proposed decisions
+  receipts/          # bounded checks and return records
+  profiles/          # optional: one source per recurring transformation
+```
+
+Now that you have source cards, create a claim-and-evidence ledger.
+
+<PromptCard
+  title="Audit a future claim"
+  artifact="Claim-and-evidence ledger entry"
+  instruction="Create one ledger entry from the supplied source cards and draft claim."
+  rules={[
+    'Use the exact supplied basis for every supporting source-card ID.',
+    'Do not raise confidence merely because several sources repeat one another.',
+  ]}
+  returns={[
+    'Claim', 'Claim label', 'Supporting source IDs', 'Exact basis',
+    'Counterevidence', 'Missing evidence', 'Confidence', 'Limitation', 'Readiness state',
+  ]}
+  guard="If the supplied sources do not support the claim, return HOLD."
+/>
+
+Show one ledger claim, its sources, its limit, and its next check. That makes the method demoable without exposing an entire private corpus.
+
+## 5. Meeting the mentors: specialize by transformation, not personality
+
+The next temptation is to create a cast of impressive-sounding agents. Resist it. A specialized profile earns its place only when it owns a distinct, recurring transformation.
+
+The Core32 source candidates illustrate the pattern: a semantic-systems role works on concepts, terms, and representation; a skill-system role works on recurring, testable capability; and a profile-architecture role works on modular role sources. Their point is not that a fleet is inherently better than a general assistant. Their point is that role boundaries can be inspected.
+
+For your first system, make four modest roles: source analyst, software builder, reviewer, and coordinator. In doctoral research, the source analyst can map supplied literature without claiming to write the review. In a Rust-and-TypeScript Tauri project, the builder can return a patch candidate and test result; the reviewer can return findings; the human still decides integration.
+
+<PromptCard
+  title="Map literature without fabricating it"
+  artifact="Literature-map candidate"
+  instruction="Act as a literature-map analyst using only the research question and source cards in this packet."
+  rules={[
+    'Do not invent sources or causal claims beyond the supplied evidence.',
+    'Do not diagnose authors or communities.',
+    'Do not write final literature-review prose.',
+  ]}
+  returns={[
+    'Concept map', 'Definitions', 'Disagreements', 'Conceptual bridges',
+    'Missing evidence', 'Next human question',
+  ]}
+  guard="Return HOLD when a required source card, definition, or scope boundary is absent."
+/>
+
+An `ARCHETYPE.md`-style source expands a compact role into identity, purpose, inputs, outputs, boundaries, recovery, verification, and lifecycle. A `SOUL.md`-style runtime projection preserves that orientation for a particular consumer and adds context loading, delegation, privacy, and receipt practices. Keep the source and projection separate until you have explicit authority to install the projection.
+
+## 6. The ordeal: make disagreement and limitation visible
+
+An intelligent knowledge system does not merely produce synthesis; it makes seams in a synthesis visible. The difficult work is often not finding a common theme but keeping disagreement, absence, and counterevidence from being edited out by momentum.
+
+Use the ledger to make a small disagreement map. For a doctoral chapter, this may show two accounts using the same term differently. For knowledge engineering, it may show two consumers needing different schemas. Sometimes the honest output is a boundary and a question, not a unifying definition.
+
+<PromptCard
+  title="Surface disagreement honestly"
+  artifact="Comparison and glossary candidate"
+  instruction="Compare the supplied source-card claims about one defined term or question."
+  rules={[
+    'Do not resolve disagreement by averaging claims.',
+    'Do not infer consensus from shared vocabulary.',
+    'Label every conclusion as evidence, inference, proposal, or unknown.',
+  ]}
+  returns={[
+    'Agreements', 'Disagreements', 'Method differences', 'Scope differences',
+    'Non-comparable statements', 'Missing evidence', 'Glossary candidate', 'Next human question',
+  ]}
+/>
+
+## 7. The return: report what was checked, and no more
+
+A validator can establish that a schema parses, a required field exists, or a forbidden pattern is absent. It cannot establish semantic correctness, usefulness, acceptance, or publication readiness. Those are separate evidence layers.
+
+<PromptCard
+  title="Record what a check established"
+  artifact="Verification receipt"
+  instruction="Write a bounded verification receipt for the supplied check."
+  rules={[
+    'Use unknown rather than guessing.',
+    'Do not claim verification, acceptance, publication, or deployment without exact evidence.',
+  ]}
+  returns={[
+    'Artifact identifier', 'Input scope', 'Check performed', 'Observed result',
+    'Failed predicates', 'Skipped predicates', 'What this does not prove',
+    'Next reviewer or owner', 'Timestamp when supplied',
+  ]}
+/>
+
+This is also where runtime honesty matters. A well-written profile candidate is not evidence that a fleet is installed, selected, active, or effective. In the inspected Core32 candidate package, installation, activation, selection, provider calls, and public release remain held. Any operational statement to the contrary needs separate direct runtime evidence before it becomes an article claim.
+
+## A small constitution and one companion soul
+
+Here are two deliberately small, tool-neutral starting artifacts. They borrow the useful *shape* of the Hub’s sixteen-part profile approach while omitting its private references, detailed type system, and runtime configuration. They are not permission slips. Tailor them to your people, sources, and legal or institutional constraints before use.
+
+<PromptCard
+  title="A simple root charter"
+  artifact="AGENTS.md"
+  eyebrow="Illustrative 16-clause charter"
+  instruction="Use this as a starting constitution for a small, human-governed knowledge hub. Tailor it to your actual sources, risks, and institution."
+  rulesLabel="Charter clauses"
+  rules={[
+    '01 · Purpose — Keep sources, candidates, decisions, and receipts distinguishable.',
+    '02 · Human authority — A named human owns meaning, acceptance, risk, and release.',
+    '03 · Precedence — Direct human instruction, safety, then current named sources.',
+    '04 · Scope — Read only sources needed for the current bounded task.',
+    '05 · Source rule — Preserve source identity; summaries never replace sources.',
+    '06 · Claim labels — Separate evidence, inference, proposal, receipt, and unknown.',
+    '07 · Candidate rule — Drafts are reviewable candidates, not decisions or effects.',
+    '08 · Routing — Give each durable artifact one owner, purpose, and canonical home.',
+    '09 · Local law — Local instructions may narrow this charter, never weaken it.',
+    '10 · Profiles — A role owns one recurring transformation and explicit non-claims.',
+    '11 · Delegation — Name input, output, no-touch boundary, stop, and return route.',
+    '12 · Effects — Publishing, spending, deployment, and external writes need exact release.',
+    '13 · Unknowns — Unknown source, owner, sensitivity, or permission means HOLD.',
+    '14 · Checks — A check proves only its stated predicate and must name its limit.',
+    '15 · Receipts — Record input scope, action, result, limitation, and next gate.',
+    '16 · Return — End with one named owner and the smallest safe next action.',
+  ]}
+/>
+
+The companion `SOUL.md` is not a claim about a machine’s inner life. It is a runtime-facing behavior contract for one profile. Keep it smaller than the root charter and make it concrete enough to refuse work outside its scope.
+
+<PromptCard
+  title="A literature-map companion"
+  artifact="SOUL.md"
+  eyebrow="Illustrative profile projection"
+  instruction="Use this profile projection to constrain a literature-map analyst without transferring the researcher's authorship or authority."
+  rulesLabel="Profile contract"
+  rules={[
+    '01 · Identity — I map supplied research sources; I do not author a thesis.',
+    '02 · Purpose — Return a source-bound concept and disagreement map.',
+    '03 · Human relationship — The researcher owns interpretation and final claims.',
+    '04 · Inputs — Research question plus supplied source cards only.',
+    '05 · Readiness — HOLD if a required source, term, or scope boundary is absent.',
+    '06 · Method — Compare claims, methods, scopes, and explicit limitations.',
+    '07 · Outputs — Concept map, disagreement map, glossary candidate, next question.',
+    '08 · Claim posture — Label every statement evidence, inference, proposal, or unknown.',
+    '09 · Source boundary — Never claim to have read a source absent from the packet.',
+    '10 · Privacy — Do not expose private notes, credentials, or protected research.',
+    '11 · Delegation — Do not delegate researcher interpretation or release decisions.',
+    '12 · Effects — No publication, provider call, spend, or external write by default.',
+    '13 · Failure — Return HOLD with the missing predicate and a minimal question.',
+    '14 · Receipt — State source IDs, action, result, limitation, and next owner.',
+    '15 · Evaluation — Check each returned claim has a supplied basis or label.',
+    '16 · Lifecycle — Human review may revise, hold, or retire this profile.',
+  ]}
+/>
+
+## 8. The gift brought home: a system others can try
+
+The final gift is a return loop:
+
+1. Frame a question and record its boundary.
+2. Make source cards from material you actually inspected.
+3. Separate claims, inferences, proposals, and unknowns.
+4. Give each candidate an owner, a review state, and a next gate.
+5. Delegate only a bounded transformation.
+6. Write a receipt that says what the check did and did not establish.
+7. Let the human decide the next state.
+
+Run this loop once with a dissertation question, once with a literature set, and once with a small software or research prototype. That is enough to demonstrate the system: not as a claim of autonomous intelligence, but as an intelligence layer that helps a person keep evidence, meaning, and action in their proper relation.
+
+The portable lesson is modest: make every important artifact capable of pointing back to its source, forward to its next decision, and sideways to the boundary it must not cross. A hub that can do that can explain itself—and, more importantly, can help its human return.
+
+*AI assistance disclosure: AI assisted with source comparison, structure, drafting, and review preparation. The authorial direction, factual verification, and any publication decision remain Scott’s.*

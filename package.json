@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A Markdown-first public field journal for Hearth & Code and the Exocore research-build.",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --force",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check"
